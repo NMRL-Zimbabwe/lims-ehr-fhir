@@ -31,11 +31,13 @@ spring:
       enabled: false
     livereload:
       enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/limsEhrFhir
-    username: limsEhrFhir
-    password:
+    url: jdbc:postgresql://localhost:5432/lims_ehr_datamart
+    username: nmrl
+    password: password
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -122,3 +124,34 @@ jhipster:
 # ===================================================================
 
 # application:
+
+# Rabbitmq settings for senaite
+spring.rabbitmq.host: 192.168.0.58
+spring.rabbitmq.port: 5672
+spring.rabbitmq.username: root
+spring.rabbitmq.password: Nmrl123456
+spring.rabbitmq.virtualHost: /
+spring.rabbitmq.routingKey: nmrl
+
+#rabbitmq.queue: ehr
+rabbitmq:
+  host: apps.mohcc.gov.zw
+  port: 5672
+  username: guest
+  password: guest
+  #routingKey: *
+  virtualHost: lmis
+
+# Integration gateway configs
+
+myConfig.myBaseGateway: https://apps.mohcc.gov.zw:8080
+myConfig.myRabbitIntegrationGateway: 196.27.127.58
+
+#myConfig.myBaseGateway: http://192.168.0.50:10080
+#myConfig.myRabbitIntegrationGateway: 192.168.0.50
+
+#local gateway configs
+myConfig.myTerminologyGateway: http://192.168.0.32
+myConfig.myRabbitLocalGateway: 192.168.0.58
+#myConfig.myTerminologyGateway: http://196.27.127.58:2480
+

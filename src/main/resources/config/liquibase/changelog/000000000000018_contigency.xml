@@ -1,0 +1,91 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="000000000000018" author="Lawrence">
+		<createTable tableName="contigency">
+			<column name="client_sample_id" type="varchar(255)">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+			</column>
+			<column name="surname" type="VARCHAR(255)">
+
+			</column>
+			<column name="gender" type="varchar(255)">
+
+			</column>
+			<column name="client" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="client_patient_id" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="dob" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="dob_estimated" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="phone_number" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="consent_to_sms" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="client_contact" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="analysis_profiles" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="date_sampled" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="sample_type" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="case_type" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="pregnant" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="breast_feeding" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="reason_for_vl_test" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="treatment" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="treatment_start_date" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="client_name" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="sent_to_lims" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="received_in_lims" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
+		<loadData file="config/liquibase/data/contigency.csv"
+			separator="," tableName="contigency">
+		</loadData>
+	</changeSet>
+
+</databaseChangeLog>

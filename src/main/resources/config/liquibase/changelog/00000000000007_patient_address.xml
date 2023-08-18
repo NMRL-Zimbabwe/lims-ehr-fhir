@@ -1,0 +1,41 @@
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    
+    	<changeSet id="00000000000007" author="Lawrence">
+		<createTable tableName="patient_address">
+			<column name="patient_address_id" type="VARCHAR(255)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="city" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="town_name" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="town_id" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="street" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="patient_id" type="varchar(255)">
+				<constraints nullable="false"
+					foreignKeyName="fk_patient_address_patient"
+					references="patient(patient_id)" />
+			</column>
+			<column name="created_by" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_date" type="timestamp" />
+			<column name="last_modified_by" type="varchar(50)" />
+			<column name="last_modified_date" type="timestamp" />
+		</createTable>
+	</changeSet>
+    
+</databaseChangeLog>

@@ -1,0 +1,13 @@
+id;test_id;name;state;created_by;last_modified_by
+001a00e5d61545cd9de7ca8087cc6a73;LTT001;Bacteriology - Smear;;system;system
+001a00e5d61545cd9de7ca8087cc6a74;LTT002;Microscopy;;system;system
+001a00e5d61545cd9de7ca8087cc6a75;LTT003;Biochemical Tests;;system;system
+001a00e5d61545cd9de7ca8087cc6a76;LTT004;COVID19;;system;system
+001a00e5d61545cd9de7ca8087cc6a77;LTT005;Culture (Bacteriology);;system;system
+001a00e5d61545cd9de7ca8087cc6a78;LTT006;GeneXpert;;system;system
+001a00e5d61545cd9de7ca8087cc6a80;LTT007;LPA;;system;system
+001a00e5d61545cd9de7ca8087cc6a81;LTT008;Routine Histological;;system;system
+001a00e5d61545cd9de7ca8087cc6a82;LTT009;Examination;;system;system
+001a00e5d61545cd9de7ca8087cc6a83;LTT0010;TB Culture;;system;system
+001a00e5d61545cd9de7ca8087cc6a84;LTT0011;Viral Load DBS;;system;system
+001a00e5d61545cd9de7ca8087cc6a85;LTT0012;Viral Load Plasma;;system;system

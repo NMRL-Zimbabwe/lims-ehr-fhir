@@ -3,6 +3,7 @@ package zw.org.nmr.limsehr;
 import jakarta.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
@@ -13,11 +14,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.web.client.RestTemplate;
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 import zw.org.nmr.limsehr.config.ApplicationProperties;
 import zw.org.nmr.limsehr.config.CRLFLogConverter;
+import zw.org.nmr.limsehr.lims_ehr.events.AnalysisResquestEvent;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
@@ -104,5 +109,30 @@ public class LimsEhrFhirApp {
             contextPath,
             env.getActiveProfiles().length == 0 ? env.getDefaultProfiles() : env.getActiveProfiles()
         );
+    }
+
+    // @Bean
+    // @Primary
+    // public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
+    //     ObjectMapper objectMapper = builder.build();
+    //     objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    //     return objectMapper;
+    // }
+
+    // @Bean
+    // public CsrfTokenRepository CookieCsrfTokenRepository() {
+    //     return CookieCsrfTokenRepository.withHttpOnlyFalse();
+    // }
+
+    static final int TIMEOUT = 500;
+
+    @Bean
+    RestTemplate restTemplateWithConnectReadTimeout() {
+        return new RestTemplateBuilder().setConnectTimeout(Duration.ofMillis(TIMEOUT)).setReadTimeout(Duration.ofMillis(TIMEOUT)).build();
+    }
+
+    @Bean
+    AnalysisResquestEvent analysisResquestEvent() {
+        return new AnalysisResquestEvent();
     }
 }

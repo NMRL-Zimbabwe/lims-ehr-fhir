@@ -1,0 +1,19 @@
+id;sample_id;name;state;created_by;last_modified_by
+001a00e5d61545cd9de7ca8087cc6a73;LST001;FLUID;;system;system
+001a00e5d61545cd9de7ca8087cc6a74;LST002;ASPIRATE Laboratory;;system;system
+001a00e5d61545cd9de7ca8087cc6a75;LST003;Oropharyngeal swab;;system;system
+001a00e5d61545cd9de7ca8087cc6a76;LST004;Buffy coat;;system;system
+001a00e5d61545cd9de7ca8087cc6a77;LST005;Bocal swab;;system;system
+001a00e5d61545cd9de7ca8087cc6a78;LST006;Blood plasma;;system;system
+001a00e5d61545cd9de7ca8087cc6a80;LST007;Dried Blood Spot;;system;system
+001a00e5d61545cd9de7ca8087cc6a81;LST008;Semen;;system;system
+001a00e5d61545cd9de7ca8087cc6a82;LST009;Throat Swab;;system;system
+001a00e5d61545cd9de7ca8087cc6a83;LST0010;Saliva;;system;system
+001a00e5d61545cd9de7ca8087cc6a84;LST0011;Nasopharyngeal swab;;system;system
+001a00e5d61545cd9de7ca8087cc6a85;LST0012;BIOPSY;;system;system
+001a00e5d61545cd9de7ca8087cc6a86;LST0013;Nasopharyngeal / Oropharyngeal swab;;system;system
+001a00e5d61545cd9de7ca8087cc6a87;LST0014;Blood serum;;system;system
+001a00e5d61545cd9de7ca8087cc6a89;LST0015;Urine;;system;system
+001a00e5d61545cd9de7ca8087cc6a90;LST0016;Whole blood;;system;system
+001a00e5d61545cd9de7ca8087cc6a91;LST0017;Sputum;;system;system
+001a00e5d61545cd9de7ca8087cc6a92;LST0018;Red blood cells;;system;system

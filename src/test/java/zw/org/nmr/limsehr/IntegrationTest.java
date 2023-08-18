@@ -6,7 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import zw.org.nmr.limsehr.LimsEhrFhirApp;
 import zw.org.nmr.limsehr.config.AsyncSyncConfiguration;
 import zw.org.nmr.limsehr.config.EmbeddedSQL;
 

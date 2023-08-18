@@ -1,0 +1,86 @@
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="00000000000009" author="Lawrence">
+		<createTable tableName="analysis_request">
+			<column name="analysis_request_id" type="VARCHAR(255)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="lims_analysis_request_uuid" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="middleware_analysis_request_uuid"
+				type="varchar(255)">
+				<constraints nullable="false" />
+			</column>	
+			<column name="lab_id" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>	
+			<column name="lab_name" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="client_sample_id" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="patient_id" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="middleware_sample_id" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="middleware_test_id" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="middleware_facility_id" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="facility_id" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="sample_id" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="test_id" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="date_tested" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="lab_reference" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="result" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="date_collected" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="review_state" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="dispatched" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="patient_resolved" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="laboratory_request_resolved" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="sync" type="boolean" />
+			<column name="created_by" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_date" type="timestamp" />
+			<column name="last_modified_by" type="varchar(50)" />
+			<column name="last_modified_date" type="timestamp" />
+		</createTable>
+	</changeSet>
+    
+</databaseChangeLog>

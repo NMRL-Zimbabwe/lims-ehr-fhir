@@ -25,7 +25,6 @@ import zw.org.nmr.limsehr.security.AuthoritiesConstants;
 import zw.org.nmr.limsehr.service.UserService;
 import zw.org.nmr.limsehr.service.dto.AdminUserDTO;
 import zw.org.nmr.limsehr.service.dto.PasswordChangeDTO;
-import zw.org.nmr.limsehr.service.dto.UserDTO;
 import zw.org.nmr.limsehr.web.rest.vm.KeyAndPasswordVM;
 import zw.org.nmr.limsehr.web.rest.vm.ManagedUserVM;
 
