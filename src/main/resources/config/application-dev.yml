@@ -117,9 +117,9 @@ spring.rabbitmq.virtualHost: /
 spring.rabbitmq.routingKey: nmrl
 
 # Fhir Servicesettings for EHR
-fhir.server.baseUrl: https://apps.mohcc.gov.zw:8080
-fhir.server.username: mohcc-lims
-fhir.server.password: MiMLS$421^KrL!
+hapi.fhir.baseUrl: http://197.221.242.150:10343/lims-fhir
+hapi.fhir.username: mohcc-lims
+hapi.fhir.password: MiMLS$421^KrL!
 
 # NMRL Senaite
 myConfig.myTerminologyGateway: http://192.168.0.32

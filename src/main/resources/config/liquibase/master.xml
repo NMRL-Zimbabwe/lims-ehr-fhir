@@ -35,6 +35,7 @@
     <include file="config/liquibase/changelog/000000000000022_laboratory_request_date_result_received_from_lims.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000023_patient_art_resolver_retry.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000024_patient_drop_retry.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/202308210161800_analysis_result.xml" relativeToChangelogFile="false"/>
 
 
 

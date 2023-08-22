@@ -1,0 +1,71 @@
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="202308210161800" author="Aurthur Musendame">
+		<createTable tableName="analysis_result">
+			<column name="analysis_result_id" type="VARCHAR(255)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="laboratory_request_id" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+            <column name="test_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="test_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+			<column name="result" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+            <column name="interpreted_result" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="unit" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="review_state" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="instrument" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="method" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="submitted_by" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+            <column name="date_submitted" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="verified_by" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_verified" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_result_received" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_result_dispatched" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            <column name="hidden" type="boolean" />
+			<column name="sync" type="boolean" />
+			<column name="created_by" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_date" type="timestamp" />
+			<column name="last_modified_by" type="varchar(50)" />
+			<column name="last_modified_date" type="timestamp" />
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>
