@@ -16,10 +16,8 @@ import org.hl7.fhir.r4.model.codesystems.TaskStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
-import zw.org.nmr.limsehr.service.UserService;
 import zw.org.nmr.limsehr.service.subscriber.resolver.LaboratoryRequestResolver;
 import zw.org.nmr.limsehr.service.subscriber.resolver.PatientResolver;
 
@@ -27,7 +25,7 @@ import zw.org.nmr.limsehr.service.subscriber.resolver.PatientResolver;
 @Transactional
 public class RequestedOrders {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final Logger log = LoggerFactory.getLogger(RequestedOrders.class);
 
     @Value("${hapi.fhir.baseUrl}")
     String hapiFhirBaseUrl;
@@ -52,7 +50,7 @@ public class RequestedOrders {
         }
     }
 
-    @Scheduled(fixedRate = 2000)
+    //    @Scheduled(fixedRate = 2000)
     public void getRequestedOrders() {
         Patient patient = null;
         Location laboratory = null;
@@ -71,7 +69,7 @@ public class RequestedOrders {
         Bundle taskBundle = fhirClient
             .search()
             .forResource(Task.class)
-            .where(Task.STATUS.exactly().code(TaskStatus.REQUESTED.toCode()))
+            .where(Task.STATUS.exactly().code(TaskStatus.RECEIVED.toCode()))
             .returnBundle(Bundle.class)
             .execute();
 
@@ -194,9 +192,12 @@ public class RequestedOrders {
                 checkNotNull(facility, "Facility not found");
                 checkNotNull(laboratory, "Laboratory not found");
 
+                System.out.println(ctx.newJsonParser().setPrettyPrint(true).encodeResourceToString(specimen));
+
                 // Resolve Fhir objects to LIMS objects and save
                 zw.org.nmr.limsehr.domain.Patient limsPatient = patientResolver.resolveAndSavePatient(patient);
                 LaboratoryRequest laboratoryRequest = laboratoryRequestResolver.resolveAndSaveLaboratoryRequest(
+                    task,
                     serviceRequest,
                     specimen,
                     limsPatient,

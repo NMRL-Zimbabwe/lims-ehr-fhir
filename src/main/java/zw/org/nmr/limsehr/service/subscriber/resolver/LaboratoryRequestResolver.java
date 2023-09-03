@@ -1,6 +1,8 @@
 package zw.org.nmr.limsehr.service.subscriber.resolver;
 
 import org.hl7.fhir.r4.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.domain.Patient;
@@ -9,6 +11,8 @@ import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
 @Service
 public class LaboratoryRequestResolver {
 
+    private final Logger log = LoggerFactory.getLogger(LaboratoryRequestResolver.class);
+
     LaboratoryRequestRepository laboratoryRequestRepository;
 
     public LaboratoryRequestResolver(LaboratoryRequestRepository laboratoryRequestRepository) {
@@ -16,6 +20,7 @@ public class LaboratoryRequestResolver {
     }
 
     public LaboratoryRequest resolveAndSaveLaboratoryRequest(
+        Task task,
         ServiceRequest serviceRequest,
         Specimen specimen,
         Patient patient,
@@ -24,7 +29,9 @@ public class LaboratoryRequestResolver {
     ) {
         LaboratoryRequest labRequest = new LaboratoryRequest();
 
-        labRequest.setMiddlewareAnalysisRequestUuid(serviceRequest.getIdElement().getIdPart());
+        // Task
+        labRequest.setMiddlewareAnalysisRequestUuid(task.getIdElement().getIdPart());
+
         labRequest.setLaboratoryRequestId(serviceRequest.getIdElement().getIdPart());
         labRequest.setMiddlewareClientUuid(serviceRequest.getIdElement().getIdPart());
 
@@ -39,7 +46,10 @@ public class LaboratoryRequestResolver {
         labRequest.setClientId(facility.getIdElement().getIdPart());
         labRequest.setClient(facility.getName());
 
+        log.debug("Specimen {}", specimen.getType().getCoding());
+
         for (Coding testCode : specimen.getType().getCoding()) {
+            log.debug("testCode {}", testCode);
             if (testCode.getSystem().equals("http://loinc.org")) {
                 labRequest.setTestId(testCode.getCode());
             }
