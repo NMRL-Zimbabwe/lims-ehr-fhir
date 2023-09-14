@@ -50,7 +50,7 @@ public class RequestedOrders {
         }
     }
 
-    //    @Scheduled(fixedRate = 2000)
+    //@Scheduled(fixedRate = 2000)
     public void getRequestedOrders() {
         Patient patient = null;
         Location laboratory = null;

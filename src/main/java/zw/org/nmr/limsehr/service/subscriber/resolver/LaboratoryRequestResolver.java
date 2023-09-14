@@ -52,6 +52,8 @@ public class LaboratoryRequestResolver {
             log.debug("testCode {}", testCode);
             if (testCode.getSystem().equals("http://loinc.org")) {
                 labRequest.setTestId(testCode.getCode());
+            } else {
+                labRequest.setTestId("Lindsay");
             }
         }
         //
