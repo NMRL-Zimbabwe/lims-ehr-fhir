@@ -124,6 +124,12 @@ public class LaboratoryRequestService {
         return labreq;
     }
 
+    public void flushOurErrorsFromQueue(LaboratoryRequest request, String error_reason) {
+        request.setRetry(request.getRetry() + 1);
+        request.setErrorReason(error_reason);
+        laboratoryRequestRepository.save(request);
+    }
+
     public LaboratoryRequest updateLaoratoryRequest(RegistrationFromLims obj) {
         LaboratoryRequest fromLims = laboratoryRequestRepository.findByClientSampleId(obj.getClientSampleId());
 
