@@ -53,6 +53,8 @@ public class LaboratoryRequestResolver {
             //   "http://loinc.org"
             if (testCode.getSystem().equals("urn:lims:code")) {
                 labRequest.setTestId(testCode.getCode());
+            } else {
+                labRequest.setTestId("Lindsay");
             }
         }
         //

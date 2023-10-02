@@ -7,7 +7,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import org.hl7.fhir.r4.model.*;
+import org.hl7.fhir.r4.model.CodeableConcept;
+import org.hl7.fhir.r4.model.Coding;
+import org.hl7.fhir.r4.model.DiagnosticReport;
+import org.hl7.fhir.r4.model.Observation;
+import org.hl7.fhir.r4.model.Quantity;
+import org.hl7.fhir.r4.model.Reference;
+import org.hl7.fhir.r4.model.Resource;
+import org.hl7.fhir.r4.model.Task;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -65,7 +72,7 @@ public class AnalysisResultIssuer {
             task.setOutput(Collections.singletonList(output));
 
             // Loop results and add observations
-            Observation observation = getObservation(task);
+            Observation observation = getObservation(task, lr.getMiddlewareAnalysisRequestUuid());
 
             String observationId = observation.getIdElement().getIdPart();
             Reference observationReference = FhirReferenceCreator.getReference(observationId, "Observation");
@@ -94,16 +101,18 @@ public class AnalysisResultIssuer {
     }
 
     //Analysis
-    public static Observation getObservation(Task task) {
+    public static Observation getObservation(Task task, String taskId) {
         //Note:: Here I am randomly generating the result. In reality this should come from your Lims system.
         double result = Math.random() * 500;
 
         Observation observation = new Observation();
-        observation.setId(UUID.randomUUID().toString());
+        observation.setId(taskId);
         observation.setSubject(task.getFor());
         //Add Test Analysis Code.  //This is hard coded for now as an example
         observation.setCode(new CodeableConcept(new Coding("http://loinc.org", "22748-8", "")));
         observation.setValue(new Quantity().setValue(result).setUnit("UI/L"));
+        observation.setLanguage("ENGLISH");
+        observation.setDevice(null); //TODO
         return observation;
     }
 }
