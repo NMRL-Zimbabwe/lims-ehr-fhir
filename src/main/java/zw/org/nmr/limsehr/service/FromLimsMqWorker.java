@@ -37,7 +37,8 @@ public class FromLimsMqWorker {
         String string = new String(msg.getBody());
         msg.getMessageProperties().getHeader("request");
 
-        System.out.println("Received Message: " + msg.getBody());
+        System.out.println("Message --: " + msg);
+        System.out.println("String --: " + string);
 
         AcknowledgementFromLims obj = mapper.readValue(string, AcknowledgementFromLims.class);
 
