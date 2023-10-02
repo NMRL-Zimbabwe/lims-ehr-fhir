@@ -33,7 +33,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect # PostgreSQLDialect
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/lims_ehr_datamart
@@ -110,8 +110,8 @@ jhipster:
 
 #Rabbitmq settings for senaite
 rabbitmq:
-  host: 196.27.127.58 # 192.168.0.40
-  port: 4056 #5672
+  host: localhost
+  port: 5672
   username: test
   password: test
   virtualHost: /

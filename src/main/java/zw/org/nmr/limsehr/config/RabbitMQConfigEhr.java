@@ -65,7 +65,7 @@ public class RabbitMQConfigEhr {
     public SimpleRabbitListenerContainerFactory ehrContainerFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         //int i = Integer.parseInt(port);
-        CachingConnectionFactory senaiteConnectionFactory = new CachingConnectionFactory(host, 4056);
+        CachingConnectionFactory senaiteConnectionFactory = new CachingConnectionFactory(host, port);
         senaiteConnectionFactory.setUsername(username);
         senaiteConnectionFactory.setPassword(password);
         senaiteConnectionFactory.setVirtualHost(vhost);
