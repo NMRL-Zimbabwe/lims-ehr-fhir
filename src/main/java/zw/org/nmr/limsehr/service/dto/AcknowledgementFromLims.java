@@ -11,37 +11,37 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AcknowledgementFromLims {
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String clientPatientId;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String patientId;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String patientUID;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String sampleId;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String clientSampleId;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String sampleUID;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String result;
 
     //    @JsonIgnore
     private String unit;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String status;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String remarks;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private LocalDate dateTested;
 
     public AcknowledgementFromLims() {}
