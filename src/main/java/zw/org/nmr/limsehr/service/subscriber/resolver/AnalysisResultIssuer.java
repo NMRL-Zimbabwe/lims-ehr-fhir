@@ -16,6 +16,7 @@ import org.hl7.fhir.r4.model.Reference;
 import org.hl7.fhir.r4.model.Resource;
 import org.hl7.fhir.r4.model.Task;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
@@ -39,21 +40,14 @@ public class AnalysisResultIssuer {
         this.laboratoryRequestRepository = laboratoryRequestRepository;
     }
 
-    //    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 2000)
     public void issueResult() {
         FhirContext ctx = FhirContext.forR4();
         IGenericClient fhirClient = ctx.newRestfulGenericClient(this.hapiFhirBaseUrl);
         BasicAuthInterceptor authInterceptor = new BasicAuthInterceptor(this.hapiFhirUsername, this.hapiFhirPassword);
         fhirClient.registerInterceptor(authInterceptor);
 
-        //        Bundle bundle = fhirClient
-        //            .search()
-        //            .forResource(Task.class)
-        //            .where(new TokenClientParam("_id").exactly().code(""))
-        //            .returnBundle(Bundle.class)
-        //            .execute();
-
-        List<LaboratoryRequest> labRequests = laboratoryRequestRepository.findByReviewStateIsNullAndResultStatusIsNull();
+        List<LaboratoryRequest> labRequests = laboratoryRequestRepository.findByResultIsNotNullAndResultStatusIsNull();
 
         for (LaboratoryRequest lr : labRequests) {
             Task task = fhirClient.read().resource(Task.class).withId(lr.getMiddlewareAnalysisRequestUuid()).execute();
@@ -64,14 +58,14 @@ public class AnalysisResultIssuer {
             task.setStatus(Task.TaskStatus.COMPLETED);
             Task.TaskOutputComponent output = new Task.TaskOutputComponent();
 
-            DiagnosticReport diagnosticReport = getDiagnosticReport(task);
+            DiagnosticReport diagnosticReport = getDiagnosticReport(task, lr.getLaboratoryRequestId());
             String diagnosticReportId = diagnosticReport.getIdElement().getIdPart();
             Reference diagnosticReportReference = FhirReferenceCreator.getReference(diagnosticReportId, "DiagnosticReport");
             output.setValue(diagnosticReportReference);
             task.setOutput(Collections.singletonList(output));
 
             // Loop results and add observations
-            Observation observation = getObservation(task, lr.getMiddlewareAnalysisRequestUuid());
+            Observation observation = getObservation(task, lr);
 
             String observationId = observation.getIdElement().getIdPart();
             Reference observationReference = FhirReferenceCreator.getReference(observationId, "Observation");
@@ -90,9 +84,9 @@ public class AnalysisResultIssuer {
         }
     }
 
-    public static DiagnosticReport getDiagnosticReport(Task task) {
+    public static DiagnosticReport getDiagnosticReport(Task task, String labRequestId) {
         DiagnosticReport diagnosticReport = new DiagnosticReport();
-        diagnosticReport.setId(UUID.randomUUID().toString());
+        diagnosticReport.setId(labRequestId);
         //This is hard coded for now as an example
         diagnosticReport.setCode(new CodeableConcept(new Coding("http://loinc.org", "22748-8", "")));
         diagnosticReport.setSubject(task.getFor());
@@ -100,16 +94,14 @@ public class AnalysisResultIssuer {
     }
 
     //Analysis
-    public static Observation getObservation(Task task, String taskId) {
+    public static Observation getObservation(Task task, LaboratoryRequest labReq) {
         //Note:: Here I am randomly generating the result. In reality this should come from your Lims system.
-        double result = Math.random() * 500;
-
         Observation observation = new Observation();
-        observation.setId(taskId);
+        observation.setId(labReq.getLaboratoryRequestId());
         observation.setSubject(task.getFor());
         //Add Test Analysis Code.  //This is hard coded for now as an example
         observation.setCode(new CodeableConcept(new Coding("http://loinc.org", "22748-8", "")));
-        observation.setValue(new Quantity().setValue(result).setUnit("UI/L"));
+        observation.setValue(new Quantity().setValue(Integer.parseInt(labReq.getResult())).setUnit(labReq.getUnit()));
         observation.setLanguage("ENGLISH");
         observation.setDevice(null); //TODO
         return observation;
