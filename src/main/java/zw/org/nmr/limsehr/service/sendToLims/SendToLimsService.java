@@ -80,7 +80,6 @@ public class SendToLimsService {
             /**
              * Ignore records with empty PENDING_RESOLVE ART
              */
-
             Patient patient = isPatient.orElseThrow(() -> new Exception("Patient does not exist"));
             /**
              * Construct patient details
