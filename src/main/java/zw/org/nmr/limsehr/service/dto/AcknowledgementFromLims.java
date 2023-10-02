@@ -32,7 +32,7 @@ public class AcknowledgementFromLims {
     @JsonIgnore
     private String result;
 
-    @JsonIgnore
+    //    @JsonIgnore
     private String unit;
 
     @JsonIgnore

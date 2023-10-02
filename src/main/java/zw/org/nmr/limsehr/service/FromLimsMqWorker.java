@@ -1,5 +1,6 @@
 package zw.org.nmr.limsehr.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -40,6 +41,7 @@ public class FromLimsMqWorker {
         System.out.println("Message --: " + msg);
         System.out.println("String --: " + string);
 
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         AcknowledgementFromLims obj = mapper.readValue(string, AcknowledgementFromLims.class);
 
         laboratoryRequestService.updateLaoratoryRequest(obj);
