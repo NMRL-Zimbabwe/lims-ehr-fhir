@@ -23,4 +23,6 @@ public interface PatientRepository extends JpaRepository<Patient, String> {
     List<Patient> findFirst25ByArtInAndRetryLessThan(ArrayList<String> artStatuses, int retry);
 
     Optional<Patient> findByPatientIdAndArtIsNotNullAndRetryLessThan(String patientId, int retry);
+
+    Optional<Patient> findByPatientIdAndRetryLessThan(String patientId, int retry);
 }

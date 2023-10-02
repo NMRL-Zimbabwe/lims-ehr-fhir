@@ -1,4 +1,4 @@
-package zw.org.nmr.limsehr.service;
+package zw.org.nmr.limsehr.service.sendToLims;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,6 +60,9 @@ public class SendToLimsService {
     @Autowired
     LaboratoryRepository laboratoryRepository;
 
+    @Autowired
+    SendToLimsSampleResolver sendToLimsSampleResolver;
+
     // @Autowired
     // @Qualifier(value = "senaiteContainerFactory")
     // private AmqpTemplate amqpTemplate;
@@ -84,18 +87,13 @@ public class SendToLimsService {
         int retry = 4;
         List<LaboratoryRequest> sendToLims = laboratoryRequestRepository.findBySentToLimsIsNullAndRetryLessThan(retry);
         for (LaboratoryRequest request : sendToLims) {
-            Optional<Patient> isPatient = patientRepository.findByPatientIdAndArtIsNotNullAndRetryLessThan(
-                request.getPatient().getPatientId(),
-                retry
-            );
+            Optional<Patient> isPatient = patientRepository.findByPatientIdAndRetryLessThan(request.getPatient().getPatientId(), retry);
 
             /**
              * Ignore records with empty PENDING_RESOLVE ART
              */
-            if (!isPatient.isPresent()) {
-                return;
-            }
-            Patient patient = isPatient.orElseThrow(null);
+
+            Patient patient = isPatient.orElseThrow(() -> new Exception("Patient does not exist"));
             /**
              * Construct patient details
              */
@@ -207,6 +205,10 @@ public class SendToLimsService {
             /**
              * Construct laboratory request details
              */
+
+            //            UnifiedLimsRequestAnalysisRequestDTO analysisRequest  = sendToLimsSampleResolver.resolveSample(
+            //
+            //            );
 
             UnifiedLimsRequestAnalysisRequestDTO analysisRequest = new UnifiedLimsRequestAnalysisRequestDTO();
 

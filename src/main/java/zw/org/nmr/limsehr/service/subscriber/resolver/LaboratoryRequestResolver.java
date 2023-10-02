@@ -50,7 +50,8 @@ public class LaboratoryRequestResolver {
 
         for (Coding testCode : specimen.getType().getCoding()) {
             log.debug("testCode {}", testCode);
-            if (testCode.getSystem().equals("http://loinc.org")) {
+            //   "http://loinc.org"
+            if (testCode.getSystem().equals("urn:lims:code")) {
                 labRequest.setTestId(testCode.getCode());
             }
         }
