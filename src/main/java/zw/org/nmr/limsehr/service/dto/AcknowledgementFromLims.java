@@ -38,6 +38,35 @@ public class AcknowledgementFromLims {
     @JsonIgnore
     private LocalDate dateTested;
 
+    public AcknowledgementFromLims() {}
+
+    public AcknowledgementFromLims(
+        String clientPatientId,
+        String patientId,
+        String patientUID,
+        String sampleId,
+        String clientSampleId,
+        String sampleUID,
+        String result,
+        String unit,
+        String status,
+        String remarks,
+        LocalDate dateTested
+    ) {
+        super();
+        this.clientPatientId = clientPatientId;
+        this.patientId = patientId;
+        this.patientUID = patientUID;
+        this.sampleId = sampleId;
+        this.clientSampleId = clientSampleId;
+        this.sampleUID = sampleUID;
+        this.result = result;
+        this.unit = unit;
+        this.status = status;
+        this.remarks = remarks;
+        this.dateTested = dateTested;
+    }
+
     public String getClientPatientId() {
         return clientPatientId;
     }
