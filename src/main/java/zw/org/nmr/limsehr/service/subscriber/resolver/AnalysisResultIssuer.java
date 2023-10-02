@@ -7,14 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import org.hl7.fhir.r4.model.CodeableConcept;
-import org.hl7.fhir.r4.model.Coding;
-import org.hl7.fhir.r4.model.DiagnosticReport;
-import org.hl7.fhir.r4.model.Observation;
-import org.hl7.fhir.r4.model.Quantity;
-import org.hl7.fhir.r4.model.Reference;
-import org.hl7.fhir.r4.model.Resource;
-import org.hl7.fhir.r4.model.Task;
+import org.hl7.fhir.r4.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -101,7 +94,11 @@ public class AnalysisResultIssuer {
         observation.setSubject(task.getFor());
         //Add Test Analysis Code.  //This is hard coded for now as an example
         observation.setCode(new CodeableConcept(new Coding("http://loinc.org", "22748-8", "")));
-        observation.setValue(new Quantity().setValue(Integer.parseInt(labReq.getResult())).setUnit(labReq.getUnit()));
+
+        StringType stringResult = new StringType();
+        stringResult.setValue(labReq.getResult());
+        observation.setValue(stringResult);
+        // observation.setValue(new Quantity().setValue(Float.parseFloat(labReq.getResult())).setUnit(labReq.getUnit()));
         observation.setLanguage("ENGLISH");
         observation.setDevice(null); //TODO
         return observation;
