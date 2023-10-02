@@ -74,6 +74,8 @@ public class AnalysisResultIssuer {
             fhirClient.update().resource(observation).execute();
             //            fhirClient.update().resource(diagnosticReport).execute();
             //            fhirClient.update().resource(task).execute();
+            lr.setResultStatus("SENT_TO_EHR");
+            laboratoryRequestRepository.save(lr);
         }
     }
 
@@ -98,9 +100,15 @@ public class AnalysisResultIssuer {
         StringType stringResult = new StringType();
         stringResult.setValue(labReq.getResult());
         observation.setValue(stringResult);
+
         // observation.setValue(new Quantity().setValue(Float.parseFloat(labReq.getResult())).setUnit(labReq.getUnit()));
         observation.setLanguage("ENGLISH");
-        observation.setDevice(null); //TODO
+
+        Device device = new Device();
+        device.setId("abbott");
+        Reference deviceReference = new Reference(device);
+
+        observation.setDevice(deviceReference);
         return observation;
     }
 }
