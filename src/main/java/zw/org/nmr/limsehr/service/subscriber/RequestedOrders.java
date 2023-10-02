@@ -51,7 +51,8 @@ public class RequestedOrders {
         }
     }
 
-    @Scheduled(fixedRate = 2000)
+    // 60000 represents a minute
+    @Scheduled(fixedRate = 60000 * 5) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
     public void getRequestedOrders() {
         Patient patient = null;
         Location laboratory = null;
