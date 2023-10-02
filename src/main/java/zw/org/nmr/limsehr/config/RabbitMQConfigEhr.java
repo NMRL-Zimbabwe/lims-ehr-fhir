@@ -21,7 +21,7 @@ public class RabbitMQConfigEhr {
     private String host;
 
     @Value("${rabbitmq.port}")
-    String port;
+    int port;
 
     @Value("${rabbitmq.virtualHost}")
     private String vhost;
@@ -65,7 +65,7 @@ public class RabbitMQConfigEhr {
     public SimpleRabbitListenerContainerFactory ehrContainerFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         //int i = Integer.parseInt(port);
-        CachingConnectionFactory senaiteConnectionFactory = new CachingConnectionFactory(host, 5672);
+        CachingConnectionFactory senaiteConnectionFactory = new CachingConnectionFactory(host, 4056);
         senaiteConnectionFactory.setUsername(username);
         senaiteConnectionFactory.setPassword(password);
         senaiteConnectionFactory.setVirtualHost(vhost);

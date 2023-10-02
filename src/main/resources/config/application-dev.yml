@@ -110,8 +110,8 @@ jhipster:
 
 #Rabbitmq settings for senaite
 rabbitmq:
-  host: 192.168.0.40
-  port: 5672
+  host: 196.27.127.58 # 192.168.0.40
+  port: 4056 #5672
   username: test
   password: test
   virtualHost: /
@@ -126,6 +126,6 @@ hapi:
 
 # NMRL Senaite
 myConfig:
-  myTerminologyGateway: http://192.168.0.32
-  myRabbitLocalGateway: 192.168.0.40
-#myConfig.myTerminologyGateway: http://196.27.127.58:2480
+  myTerminologyGateway: http://196.27.126.58:3243 # http://192.168.0.32
+  myRabbitLocalGateway: http://196.27.126.58:4080 # 192.168.0.40
+

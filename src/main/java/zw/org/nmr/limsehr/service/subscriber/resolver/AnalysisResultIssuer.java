@@ -16,7 +16,6 @@ import org.hl7.fhir.r4.model.Reference;
 import org.hl7.fhir.r4.model.Resource;
 import org.hl7.fhir.r4.model.Task;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
@@ -40,7 +39,7 @@ public class AnalysisResultIssuer {
         this.laboratoryRequestRepository = laboratoryRequestRepository;
     }
 
-    @Scheduled(fixedRate = 2000)
+    //    @Scheduled(fixedRate = 2000)
     public void issueResult() {
         FhirContext ctx = FhirContext.forR4();
         IGenericClient fhirClient = ctx.newRestfulGenericClient(this.hapiFhirBaseUrl);

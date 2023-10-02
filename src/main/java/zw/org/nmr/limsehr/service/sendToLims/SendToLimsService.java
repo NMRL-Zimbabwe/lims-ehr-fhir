@@ -58,7 +58,7 @@ public class SendToLimsService {
     private AmqpTemplate amqpTemplate;
 
     public void sendMessageToLims(UnifiedLimsRequest message, String destination) throws JsonProcessingException {
-        System.out.println("[******] Waiting for messages.");
+        log.error("[******] Waiting for messages.");
 
         ObjectMapper mapper = new ObjectMapper();
         Object jsonMessage = mapper.writeValueAsString(message);
@@ -87,7 +87,9 @@ public class SendToLimsService {
              * Construct patient details
              */
             Optional<Laboratory> optLab = laboratoryRepository.findByCode(request.getLabId());
+            // destination is the name used to identify the amq queue
             String destination = null;
+
             if (optLab.isPresent()) {
                 Laboratory laboratory = optLab.orElseThrow(null);
                 unifiedLimsRequest.setLabId(laboratory.getId());
@@ -174,6 +176,7 @@ public class SendToLimsService {
             builder.setSample(sample);
 
             if (unifiedLimsRequest.getPatient().getClientPatientID() != null && destination != null) {
+                log.error("Destination :{}", destination);
                 sendMessageToLims(unifiedLimsRequest, destination); // Flag sent request as sent to LIMS
                 request.setSentToLims(LaboratoryRequestStatus.SENT_TO_LIMS.toString());
 

@@ -16,7 +16,6 @@ import org.hl7.fhir.r4.model.codesystems.TaskStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.service.subscriber.resolver.LaboratoryRequestResolver;
@@ -52,7 +51,7 @@ public class RequestedOrders {
     }
 
     // 60000 represents a minute
-    @Scheduled(fixedRate = 60000 * 5) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
+    //    @Scheduled(fixedRate = 60000 * 5) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
     public void getRequestedOrders() {
         Patient patient = null;
         Location laboratory = null;

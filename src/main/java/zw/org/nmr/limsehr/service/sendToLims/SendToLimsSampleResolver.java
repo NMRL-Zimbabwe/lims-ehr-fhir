@@ -83,6 +83,7 @@ public class SendToLimsSampleResolver {
                 }
                 break;
         }
+        log.info("Sample Type after :{} ", sampleType);
 
         if (sampleType == null) {
             log.error("No sample type was found");
@@ -98,6 +99,6 @@ public class SendToLimsSampleResolver {
 
         analysisRequest.setTemplate("");
 
-        return null;
+        return analysisRequest;
     }
 }

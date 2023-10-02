@@ -14,6 +14,7 @@ import zw.org.nmr.limsehr.repository.PatientAddressRepository;
 import zw.org.nmr.limsehr.repository.PatientIdentifierRepository;
 import zw.org.nmr.limsehr.repository.PatientPhoneRepository;
 import zw.org.nmr.limsehr.repository.PatientRepository;
+import zw.org.nmr.limsehr.service.LaboratoryRequestService;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestCountryState;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestPatientDTO;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestPatientIdentifiersDTO;
@@ -37,6 +38,9 @@ public class SendToLimsPatientResolver {
     @Autowired
     PatientAddressRepository patientAddressRepository;
 
+    @Autowired
+    LaboratoryRequestService laboratoryRequestService;
+
     public UnifiedLimsRequestPatientDTO resolvePatient(Patient patient, LaboratoryRequest request) {
         UnifiedLimsRequestPatientDTO pt = new UnifiedLimsRequestPatientDTO();
 
@@ -46,12 +50,12 @@ public class SendToLimsPatientResolver {
 
         pt.setClientID(request.getClientId());
 
-        if (patient.getArt() != null && patient.getArt().length() > 4) {
+        if (patient.getArt() != null) {
             pt.setClientPatientID(patient.getArt().replace("-", ""));
         } else {
             log.error("Client Patient ID not found");
-            //flushOurErrorsFromQueue(request, "Client Patient ID not found");
-            //return;
+            laboratoryRequestService.flushOurErrorsFromQueue(request, "Client Patient ID not found");
+            return null;
         }
 
         pt.setGender(patient.getGender());
