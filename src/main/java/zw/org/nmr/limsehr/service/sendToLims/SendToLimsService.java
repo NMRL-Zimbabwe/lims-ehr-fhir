@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.Client;
@@ -51,16 +53,16 @@ public class SendToLimsService {
     @Autowired
     SendToLimsBatchResolver sendToLimsBatchResolver;
 
-    // @Autowired
-    // @Qualifier(value = "senaiteContainerFactory")
-    // private AmqpTemplate amqpTemplate;
+    @Autowired
+    @Qualifier(value = "senaiteContainerFactory")
+    private AmqpTemplate amqpTemplate;
 
     public void sendMessageToLims(UnifiedLimsRequest message, String destination) throws JsonProcessingException {
         System.out.println("[******] Waiting for messages.");
 
         ObjectMapper mapper = new ObjectMapper();
         Object jsonMessage = mapper.writeValueAsString(message);
-        // amqpTemplate.convertAndSend("ehr.lims", destination, jsonMessage.toString());
+        amqpTemplate.convertAndSend("ehr.lims", destination, jsonMessage.toString());
         // amqpTemplate.convertAndSend(jsonMessage);
 
     }

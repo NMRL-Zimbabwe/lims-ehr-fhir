@@ -2,8 +2,10 @@ package zw.org.nmr.limsehr.service.sendToLims;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestBatchDTO;
 
+@Service
 public class SendToLimsBatchResolver {
 
     // Lawrence
