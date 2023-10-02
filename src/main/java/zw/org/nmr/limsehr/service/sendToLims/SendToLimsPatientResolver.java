@@ -4,6 +4,7 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.domain.Patient;
 import zw.org.nmr.limsehr.domain.PatientAddress;
@@ -17,6 +18,7 @@ import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestCou
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestPatientDTO;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestPatientIdentifiersDTO;
 
+@Service
 public class SendToLimsPatientResolver {
 
     // Culani

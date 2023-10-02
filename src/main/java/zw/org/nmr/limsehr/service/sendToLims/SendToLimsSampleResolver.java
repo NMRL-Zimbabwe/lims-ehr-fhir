@@ -3,10 +3,12 @@ package zw.org.nmr.limsehr.service.sendToLims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.service.LaboratoryRequestService;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestAnalysisRequestDTO;
 
+@Service
 public class SendToLimsSampleResolver {
 
     private static final Logger log = LoggerFactory.getLogger(SendToLimsSampleResolver.class);

@@ -109,19 +109,23 @@ jhipster:
 # application:
 
 #Rabbitmq settings for senaite
-spring.rabbitmq.host: 192.168.0.40
-spring.rabbitmq.port: 5672
-spring.rabbitmq.username: test
-spring.rabbitmq.password: test
-spring.rabbitmq.virtualHost: /
-spring.rabbitmq.routingKey: nmrl
+rabbitmq:
+  host: 192.168.0.40
+  port: 5672
+  username: test
+  password: test
+  virtualHost: /
+  routingKey: nmrl
 
 # Fhir Servicesettings for EHR
-hapi.fhir.baseUrl: http://197.221.242.150:10343/lims-fhir
-hapi.fhir.username: mohcc-lims
-hapi.fhir.password: MiMLS$421^KrL!
+hapi:
+  fhir:
+    baseUrl: http://197.221.242.150:10343/lims-fhir
+    username: mohcc-lims
+    password: MiMLS$421^KrL!
 
 # NMRL Senaite
-myConfig.myTerminologyGateway: http://192.168.0.32
-myConfig.myRabbitLocalGateway: 192.168.0.40
+myConfig:
+  myTerminologyGateway: http://192.168.0.32
+  myRabbitLocalGateway: 192.168.0.40
 #myConfig.myTerminologyGateway: http://196.27.127.58:2480
