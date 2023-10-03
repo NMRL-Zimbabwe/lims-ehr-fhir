@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Encounter;
 import org.hl7.fhir.r4.model.Location;
+import org.hl7.fhir.r4.model.Organization;
 import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.ServiceRequest;
 import org.hl7.fhir.r4.model.Specimen;
@@ -56,6 +57,7 @@ public class RequestedOrders {
         Patient patient = null;
         Location laboratory = null;
         Location facility = null;
+        Organization organisation = null;
         Encounter encounter = null;
         Specimen specimen = null; //Sample
         ServiceRequest serviceRequest = null; //Test
@@ -70,7 +72,7 @@ public class RequestedOrders {
         Bundle taskBundle = fhirClient
             .search()
             .forResource(Task.class)
-            .where(Task.STATUS.exactly().code(TaskStatus.REQUESTED.toCode()))
+            .where(Task.STATUS.exactly().code(TaskStatus.RECEIVED.toCode()))
             .returnBundle(Bundle.class)
             .execute();
 
@@ -184,8 +186,31 @@ public class RequestedOrders {
                     }
                 }
 
+                // Get Organisation
+                String orgId = patient.getManagingOrganization().getReferenceElement().getIdPart();
+                bundle =
+                    fhirClient
+                        .search()
+                        .forResource(Organization.class)
+                        .where(new TokenClientParam("_id").exactly().code(orgId))
+                        .include(Task.INCLUDE_ALL)
+                        .returnBundle(Bundle.class)
+                        .execute();
+                for (Bundle.BundleEntryComponent entry : bundle.getEntry()) {
+                    if (entry.hasResource()) {
+                        switch (entry.getResource().getResourceType()) {
+                            case Organization:
+                                organisation = (Organization) entry.getResource();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
                 // All required objects must exist checks
                 checkNotNull(patient, "Patient not found");
+                checkNotNull(organisation, "Managing organisation not found");
                 checkNotNull(serviceRequest, "ServiceRequest not found");
                 checkNotNull(task, "Task not found");
                 checkNotNull(specimen, "Specimen not found");
@@ -196,7 +221,7 @@ public class RequestedOrders {
                 System.out.println(ctx.newJsonParser().setPrettyPrint(true).encodeResourceToString(specimen));
 
                 // Resolve Fhir objects to LIMS objects and save
-                zw.org.nmr.limsehr.domain.Patient limsPatient = patientResolver.resolveAndSavePatient(patient);
+                zw.org.nmr.limsehr.domain.Patient limsPatient = patientResolver.resolveAndSavePatient(patient, organisation);
                 LaboratoryRequest laboratoryRequest = laboratoryRequestResolver.resolveAndSaveLaboratoryRequest(
                     task,
                     serviceRequest,
