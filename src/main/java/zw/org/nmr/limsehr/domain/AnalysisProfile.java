@@ -1,5 +1,6 @@
 package zw.org.nmr.limsehr.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -35,6 +36,14 @@ public class AnalysisProfile extends AbstractAuditingEntity implements Serializa
     private String effective;
 
     private String parent_uid;
+
+    @JsonIgnore
+    @Column(name = "loinc_code")
+    private String loincCode;
+
+    @JsonIgnore
+    @Column(name = "ehr_code")
+    private String ehrCode;
 
     public String getId() {
         return id;
@@ -100,6 +109,22 @@ public class AnalysisProfile extends AbstractAuditingEntity implements Serializa
         this.parent_uid = parent_uid;
     }
 
+    public String getLoincCode() {
+        return loincCode;
+    }
+
+    public void setLoincCode(String loincCode) {
+        this.loincCode = loincCode;
+    }
+
+    public String getEhrCode() {
+        return ehrCode;
+    }
+
+    public void setEhrCode(String ehrCode) {
+        this.ehrCode = ehrCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -114,23 +139,38 @@ public class AnalysisProfile extends AbstractAuditingEntity implements Serializa
     @Override
     public String toString() {
         return (
-            "AnalysisProfile [id=" +
+            "AnalysisProfile{" +
+            "id='" +
             id +
-            ", api_url=" +
+            '\'' +
+            ", api_url='" +
             api_url +
-            ", description=" +
+            '\'' +
+            ", description='" +
             description +
-            ", title=" +
+            '\'' +
+            ", title='" +
             title +
-            ", uid=" +
+            '\'' +
+            ", uid='" +
             uid +
-            ", path=" +
+            '\'' +
+            ", path='" +
             path +
-            ", effective=" +
+            '\'' +
+            ", effective='" +
             effective +
-            ", parent_uid=" +
+            '\'' +
+            ", parent_uid='" +
             parent_uid +
-            "]"
+            '\'' +
+            ", loincCode='" +
+            loincCode +
+            '\'' +
+            ", ehrCode='" +
+            ehrCode +
+            '\'' +
+            '}'
         );
     }
 }

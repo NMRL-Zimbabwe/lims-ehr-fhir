@@ -32,13 +32,15 @@ public class PatientResolver {
         pt.setDob(dateUtils.convertToLocalDate(patient.getBirthDate()));
         pt.setPatientId(patient.getIdElement().getIdPart());
 
-        if (patient.getIdentifier() != null) {
-            for (Identifier identifier : patient.getIdentifier()) {
-                if (identifier.getSystem().equalsIgnoreCase("urn:impilo:art")) {
-                    pt.setArt(identifier.getValue());
-                }
-            }
-        }
+        String artNumber = patient
+            .getIdentifier()
+            .stream()
+            .filter(i -> i.getSystem().equals("urn:impilo:art"))
+            .map(Identifier::getValue)
+            .findFirst()
+            .orElse(null);
+        pt.setArt(artNumber);
+
         // TODO  get Patient telecom from ehr fhir which is currently missing
         // if(!patient.getTelecom().isEmpty()) {
         // pt.setPhone(patient.getTelecom().get(0).getValue())

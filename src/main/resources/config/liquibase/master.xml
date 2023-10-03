@@ -18,23 +18,14 @@
     <include file="config/liquibase/changelog/00000000000006_patient_phone.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/00000000000007_patient_address.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/00000000000008_patient_identifier.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/00000000000009_analysis_request.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000010_sample.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/000000000000010_sample_type.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000011_test.xml" relativeToChangelogFile="false"/>
-    <!-- <include file="config/liquibase/changelog/000000000000012_case.xml" relativeToChangelogFile="false"/> -->
-    <include file="config/liquibase/changelog/000000000000013_reson_for_vl_test.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/000000000000013_reason_for_vl_test.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000014_laboratory_request.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000015_analysis_profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000016_laboratory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000017_rejected_reason.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000018_contigency.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000014_laboratory_request_update0.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000019_laboratory_request_error_and_error_reason.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000020_laboratory_request_drop_retry.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000021_laboratory_request_results_status.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000022_laboratory_request_date_result_received_from_lims.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000023_patient_art_resolver_retry.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/000000000000024_patient_drop_retry.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/000000000000018_contingency.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/202308210161800_analysis_result.xml" relativeToChangelogFile="false"/>
 
 

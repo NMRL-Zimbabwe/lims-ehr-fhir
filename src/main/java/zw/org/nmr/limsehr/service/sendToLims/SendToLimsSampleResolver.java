@@ -31,32 +31,11 @@ public class SendToLimsSampleResolver {
         log.info("Routing key :{} ", destination);
         log.info("Sample Type :{} ", request.getSampleId());
 
-        //        List<IDestinationLab> activelabs = null;
-        //        try {
-        //            // create object mapper instance
-        //            ObjectMapper mapper = new ObjectMapper();
-        //
-        //            // convert JSON array to list of destinatios
-        //            activelabs = Arrays.asList(mapper.readValue(Paths.get("activated.json").toFile(), IDestinationLab[].class));
-        //
-        //            // print books
-        //            activelabs.forEach(System.out::println);
-        //
-        //        } catch (Exception ex) {
-        //            ex.printStackTrace();
-        //        }
-        //
-        //        if (activelabs == null) { // there are not active labs
-        //            return null;
-        //        }
-        //        Optional<IDestinationLab> lab = activelabs.stream().filter(c -> c.getTitle().equals(destination)).findAny();
-
         switch (destination) {
             /**
              * Sample types are hard coded at the moment because, different laboratories use
              * different default sample types. For example BRIDH register samples as Blood
-             * plasma whilst Mpilo registers as whole blood.
-             *
+             * plasma whilst Mpilo registers as whole blood
              */
 
             case "bridh":
@@ -64,21 +43,21 @@ public class SendToLimsSampleResolver {
             case "chinhoyi":
             case "kadoma":
             case "nmrl":
-                if (request.getSampleId().equals("DBS")) {
+                if (request.getSampleTypeName().equals("DBS")) {
                     sampleType = "Dried Blood Spot";
                 } else {
                     sampleType = "Blood plasma";
                 }
                 break;
             case "mpilo":
-                if (request.getSampleId().equals("DBS")) {
+                if (request.getSampleTypeName().equals("DBS")) {
                     sampleType = "DBS";
                 } else {
                     sampleType = "Whole blood";
                 }
                 break;
             case "marondera":
-                if (request.getSampleId().equals("DBS")) {
+                if (request.getSampleTypeName().equals("DBS")) {
                     sampleType = "DBS";
                 } else {
                     sampleType = "Blood plasma";

@@ -58,7 +58,9 @@
                 <constraints nullable="true" />
             </column>
             <column name="hidden" type="boolean" />
-			<column name="sync" type="boolean" />
+			<column name="sync_status" type="varchar(50)" >
+                <constraints nullable="true" />
+            </column>
 			<column name="created_by" type="varchar(50)">
 				<constraints nullable="false" />
 			</column>

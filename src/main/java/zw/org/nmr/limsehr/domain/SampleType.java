@@ -13,9 +13,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A user.
  */
 @Entity
-@Table(name = "sample")
+@Table(name = "sample_type")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Sample extends AbstractAuditingEntity implements Serializable {
+public class SampleType extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +30,14 @@ public class Sample extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     private String state;
+
+    @JsonIgnore
+    @Column(name = "loinc_code")
+    private String loincCode;
+
+    @JsonIgnore
+    @Column(name = "ehr_code")
+    private String ehrCode;
 
     public String getId() {
         return id;
@@ -63,12 +71,49 @@ public class Sample extends AbstractAuditingEntity implements Serializable {
         this.state = state;
     }
 
+    public String getLoincCode() {
+        return loincCode;
+    }
+
+    public void setLoincCode(String loincCode) {
+        this.loincCode = loincCode;
+    }
+
+    public String getEhrCode() {
+        return ehrCode;
+    }
+
+    public void setEhrCode(String ehrCode) {
+        this.ehrCode = ehrCode;
+    }
+
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
 
     @Override
     public String toString() {
-        return "SampleType [id=" + id + ", sampleId=" + sampleId + ", name=" + name + ", state=" + state + "]";
+        return (
+            "SampleType{" +
+            "id='" +
+            id +
+            '\'' +
+            ", sampleId='" +
+            sampleId +
+            '\'' +
+            ", name='" +
+            name +
+            '\'' +
+            ", state='" +
+            state +
+            '\'' +
+            ", loincCode='" +
+            loincCode +
+            '\'' +
+            ", ehrCode='" +
+            ehrCode +
+            '\'' +
+            '}'
+        );
     }
 }

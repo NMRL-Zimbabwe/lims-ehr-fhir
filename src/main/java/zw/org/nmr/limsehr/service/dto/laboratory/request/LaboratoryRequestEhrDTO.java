@@ -1,6 +1,6 @@
 package zw.org.nmr.limsehr.service.dto.laboratory.request;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class LaboratoryRequestEhrDTO {
@@ -11,7 +11,7 @@ public class LaboratoryRequestEhrDTO {
 
     private String labReference;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
     private String id;
 
@@ -79,11 +79,11 @@ public class LaboratoryRequestEhrDTO {
         this.status = status;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

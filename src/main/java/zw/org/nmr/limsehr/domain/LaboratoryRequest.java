@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -71,6 +72,18 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     @JsonIgnore
     private String testId;
 
+    @Column(name = "test_name")
+    @JsonIgnore
+    private String testName;
+
+    @Column(name = "sample_type_id")
+    @JsonIgnore
+    private String sampleTypeId;
+
+    @Column(name = "sample_type_name")
+    @JsonIgnore
+    private String sampleTypeName;
+
     @JsonIgnore
     @Column(name = "lab_reference_sample_id")
     private String labReferenceSampleId;
@@ -102,7 +115,7 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     @Column(name = "date_collected")
     @JsonIgnore
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate dateCollected;
+    private LocalDateTime dateCollected;
 
     @Column(name = "date_tested")
     @JsonIgnore
@@ -131,6 +144,30 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
 
     @Column(name = "date_result_received_from_lims")
     private LocalDate dateResultReceivedFromLims;
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+    public String getSampleTypeId() {
+        return sampleTypeId;
+    }
+
+    public void setSampleTypeId(String sampleTypeId) {
+        this.sampleTypeId = sampleTypeId;
+    }
+
+    public String getSampleTypeName() {
+        return sampleTypeName;
+    }
+
+    public void setSampleTypeName(String sampleTypeName) {
+        this.sampleTypeName = sampleTypeName;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -239,11 +276,11 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
         this.result = result;
     }
 
-    public LocalDate getDateCollected() {
+    public LocalDateTime getDateCollected() {
         return dateCollected;
     }
 
-    public void setDateCollected(LocalDate dateCollected) {
+    public void setDateCollected(LocalDateTime dateCollected) {
         this.dateCollected = dateCollected;
     }
 
@@ -378,65 +415,99 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     @Override
     public String toString() {
         return (
-            "LaboratoryRequest [laboratoryRequestId=" +
+            "LaboratoryRequest{" +
+            "laboratoryRequestId='" +
             laboratoryRequestId +
-            ", limsAnalysisRequestUuid=" +
+            '\'' +
+            ", limsAnalysisRequestUuid='" +
             limsAnalysisRequestUuid +
-            ", middlewareAnalysisRequestUuid=" +
+            '\'' +
+            ", middlewareAnalysisRequestUuid='" +
             middlewareAnalysisRequestUuid +
-            ", labId=" +
+            '\'' +
+            ", labId='" +
             labId +
-            ", labName=" +
+            '\'' +
+            ", labName='" +
             labName +
-            ", clientSampleId=" +
+            '\'' +
+            ", clientSampleId='" +
             clientSampleId +
+            '\'' +
             ", patient=" +
             patient +
-            ", middlewareClientUuid=" +
+            ", middlewareClientUuid='" +
             middlewareClientUuid +
-            ", clientId=" +
+            '\'' +
+            ", clientId='" +
             clientId +
-            ", client=" +
+            '\'' +
+            ", client='" +
             client +
-            ", sampleId=" +
+            '\'' +
+            ", sampleId='" +
             sampleId +
-            ", testId=" +
+            '\'' +
+            ", testId='" +
             testId +
-            ", labReferenceSampleId=" +
+            '\'' +
+            ", testName='" +
+            testName +
+            '\'' +
+            ", sampleTypeId='" +
+            sampleTypeId +
+            '\'' +
+            ", sampleTypeName='" +
+            sampleTypeName +
+            '\'' +
+            ", labReferenceSampleId='" +
             labReferenceSampleId +
-            ", result=" +
+            '\'' +
+            ", result='" +
             result +
-            ", unit=" +
+            '\'' +
+            ", unit='" +
             unit +
-            ", remarks=" +
+            '\'' +
+            ", remarks='" +
             remarks +
+            '\'' +
             ", retry=" +
             retry +
-            ", errorReason=" +
+            ", errorReason='" +
             errorReason +
-            ", acknowledgeSampleReceipt=" +
+            '\'' +
+            ", acknowledgeSampleReceipt='" +
             acknowledgeSampleReceipt +
-            ", acknowledgeRecordReceipt=" +
+            '\'' +
+            ", acknowledgeRecordReceipt='" +
             acknowledgeRecordReceipt +
+            '\'' +
             ", dateCollected=" +
             dateCollected +
             ", dateTested=" +
             dateTested +
-            ", reviewState=" +
+            ", reviewState='" +
             reviewState +
-            ", dispatched=" +
+            '\'' +
+            ", dispatched='" +
             dispatched +
-            ", status=" +
+            '\'' +
+            ", status='" +
             status +
-            ", sentToLims=" +
+            '\'' +
+            ", sentToLims='" +
             sentToLims +
-            ", sentToEhr=" +
+            '\'' +
+            ", sentToEhr='" +
             sentToEhr +
-            ", resultStatus=" +
+            '\'' +
+            ", resultStatus='" +
             resultStatus +
+            '\'' +
             ", dateResultReceivedFromLims=" +
             dateResultReceivedFromLims +
-            "]"
+            '}'
         );
     }
 }

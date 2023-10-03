@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import zw.org.nmr.limsehr.domain.Sample;
+import zw.org.nmr.limsehr.domain.SampleType;
 import zw.org.nmr.limsehr.repository.SampleTypeRepository;
 import zw.org.nmr.limsehr.service.dto.SampleTypeDTO;
 import zw.org.nmr.limsehr.service.dto.SampleTypeDetailDTO;
@@ -50,13 +50,13 @@ public class FetchSampleService {
                     //data.getGetProvince();
 
                     log.debug("Titles from server {}", data.getTitle());
-                    Sample sample = new Sample();
+                    SampleType sampleType = new SampleType();
 
-                    sample.setId(data.getUid());
-                    sample.setName(data.getTitle());
-                    sample.setSampleId(data.getId());
+                    sampleType.setId(data.getUid());
+                    sampleType.setName(data.getTitle());
+                    sampleType.setSampleId(data.getId());
 
-                    sampleTypeRepository.save(sample);
+                    sampleTypeRepository.save(sampleType);
                 }
 
                 log.debug("The Next Fetch url ..... ..... : {}", response.getBody().getNext());

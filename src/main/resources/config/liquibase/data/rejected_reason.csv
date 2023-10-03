@@ -9,7 +9,7 @@ id;rejected_reason_id;name;state;created_by;last_modified_by
 001a00e5d61545cd9de7ca8087cc6a81;RR008;Routine Histological;;system;system
 001a00e5d61545cd9de7ca8087cc6a82;RR009;Clotted Blood;;system;system
 001a00e5d61545cd9de7ca8087cc6a83;RR0010;Specimen too old;;system;system
-001a00e5d61545cd9de7ca8087cc6a84;RR0011;No sample submitted;;system;system
+001a00e5d61545cd9de7ca8087cc6a84;RR0011;No sampleType submitted;;system;system
 001a00e5d61545cd9de7ca8087cc6a85;RR0012;QUANTITY NOT SUFFICIENT;;system;system
 001a00e5d61545cd9de7ca8087cc6a86;RR009;SAMPLE CLOTTED;;system;system
 001a00e5d61545cd9de7ca8087cc6a87;RR0010;SAMPLE TOO OLD;;system;system
