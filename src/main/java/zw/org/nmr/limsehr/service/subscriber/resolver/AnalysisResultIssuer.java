@@ -104,11 +104,11 @@ public class AnalysisResultIssuer {
         // observation.setValue(new Quantity().setValue(Float.parseFloat(labReq.getResult())).setUnit(labReq.getUnit()));
         observation.setLanguage("ENGLISH");
 
-        Device device = new Device();
-        device.setId("abbott");
-        Reference deviceReference = new Reference(device);
-
-        observation.setDevice(deviceReference);
+        //        Device device = new Device();
+        //        device.setId("abbott");
+        //        Reference deviceReference = new Reference(device);
+        //
+        //        observation.setDevice(deviceReference);
         return observation;
     }
 }
