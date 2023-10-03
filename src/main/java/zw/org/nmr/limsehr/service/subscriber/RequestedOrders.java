@@ -5,6 +5,7 @@ import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.client.interceptor.BasicAuthInterceptor;
 import ca.uhn.fhir.rest.gclient.TokenClientParam;
 import jakarta.transaction.Transactional;
+import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Encounter;
 import org.hl7.fhir.r4.model.Location;
@@ -45,7 +46,8 @@ public class RequestedOrders {
         this.laboratoryRequestResolver = laboratoryRequestResolver;
     }
 
-    public static void checkNotNull(Object obj, String message) {
+    public static void checkNotNull(IBaseResource obj, String message, FhirContext ctx) {
+        System.out.println(ctx.newJsonParser().setPrettyPrint(true).encodeResourceToString(obj));
         if (obj == null) {
             throw new RuntimeException(message);
         }
@@ -71,7 +73,7 @@ public class RequestedOrders {
         Bundle taskBundle = fhirClient
             .search()
             .forResource(Task.class)
-            .where(Task.STATUS.exactly().code(TaskStatus.REQUESTED.toCode()))
+            .where(Task.STATUS.exactly().code(TaskStatus.RECEIVED.toCode()))
             .returnBundle(Bundle.class)
             .execute();
 
@@ -89,7 +91,7 @@ public class RequestedOrders {
 
                 log.debug("Bundle for task {}", tTask.getIdElement().getIdPart());
 
-                // System.out.println(ctx.newJsonParser().setPrettyPrint(true).encodeResourceToString(bundle));
+                System.out.println(ctx.newJsonParser().setPrettyPrint(true).encodeResourceToString(bundle));
 
                 for (Bundle.BundleEntryComponent entry : bundle.getEntry()) {
                     if (entry.hasResource()) {
@@ -186,15 +188,13 @@ public class RequestedOrders {
                 }
 
                 // All required objects must exist checks
-                checkNotNull(patient, "Patient not found");
-                checkNotNull(serviceRequest, "ServiceRequest not found");
-                checkNotNull(task, "Task not found");
-                checkNotNull(specimen, "Specimen not found");
-                checkNotNull(encounter, "Encounter not found");
-                checkNotNull(facility, "Facility not found");
-                checkNotNull(laboratory, "Laboratory not found");
-
-                System.out.println(ctx.newJsonParser().setPrettyPrint(true).encodeResourceToString(specimen));
+                checkNotNull(patient, "Patient not found", ctx);
+                checkNotNull(serviceRequest, "ServiceRequest not found", ctx);
+                checkNotNull(task, "Task not found", ctx);
+                checkNotNull(specimen, "Specimen not found", ctx);
+                checkNotNull(encounter, "Encounter not found", ctx);
+                checkNotNull(facility, "Facility not found", ctx);
+                checkNotNull(laboratory, "Laboratory not found", ctx);
 
                 // Resolve Fhir objects to LIMS objects and save
                 zw.org.nmr.limsehr.domain.Patient limsPatient = patientResolver.resolveAndSavePatient(patient);

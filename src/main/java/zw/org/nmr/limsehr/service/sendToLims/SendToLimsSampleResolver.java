@@ -1,5 +1,6 @@
 package zw.org.nmr.limsehr.service.sendToLims;
 
+import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class SendToLimsSampleResolver {
     public UnifiedLimsRequestAnalysisRequestDTO resolveSample(LaboratoryRequest request, String destination) {
         UnifiedLimsRequestAnalysisRequestDTO analysisRequest = new UnifiedLimsRequestAnalysisRequestDTO();
 
-        analysisRequest.setDateSampled(request.getDateCollected().toString());
+        analysisRequest.setDateSampled(LocalDate.now().toString());
+        //    analysisRequest.setDateSampled(request.getDateCollected().toString());
 
         String[] profiles = new String[] { "Viral Load Plasma" };
 
