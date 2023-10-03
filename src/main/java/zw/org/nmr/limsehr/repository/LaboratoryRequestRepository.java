@@ -49,4 +49,6 @@ public interface LaboratoryRequestRepository extends JpaRepository<LaboratoryReq
     List<LaboratoryRequest> findByReviewStateAndResultStatusIsNull(String published);
 
     List<LaboratoryRequest> findByReviewStateIsNullAndResultStatusIsNull();
+
+    List<LaboratoryRequest> findByResultIsNotNullAndResultStatusIsNull();
 }

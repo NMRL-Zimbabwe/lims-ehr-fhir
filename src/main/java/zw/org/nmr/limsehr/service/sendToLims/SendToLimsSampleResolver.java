@@ -28,6 +28,27 @@ public class SendToLimsSampleResolver {
         String sampleType = null;
         log.info("Routing key :{} ", destination);
         log.info("Sample Type :{} ", request.getSampleId());
+
+        //        List<IDestinationLab> activelabs = null;
+        //        try {
+        //            // create object mapper instance
+        //            ObjectMapper mapper = new ObjectMapper();
+        //
+        //            // convert JSON array to list of destinatios
+        //            activelabs = Arrays.asList(mapper.readValue(Paths.get("activated.json").toFile(), IDestinationLab[].class));
+        //
+        //            // print books
+        //            activelabs.forEach(System.out::println);
+        //
+        //        } catch (Exception ex) {
+        //            ex.printStackTrace();
+        //        }
+        //
+        //        if (activelabs == null) { // there are not active labs
+        //            return null;
+        //        }
+        //        Optional<IDestinationLab> lab = activelabs.stream().filter(c -> c.getTitle().equals(destination)).findAny();
+
         switch (destination) {
             /**
              * Sample types are hard coded at the moment because, different laboratories use
@@ -36,7 +57,11 @@ public class SendToLimsSampleResolver {
              *
              */
 
-            case "bridh", "epworth", "chinhoyi", "kadoma", "nmrl":
+            case "bridh":
+            case "epworth":
+            case "chinhoyi":
+            case "kadoma":
+            case "nmrl":
                 if (request.getSampleId().equals("DBS")) {
                     sampleType = "Dried Blood Spot";
                 } else {
@@ -58,6 +83,7 @@ public class SendToLimsSampleResolver {
                 }
                 break;
         }
+        log.info("Sample Type after :{} ", sampleType);
 
         if (sampleType == null) {
             log.error("No sample type was found");
@@ -73,6 +99,6 @@ public class SendToLimsSampleResolver {
 
         analysisRequest.setTemplate("");
 
-        return null;
+        return analysisRequest;
     }
 }
