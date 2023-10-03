@@ -19,20 +19,24 @@ public class PatientIdentifierResolver {
 
     public void resolveAndSavePatientIdentifiers(List<Identifier> identifiers, String patientId) {
         for (Identifier identifier : identifiers) {
-            Optional<PatientIdentifier> identity = this.find(identifier.getType().getText(), patientId);
-            PatientIdentifier patientIdentifier = identity.orElse(null);
-            if (patientIdentifier != null) {
-                patientIdentifier.setNumber(identifier.getValue());
-                this.save(patientIdentifier);
-            } else {
-                PatientIdentifier newPID = new PatientIdentifier();
-                newPID.setPatientIdentifierId(UUID.randomUUID().toString());
-                newPID.setNumber(identifier.getValue());
-                newPID.setType(identifier.getType().getText());
-                newPID.setTypeId(identifier.getSystem());
-                newPID.setPatientId(patientId);
-                this.save(newPID);
-            }
+            this.addPatientIdentifier(patientId, identifier.getType().getText(), identifier.getSystem(), identifier.getValue());
+        }
+    }
+
+    public void addPatientIdentifier(String patientId, String idType, String typeId, String value) {
+        Optional<PatientIdentifier> identity = this.find(idType, patientId);
+        PatientIdentifier patientIdentifier = identity.orElse(null);
+        if (patientIdentifier != null) {
+            patientIdentifier.setNumber(value);
+            this.save(patientIdentifier);
+        } else {
+            PatientIdentifier newPID = new PatientIdentifier();
+            newPID.setPatientIdentifierId(UUID.randomUUID().toString());
+            newPID.setNumber(value);
+            newPID.setType(idType);
+            newPID.setTypeId(typeId);
+            newPID.setPatientId(patientId);
+            this.save(newPID);
         }
     }
 

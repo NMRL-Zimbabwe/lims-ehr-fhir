@@ -42,7 +42,7 @@ public class LaboratoryRequestResolver {
         labRequest.setSampleId("");
 
         labRequest.setLabId(laboratory.getIdElement().getIdPart());
-        labRequest.setLabName(laboratory.getName());
+        labRequest.setLabName("ZWLHRE002"); // laboratory.getName()
         labRequest.setClientId(facility.getIdElement().getIdPart());
         labRequest.setClient(facility.getName());
 
