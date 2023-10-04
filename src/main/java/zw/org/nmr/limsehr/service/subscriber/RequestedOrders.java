@@ -65,7 +65,7 @@ public class RequestedOrders {
     }
 
     // 60000 represents a minute
-    @Scheduled(fixedRate = 60000 * 5) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
+    @Scheduled(fixedRate = 60000 * 1) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
     public void getRequestedOrders() {
         Optional<JobScheduler> isSchedule = jobSchedulerService.resolverScheduled("GET_REQUESTED_ORDERS");
         if (isSchedule.isEmpty()) {
