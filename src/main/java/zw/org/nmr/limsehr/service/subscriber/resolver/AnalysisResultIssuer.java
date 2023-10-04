@@ -6,12 +6,15 @@ import ca.uhn.fhir.rest.client.interceptor.BasicAuthInterceptor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.hl7.fhir.r4.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import zw.org.nmr.limsehr.domain.JobScheduler;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
+import zw.org.nmr.limsehr.service.JobSchedulerService;
 import zw.org.nmr.limsehr.service.subscriber.reference.FhirReferenceCreator;
 
 @Service
@@ -28,12 +31,24 @@ public class AnalysisResultIssuer {
 
     LaboratoryRequestRepository laboratoryRequestRepository;
 
-    public AnalysisResultIssuer(LaboratoryRequestRepository laboratoryRequestRepository) {
+    JobSchedulerService jobSchedulerService;
+
+    public AnalysisResultIssuer(LaboratoryRequestRepository laboratoryRequestRepository, JobSchedulerService jobSchedulerService) {
         this.laboratoryRequestRepository = laboratoryRequestRepository;
+        this.jobSchedulerService = jobSchedulerService;
     }
 
-    @Scheduled(fixedRate = 2000)
+    // 60000 represents a minute
+    @Scheduled(fixedRate = 60000 * 1) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
     public void issueResult() {
+        Optional<JobScheduler> isSchedule = jobSchedulerService.resolverScheduled("SEND_RESULTS_TO_EHR");
+        if (isSchedule.isEmpty()) {
+            return;
+        }
+        if (isSchedule.get().isInActive()) {
+            return;
+        }
+
         FhirContext ctx = FhirContext.forR4();
         IGenericClient fhirClient = ctx.newRestfulGenericClient(this.hapiFhirBaseUrl);
         BasicAuthInterceptor authInterceptor = new BasicAuthInterceptor(this.hapiFhirUsername, this.hapiFhirPassword);

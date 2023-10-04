@@ -7,35 +7,26 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet id="000000000000011" author="Lawrence">
-		<createTable tableName="test">
+	<changeSet id="202310041002" author="Aurthur Musendame">
+		<createTable tableName="job_scheduler">
 			<column name="id" type="VARCHAR(255)">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="test_id" type="VARCHAR(255)">
-				<constraints nullable="false" />
-			</column>
-			<column name="name" type="varchar(255)">
-				<constraints nullable="false" />
-			</column>
-			<column name="state" type="varchar(255)">
-				<constraints nullable="true" />
-			</column>
-            <column name="loinc_code" type="varchar(255)">
+            <column name="job_name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="ehr_code" type="varchar(255)">
+            <column name="run_job" type="int" defaultValue="0">
                 <constraints nullable="false" />
             </column>
-			<column name="created_by" type="varchar(50)">
-				<constraints nullable="false" />
-			</column>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
 			<column name="created_date" type="timestamp" />
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
-		<loadData file="config/liquibase/data/test.csv"
-			separator=";" tableName="test">
-		</loadData>
+        <loadData file="config/liquibase/data/job_scheduler.csv"
+           separator=";" tableName="job_scheduler">
+        </loadData>
 	</changeSet>
 </databaseChangeLog>

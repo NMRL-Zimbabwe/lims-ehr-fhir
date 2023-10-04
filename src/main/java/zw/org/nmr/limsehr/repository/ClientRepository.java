@@ -1,5 +1,6 @@
 package zw.org.nmr.limsehr.repository;
 
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,7 @@ import zw.org.nmr.limsehr.domain.Client;
  */
 @Repository
 public interface ClientRepository extends JpaRepository<Client, String> {
-    Client findByClientId(String facilityId);
+    Optional<Client> findByClientId(String facilityId);
 
     Client findByNameIgnoreCase(String name);
 

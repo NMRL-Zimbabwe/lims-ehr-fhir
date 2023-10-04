@@ -1,12 +1,12 @@
-<databaseChangeLog 
-  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
-   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    
+
     <changeSet author="Lawrence" id="00000000000003">
 		<createTable tableName="client">
 			<column name="id" type="VARCHAR(255)">
@@ -33,6 +33,9 @@
 			<column name="email_address" type="VARCHAR(255)">
 				<constraints nullable="true" />
 			</column>
+            <column name="activated" type="int" defaultValue="0">
+                <constraints nullable="false" />
+            </column>
 			<column name="created_by" type="varchar(50)">
 				<constraints nullable="false" />
 			</column>
@@ -47,5 +50,5 @@
 			<dropTable tableName="client" />
 		</rollback>
 	</changeSet>
-    
+
 </databaseChangeLog>

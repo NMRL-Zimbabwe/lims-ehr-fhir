@@ -23,8 +23,8 @@ public class SampleType extends AbstractAuditingEntity implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private String id;
 
-    @Column(name = "sample_id", unique = true, nullable = false)
-    private String sampleId;
+    @Column(name = "sample_type_id", unique = true, nullable = false)
+    private String sampleTypeId;
 
     private String name;
 
@@ -47,12 +47,12 @@ public class SampleType extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public String getSampleId() {
-        return sampleId;
+    public String getSampleTypeId() {
+        return sampleTypeId;
     }
 
-    public void setSampleId(String sampleId) {
-        this.sampleId = sampleId;
+    public void setSampleTypeId(String sampleId) {
+        this.sampleTypeId = sampleTypeId;
     }
 
     public String getName() {
@@ -98,8 +98,8 @@ public class SampleType extends AbstractAuditingEntity implements Serializable {
             "id='" +
             id +
             '\'' +
-            ", sampleId='" +
-            sampleId +
+            ", sampleTypeId='" +
+            sampleTypeId +
             '\'' +
             ", name='" +
             name +

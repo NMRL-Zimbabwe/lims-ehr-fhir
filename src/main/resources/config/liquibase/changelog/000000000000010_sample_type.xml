@@ -12,7 +12,7 @@
 			<column name="id" type="VARCHAR(255)">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="sample_id" type="VARCHAR(255)">
+			<column name="sample_type_id" type="VARCHAR(255)">
 				<constraints nullable="false" />
 			</column>
 			<column name="name" type="varchar(255)">
@@ -34,7 +34,7 @@
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
-		<loadData file="config/liquibase/data/sampleType.csv" separator=";" tableName="sample_type">
+		<loadData file="config/liquibase/data/sample_type.csv" separator=";" tableName="sample_type">
 		</loadData>
 	</changeSet>
 

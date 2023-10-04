@@ -27,8 +27,9 @@
     <include file="config/liquibase/changelog/000000000000017_rejected_reason.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/000000000000018_contingency.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/202308210161800_analysis_result.xml" relativeToChangelogFile="false"/>
-
-
+    <include file="config/liquibase/changelog/202310041000_test_mapper.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/202310041001_sample_type_mapper.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/202310041002_job_scheduler.xml" relativeToChangelogFile="false"/>
 
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

@@ -1,12 +1,16 @@
 package zw.org.nmr.limsehr.service.sendToLims;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zw.org.nmr.limsehr.domain.Laboratory;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
+import zw.org.nmr.limsehr.domain.SampleType;
 import zw.org.nmr.limsehr.service.LaboratoryRequestService;
+import zw.org.nmr.limsehr.service.SampleTypeMapperService;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequestAnalysisRequestDTO;
 
 @Service
@@ -17,7 +21,10 @@ public class SendToLimsSampleResolver {
     @Autowired
     LaboratoryRequestService laboratoryRequestService;
 
-    public UnifiedLimsRequestAnalysisRequestDTO resolveSample(LaboratoryRequest request, String destination) {
+    @Autowired
+    SampleTypeMapperService sampleTypeMapperService;
+
+    public UnifiedLimsRequestAnalysisRequestDTO resolveSample(LaboratoryRequest request, Laboratory laboratory) {
         UnifiedLimsRequestAnalysisRequestDTO analysisRequest = new UnifiedLimsRequestAnalysisRequestDTO();
 
         analysisRequest.setDateSampled(LocalDate.now().toString());
@@ -27,51 +34,52 @@ public class SendToLimsSampleResolver {
 
         analysisRequest.setProfiles(profiles);
 
-        String sampleType = null;
-        log.info("Routing key :{} ", destination);
+        log.info("Routing key :{} ", laboratory.getType());
         log.info("Sample Type :{} ", request.getSampleId());
 
-        switch (destination) {
-            /**
-             * Sample types are hard coded at the moment because, different laboratories use
-             * different default sample types. For example BRIDH register samples as Blood
-             * plasma whilst Mpilo registers as whole blood
-             */
+        Optional<SampleType> sampleType = sampleTypeMapperService.resolveSampleTypeName(laboratory.getId(), request.getSampleTypeName());
 
-            case "bridh":
-            case "epworth":
-            case "chinhoyi":
-            case "kadoma":
-            case "nmrl":
-                if (request.getSampleTypeName().equals("DBS")) {
-                    sampleType = "Dried Blood Spot";
-                } else {
-                    sampleType = "Blood plasma";
-                }
-                break;
-            case "mpilo":
-                if (request.getSampleTypeName().equals("DBS")) {
-                    sampleType = "DBS";
-                } else {
-                    sampleType = "Whole blood";
-                }
-                break;
-            case "marondera":
-                if (request.getSampleTypeName().equals("DBS")) {
-                    sampleType = "DBS";
-                } else {
-                    sampleType = "Blood plasma";
-                }
-                break;
-        }
-        log.info("Sample Type after :{} ", sampleType);
+        //        switch (laboratory.getType()) {
+        //            /**
+        //             * Sample types are hard coded at the moment because, different laboratories use
+        //             * different default sample types. For example BRIDH register samples as Blood
+        //             * plasma whilst Mpilo registers as whole blood
+        //             */
+        //
+        //            case "bridh":
+        //            case "epworth":
+        //            case "chinhoyi":
+        //            case "kadoma":
+        //            case "nmrl":
+        //                if (request.getSampleTypeName().equals("DBS")) {
+        //                    sampleType = "Dried Blood Spot";
+        //                } else {
+        //                    sampleType = "Blood plasma";
+        //                }
+        //                break;
+        //            case "mpilo":
+        //                if (request.getSampleTypeName().equals("DBS")) {
+        //                    sampleType = "DBS";
+        //                } else {
+        //                    sampleType = "Whole blood";
+        //                }
+        //                break;
+        //            case "marondera":
+        //                if (request.getSampleTypeName().equals("DBS")) {
+        //                    sampleType = "DBS";
+        //                } else {
+        //                    sampleType = "Blood plasma";
+        //                }
+        //                break;
+        //        }
+        //        log.info("Sample Type after :{} ", sampleType);
 
-        if (sampleType == null) {
+        if (sampleType.isEmpty()) {
             log.error("No sample type was found");
             laboratoryRequestService.flushOurErrorsFromQueue(request, "No sample type was found");
             return null;
         }
-        analysisRequest.setSampleType(sampleType);
+        analysisRequest.setSampleType(sampleType.get().getName());
         analysisRequest.setContact("Sister in charge");
 
         if (request.getClientSampleId() != null) {

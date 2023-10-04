@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import zw.org.nmr.limsehr.domain.Laboratory;
 
 /**
- * Spring Data JPA repository for the {@link Sample} entity.
+ * Spring Data JPA repository for the {@link Laboratory} entity.
  */
 @Repository
 public interface LaboratoryRepository extends JpaRepository<Laboratory, String> {
@@ -21,4 +21,8 @@ public interface LaboratoryRepository extends JpaRepository<Laboratory, String> 
     Optional<Laboratory> findOneByCodeIgnoreCase(String email);
 
     Page<Laboratory> findByNameContainingIgnoreCaseOrCodeContainingIgnoreCase(Pageable pageable, String text, String text2);
+
+    Optional<Laboratory> findByEhrCode(String ehrLabCode);
+
+    Optional<Laboratory> findByEhrCodeOrCode(String code1, String code2);
 }

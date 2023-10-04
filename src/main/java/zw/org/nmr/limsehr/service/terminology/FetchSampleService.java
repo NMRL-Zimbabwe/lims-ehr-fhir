@@ -54,7 +54,7 @@ public class FetchSampleService {
 
                     sampleType.setId(data.getUid());
                     sampleType.setName(data.getTitle());
-                    sampleType.setSampleId(data.getId());
+                    sampleType.setSampleTypeId(data.getId());
 
                     sampleTypeRepository.save(sampleType);
                 }

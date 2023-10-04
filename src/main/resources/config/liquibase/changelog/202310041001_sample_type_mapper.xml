@@ -7,25 +7,22 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet id="000000000000011" author="Lawrence">
-		<createTable tableName="test">
+	<changeSet id="202310041001" author="Aurthur Musendame">
+		<createTable tableName="sample_type_mapper">
 			<column name="id" type="VARCHAR(255)">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="test_id" type="VARCHAR(255)">
-				<constraints nullable="false" />
-			</column>
-			<column name="name" type="varchar(255)">
-				<constraints nullable="false" />
-			</column>
-			<column name="state" type="varchar(255)">
-				<constraints nullable="true" />
-			</column>
-            <column name="loinc_code" type="varchar(255)">
+            <column name="sample_type_id" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="ehr_code" type="varchar(255)">
-                <constraints nullable="false" />
+			<column name="ehr_sample_type_name" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+            <column name="laboratory_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="laboratory_sample_type_name" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
 			<column name="created_by" type="varchar(50)">
 				<constraints nullable="false" />
@@ -34,8 +31,8 @@
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
-		<loadData file="config/liquibase/data/test.csv"
-			separator=";" tableName="test">
-		</loadData>
+        <loadData file="config/liquibase/data/sample_type_mapper.csv"
+                  separator=";" tableName="sample_type_mapper">
+        </loadData>
 	</changeSet>
 </databaseChangeLog>

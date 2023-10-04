@@ -1,4 +1,4 @@
-id;sample_id;name;state;loinc_code;ehr_code;created_by;last_modified_by
+id;sample_type_id;name;state;loinc_code;ehr_code;created_by;last_modified_by
 001a00e5d61545cd9de7ca8087cc6a73;LST001;FLUID;;;;system;system
 001a00e5d61545cd9de7ca8087cc6a74;LST002;ASPIRATE Laboratory;;;;system;system
 001a00e5d61545cd9de7ca8087cc6a75;LST003;Oropharyngeal swab;;;;system;system
