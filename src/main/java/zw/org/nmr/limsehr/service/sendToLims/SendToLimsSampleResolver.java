@@ -1,6 +1,5 @@
 package zw.org.nmr.limsehr.service.sendToLims;
 
-import java.time.LocalDate;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +26,7 @@ public class SendToLimsSampleResolver {
     public UnifiedLimsRequestAnalysisRequestDTO resolveSample(LaboratoryRequest request, Laboratory laboratory) {
         UnifiedLimsRequestAnalysisRequestDTO analysisRequest = new UnifiedLimsRequestAnalysisRequestDTO();
 
-        analysisRequest.setDateSampled(LocalDate.now().toString());
+        //    analysisRequest.setDateSampled(LocalDate.now().toString());
         //    analysisRequest.setDateSampled(request.getDateCollected().toString());
 
         String[] profiles = new String[] { "Viral Load Plasma" };
@@ -38,41 +37,6 @@ public class SendToLimsSampleResolver {
         log.info("Sample Type :{} ", request.getSampleId());
 
         Optional<SampleType> sampleType = sampleTypeMapperService.resolveSampleTypeName(laboratory.getId(), request.getSampleTypeName());
-
-        //        switch (laboratory.getType()) {
-        //            /**
-        //             * Sample types are hard coded at the moment because, different laboratories use
-        //             * different default sample types. For example BRIDH register samples as Blood
-        //             * plasma whilst Mpilo registers as whole blood
-        //             */
-        //
-        //            case "bridh":
-        //            case "epworth":
-        //            case "chinhoyi":
-        //            case "kadoma":
-        //            case "nmrl":
-        //                if (request.getSampleTypeName().equals("DBS")) {
-        //                    sampleType = "Dried Blood Spot";
-        //                } else {
-        //                    sampleType = "Blood plasma";
-        //                }
-        //                break;
-        //            case "mpilo":
-        //                if (request.getSampleTypeName().equals("DBS")) {
-        //                    sampleType = "DBS";
-        //                } else {
-        //                    sampleType = "Whole blood";
-        //                }
-        //                break;
-        //            case "marondera":
-        //                if (request.getSampleTypeName().equals("DBS")) {
-        //                    sampleType = "DBS";
-        //                } else {
-        //                    sampleType = "Blood plasma";
-        //                }
-        //                break;
-        //        }
-        //        log.info("Sample Type after :{} ", sampleType);
 
         if (sampleType.isEmpty()) {
             log.error("No sample type was found");

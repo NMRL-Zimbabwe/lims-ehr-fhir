@@ -14,7 +14,7 @@ import zw.org.nmr.limsehr.domain.Patient;
 public interface PatientRepository extends JpaRepository<Patient, String> {
     Patient findOneByPatientId(String patientId);
 
-    Patient findByPatientId(String patientId);
+    Optional<Patient> findByPatientId(String patientId);
 
     List<Patient> findFirst25ByArtIsNullAndRetryLessThan(int retry);
 
