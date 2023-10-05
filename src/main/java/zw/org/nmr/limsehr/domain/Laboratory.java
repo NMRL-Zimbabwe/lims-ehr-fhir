@@ -28,11 +28,11 @@ public class Laboratory extends AbstractAuditingEntity implements Serializable {
     private String code;
 
     @JsonIgnore
-    @Column(name = "ehr_code")
-    private String ehrCode;
+    private String type;
 
     @JsonIgnore
-    private String type;
+    @Column(name = "ehr_code")
+    private String ehrCode;
 
     public String getId() {
         return id;
