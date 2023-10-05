@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Authority } from 'app/config/authority.constants';
 
 @NgModule({
   imports: [
@@ -16,6 +17,13 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./laboratory/laboratory.module').then(m => m.LaboratoryModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
+      {
+        path: 'patients',
+        data: {
+          authorities: [Authority.ADMIN],
+        },
+        loadChildren: () => import('./patient/patient.module').then(m => m.PatientModule),
+      },
     ]),
   ],
 })

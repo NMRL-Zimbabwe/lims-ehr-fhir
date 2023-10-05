@@ -39,76 +39,28 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
             <span>
               <fa-icon icon="th-list"></fa-icon>
-              <span jhiTranslate="global.menu.entities.main">Entities</span>
+              <span>Work Space</span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-            <!-- Patient menu -->
             <li>
-              <a
-                class="dropdown-item"
-                routerLink="report"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.patient">Patient</span>
+              <a class="dropdown-item" routerLink="/patients" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+                <span>Patient management</span>
               </a>
             </li>
-            <!-- Sample menu -->
             <li>
-              <a
-                class="dropdown-item"
-                routerLink="report"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.sample">Laboratory</span>
+              <a class="dropdown-item" routerLink="/laboratory" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+                <span>Laboratory management</span>
               </a>
             </li>
-            <!-- Laboratory menu -->
             <li>
-              <a
-                class="dropdown-item"
-                routerLink="/laboratory"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.laboratory">Laboratory</span>
+              <a class="dropdown-item" routerLink="/client" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+                <span>Client management</span>
               </a>
             </li>
-            <!-- Client menu -->
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="client"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.client">Client</span>
-              </a>
-            </li>
-            <!-- Configuration menu -->
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="report"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.configuration">Client</span>
-              </a>
-            </li>
-
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>
