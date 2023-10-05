@@ -25,4 +25,6 @@ public interface LaboratoryRepository extends JpaRepository<Laboratory, String> 
     Optional<Laboratory> findByEhrCode(String ehrLabCode);
 
     Optional<Laboratory> findByEhrCodeOrCode(String code1, String code2);
+
+    Optional<Laboratory> findById(String id);
 }
