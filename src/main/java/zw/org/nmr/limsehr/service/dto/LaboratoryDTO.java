@@ -14,6 +14,8 @@ public class LaboratoryDTO {
 
     private String type;
 
+    //private String ehrCode;
+
     public LaboratoryDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -23,6 +25,7 @@ public class LaboratoryDTO {
         this.code = lab.getCode();
         this.name = lab.getName();
         this.type = lab.getType();
+        //this.ehrCode = lab.getEhrCode();
     }
 
     public String getId() {
@@ -56,6 +59,12 @@ public class LaboratoryDTO {
     public void setCode(String code) {
         this.code = code;
     }
+
+    /*
+     * public String getEhrCode() { return ehrCode; }
+     *
+     * public void setEhrCode(String ehrCode) { this.ehrCode = ehrCode; }
+     */
 
     @Override
     public String toString() {
