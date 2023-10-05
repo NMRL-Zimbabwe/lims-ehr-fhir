@@ -16,7 +16,6 @@ import zw.org.nmr.limsehr.repository.PatientIdentifierRepository;
 import zw.org.nmr.limsehr.repository.PatientPhoneRepository;
 import zw.org.nmr.limsehr.repository.PatientRepository;
 import zw.org.nmr.limsehr.service.dto.AcknowledgementFromLims;
-import zw.org.nmr.limsehr.service.dto.RegistrationFromLims;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.Coding;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.LaboratoryRequestEhrDTO;
 import zw.org.nmr.limsehr.service.enums.LaboratoryRequestStatus;

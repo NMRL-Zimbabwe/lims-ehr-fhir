@@ -6,7 +6,6 @@ import ca.uhn.fhir.rest.client.interceptor.BasicAuthInterceptor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import org.hl7.fhir.r4.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
