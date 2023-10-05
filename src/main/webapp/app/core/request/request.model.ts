@@ -5,6 +5,7 @@ export interface Pagination {
 }
 
 export interface Search {
+  text: string;
   query: string;
 }
 

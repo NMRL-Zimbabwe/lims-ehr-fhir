@@ -43,6 +43,72 @@
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+            <!-- Patient menu -->
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="report"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.patient">Patient</span>
+              </a>
+            </li>
+            <!-- Sample menu -->
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="report"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.sample">Laboratory</span>
+              </a>
+            </li>
+            <!-- Laboratory menu -->
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="report"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.laboratory">Laboratory</span>
+              </a>
+            </li>
+            <!-- Client menu -->
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="report"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.client">Client</span>
+              </a>
+            </li>
+            <!-- Configuration menu -->
+            <li>
+              <a
+                class="dropdown-item"
+                routerLink="report"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="collapseNavbar()"
+              >
+                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.configuration">Client</span>
+              </a>
+            </li>
+
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>
