@@ -6,12 +6,15 @@ import ca.uhn.fhir.rest.client.interceptor.BasicAuthInterceptor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.hl7.fhir.r4.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import zw.org.nmr.limsehr.domain.JobScheduler;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
+import zw.org.nmr.limsehr.service.JobSchedulerService;
 import zw.org.nmr.limsehr.service.subscriber.reference.FhirReferenceCreator;
 
 @Service
@@ -28,12 +31,24 @@ public class AnalysisResultIssuer {
 
     LaboratoryRequestRepository laboratoryRequestRepository;
 
-    public AnalysisResultIssuer(LaboratoryRequestRepository laboratoryRequestRepository) {
+    JobSchedulerService jobSchedulerService;
+
+    public AnalysisResultIssuer(LaboratoryRequestRepository laboratoryRequestRepository, JobSchedulerService jobSchedulerService) {
         this.laboratoryRequestRepository = laboratoryRequestRepository;
+        this.jobSchedulerService = jobSchedulerService;
     }
 
-    @Scheduled(fixedRate = 2000)
+    // 60000 represents a minute
+    @Scheduled(fixedRate = 60000 * 1) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
     public void issueResult() {
+        Optional<JobScheduler> isSchedule = jobSchedulerService.resolverScheduled("SEND_RESULTS_TO_EHR");
+        if (isSchedule.isEmpty()) {
+            return;
+        }
+        if (isSchedule.get().isInActive()) {
+            return;
+        }
+
         FhirContext ctx = FhirContext.forR4();
         IGenericClient fhirClient = ctx.newRestfulGenericClient(this.hapiFhirBaseUrl);
         BasicAuthInterceptor authInterceptor = new BasicAuthInterceptor(this.hapiFhirUsername, this.hapiFhirPassword);
@@ -57,7 +72,7 @@ public class AnalysisResultIssuer {
             task.setOutput(Collections.singletonList(output));
 
             // Loop results and add observations
-            Observation observation = getObservation(task, lr);
+            Observation observation = getObservation(fhirClient, task, lr);
 
             String observationId = observation.getIdElement().getIdPart();
             Reference observationReference = FhirReferenceCreator.getReference(observationId, "Observation");
@@ -69,10 +84,12 @@ public class AnalysisResultIssuer {
             fhirResources.add(task);
 
             //Save this Result Bundle in the Shared Health Record (SHR):: OpenHIE
-            //            FhirResourcesSaver.saveFhirResources(fhirResources);
             fhirClient.update().resource(observation).execute();
-            //            fhirClient.update().resource(diagnosticReport).execute();
-            //            fhirClient.update().resource(task).execute();
+            // Send Diagnostic report
+            fhirClient.update().resource(diagnosticReport).execute();
+            // update task status to completed
+            fhirClient.update().resource(task).execute();
+
             lr.setResultStatus("SENT_TO_EHR");
             laboratoryRequestRepository.save(lr);
         }
@@ -88,7 +105,7 @@ public class AnalysisResultIssuer {
     }
 
     //Analysis
-    public static Observation getObservation(Task task, LaboratoryRequest labReq) {
+    public static Observation getObservation(IGenericClient clt, Task task, LaboratoryRequest labReq) {
         //Note:: Here I am randomly generating the result. In reality this should come from your Lims system.
         Observation observation = new Observation();
         observation.setId(labReq.getLaboratoryRequestId());
@@ -103,11 +120,49 @@ public class AnalysisResultIssuer {
         // observation.setValue(new Quantity().setValue(Float.parseFloat(labReq.getResult())).setUnit(labReq.getUnit()));
         observation.setLanguage("ENGLISH");
 
-        //        Device device = new Device();
-        //        device.setId("abbott");
-        //        Reference deviceReference = new Reference(device);
+        Device device = new Device();
+        device.setId("abbott");
+        // Create a device name
+        StringType deviceName = new StringType();
+        deviceName.setValue("Abbott");
+        Extension deviceNameExtension = new Extension();
+        deviceNameExtension.setUrl("url:lims:device");
+        deviceNameExtension.setValue(deviceName);
+        device.addExtension(deviceNameExtension);
+        clt.update().resource(device).execute();
         //
-        //        observation.setDevice(deviceReference);
+        Reference deviceReference = FhirReferenceCreator.getReference("abbott", "Device");
+        observation.setDevice(deviceReference);
         return observation;
     }
 }
+//Quantity Value
+//   if(resultType.equals("quantityType"){
+//       observation.setValue(new Quantity().setValue(30.78).setUnit("UL/I2"));
+//       }
+//
+//       //String value
+//       if(resultType.equals("stringType"){
+//       observation.setValue(new StringType().setValue("My String value"));
+//       }
+//
+//       //Boolean value
+//       if(resultType.equals("booleanType"){
+//       observation.setValue(new BooleanType(true));
+//       }
+//
+//       //Integer value
+//       if(resultType.equals("integerType"){
+//       observation.setValue(new IntegerType().setValue(100));
+//       }
+//
+//
+//       //Ratio value
+//       if(resultType.equals("ratioType"){
+//       observation.setValue(new Ratio().setNumerator(new Quantity(50)).setDenominator(new Quantity(123.45)));
+//       }
+//
+//       //Period value
+//       if(resultType.equals("periodType"){
+//       observation.setValue(new Period().setStart(new Date()).setEnd(new Date()));
+//       }

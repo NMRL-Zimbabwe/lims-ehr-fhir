@@ -92,6 +92,6 @@ public class AnalysisResult extends AbstractAuditingEntity implements Serializab
     private String hidden;
 
     @JsonIgnore
-    @Column(name = "sync")
+    @Column(name = "sync_status")
     private String sync;
 }

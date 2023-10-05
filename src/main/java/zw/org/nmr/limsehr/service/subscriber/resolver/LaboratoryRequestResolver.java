@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.domain.Patient;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
+import zw.org.nmr.limsehr.service.utility.DateUtility;
 
 @Service
 public class LaboratoryRequestResolver {
@@ -15,8 +16,11 @@ public class LaboratoryRequestResolver {
 
     LaboratoryRequestRepository laboratoryRequestRepository;
 
-    public LaboratoryRequestResolver(LaboratoryRequestRepository laboratoryRequestRepository) {
+    DateUtility dateUtility;
+
+    public LaboratoryRequestResolver(LaboratoryRequestRepository laboratoryRequestRepository, DateUtility dateUtility) {
         this.laboratoryRequestRepository = laboratoryRequestRepository;
+        this.dateUtility = dateUtility;
     }
 
     public LaboratoryRequest resolveAndSaveLaboratoryRequest(
@@ -34,32 +38,42 @@ public class LaboratoryRequestResolver {
 
         labRequest.setLaboratoryRequestId(serviceRequest.getIdElement().getIdPart());
         labRequest.setMiddlewareClientUuid(serviceRequest.getIdElement().getIdPart());
-
         labRequest.setPatient(patient);
 
-        // TODO this field is empty
-        //        labRequest.setDateCollected();
-        labRequest.setSampleId("");
+        // Test Requested
+        for (Coding cod : serviceRequest.getCode().getCoding()) {
+            if (cod.getSystem().equals("urn:impilo:code")) {
+                labRequest.setTestId("urn:impilo:code");
+                labRequest.setTestName(cod.getDisplay());
+            }
+        }
+
+        if (specimen.hasCollection() && specimen.getCollection().hasCollected()) {
+            Type collected = specimen.getCollection().getCollected();
+            if (collected instanceof DateTimeType dateTimeTypeCollected) {
+                labRequest.setDateCollected(dateUtility.dateToLocalDateTime(dateTimeTypeCollected.getValue()));
+            }
+        }
 
         labRequest.setLabId(laboratory.getIdElement().getIdPart());
-        labRequest.setLabName("ZWLHRE002"); // laboratory.getName()
+        labRequest.setLabName(laboratory.getName());
         labRequest.setClientId(facility.getIdElement().getIdPart());
         labRequest.setClient(facility.getName());
 
         log.debug("Specimen {}", specimen.getType().getCoding());
 
+        // sample type
         for (Coding testCode : specimen.getType().getCoding()) {
-            log.debug("testCode {}", testCode);
-            //   "http://loinc.org"
-            if (testCode.getSystem().equals("urn:lims:code")) {
-                labRequest.setTestId(testCode.getCode());
-            } else {
-                labRequest.setTestId("Lindsay");
+            log.debug("sample type {}", testCode);
+            if (testCode.getSystem().equals("urn:impilo:code")) {
+                labRequest.setSampleTypeId("urn:impilo:code");
+                labRequest.setSampleTypeName(testCode.getDisplay());
             }
         }
-        //
+
+        // client sample id
         for (Identifier identifier : specimen.getIdentifier()) {
-            if (identifier.getType().getText().equals("Laboratory Request Number")) {
+            if (identifier.getSystem().equals("urn:impilo:cid")) {
                 labRequest.setClientSampleId(identifier.getValue());
             }
         }

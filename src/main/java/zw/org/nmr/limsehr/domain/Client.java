@@ -42,6 +42,17 @@ public class Client extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private String emailAddress;
 
+    @JsonIgnore
+    private int activated;
+
+    public boolean isActive() {
+        return activated > 0;
+    }
+
+    public boolean isInActive() {
+        return !isActive();
+    }
+
     public String getClientId() {
         return clientId;
     }
@@ -106,26 +117,45 @@ public class Client extends AbstractAuditingEntity implements Serializable {
         this.parentPath = parentPath;
     }
 
+    public int getActivated() {
+        return activated;
+    }
+
+    public void setActivated(int activated) {
+        this.activated = activated;
+    }
+
     @Override
     public String toString() {
         return (
-            "Client [id=" +
+            "Client{" +
+            "id='" +
             id +
-            ", clientId=" +
+            '\'' +
+            ", clientId='" +
             clientId +
-            ", name=" +
+            '\'' +
+            ", name='" +
             name +
-            ", path=" +
+            '\'' +
+            ", path='" +
             path +
-            ", portal_type=" +
+            '\'' +
+            ", portal_type='" +
             portal_type +
-            ", parentPath=" +
+            '\'' +
+            ", parentPath='" +
             parentPath +
-            ", phone=" +
+            '\'' +
+            ", phone='" +
             phone +
-            ", emailAddress=" +
+            '\'' +
+            ", emailAddress='" +
             emailAddress +
-            "]"
+            '\'' +
+            ", activated=" +
+            activated +
+            '}'
         );
     }
 }

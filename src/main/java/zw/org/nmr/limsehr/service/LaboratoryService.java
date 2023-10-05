@@ -27,6 +27,10 @@ public class LaboratoryService {
         this.laboratoryRepository = laboratoryRepository;
     }
 
+    public Optional<Laboratory> resolveByCode(String ehrLabCode) {
+        return laboratoryRepository.findByEhrCodeOrCode(ehrLabCode, ehrLabCode);
+    }
+
     public Laboratory saveLab(LaboratoryDTO labDTO) {
         Optional<Laboratory> exists = laboratoryRepository.findByCode(labDTO.getCode());
 
@@ -49,7 +53,6 @@ public class LaboratoryService {
     /**
      * Update all information for a specific lab, and return the modified lab.
      *
-     * @param LaboratoryDTO lab to update.
      * @return updated lab.
      */
     public Optional<LaboratoryDTO> updateLab(LaboratoryDTO labDTO) {

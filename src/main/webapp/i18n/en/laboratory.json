@@ -1,0 +1,26 @@
+{
+  "limsEhrIntegrationApp": {
+    "laboratory": {
+      "home": {
+        "title": "Laboratories",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Laboratory",
+        "createOrEditLabel": "Create or edit a Laboratory",
+        "notFound": "No Laboratories found"
+      },
+      "created": "A new Laboratory is created with identifier {{ param }}",
+      "updated": "A Laboratory is updated with identifier {{ param }}",
+      "deleted": "A Laboratory is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Laboratory {{ id }}?"
+      },
+      "detail": {
+        "title": "Laboratory"
+      },
+      "id": "ID",
+      "name": "Name",
+      "code": "Code",
+      "type": "Type"
+    }
+  }
+}

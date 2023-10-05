@@ -1,13 +1,13 @@
-<databaseChangeLog 
-  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
-   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    
-    
+
+
     <changeSet id="000000000000014" author="Lawrence">
 		<createTable tableName="laboratory_request">
 			<column name="laboratory_request_id" type="VARCHAR(255)">
@@ -25,11 +25,10 @@
 			</column>
 			<column name="lab_id" type="varchar(255)">
 				<constraints nullable="false" />
-			</column>	
+			</column>
 			<column name="lab_name" type="varchar(255)">
 				<constraints nullable="false" />
 			</column>
-			
 			<column name="middleware_client_uuid" type="varchar(255)">
 				<constraints nullable="false" />
 			</column>
@@ -45,15 +44,21 @@
 					references="patient(patient_id)" nullable="false" />
 			</column>
 			<column name="sample_id" type="varchar(255)">
-				<constraints nullable="false" />
+				<constraints nullable="true" />
 			</column>
+            <column name="sample_type_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sample_type_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
 			<column name="test_id" type="varchar(255)">
 				<constraints nullable="false" />
 			</column>
+            <column name="test_name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
 			<column name="remarks" type="varchar(255)">
-				<constraints nullable="true" />
-			</column>
-			<column name="unit" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
 			<column name="date_tested" type="date">
@@ -62,12 +67,15 @@
 			<column name="lab_reference_sample_id" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
+            <column name="date_collected" type="datetime">
+                <constraints nullable="true" />
+            </column>
 			<column name="result" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
-			<column name="date_collected" type="DATE">
-				<constraints nullable="true" />
-			</column>
+            <column name="unit" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
 			<column name="review_state" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
@@ -77,7 +85,6 @@
 			<column name="dispatched" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
-			
 			<column name="acknowledge_record_receipt" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
@@ -86,11 +93,20 @@
 			</column>
 			<column name="sent_to_lims" type="varchar(255)" />
 			<column name="sent_to_ehr" type="varchar(255)" />
-
+            <column name="retry" type="int">
+                <constraints nullable="false" />
+            </column>
+            <column name="error_reason" type="varchar(255)" />
 			<column name="created_by" type="varchar(50)">
 				<constraints nullable="false" />
 			</column>
+            <column name="result_status" type="VARCHAR(255)" />
 			<column name="created_date" type="timestamp" />
+            <column name="date_result_received_from_lims" type="date" />
+            <column name="instrument" type="varchar(255)" />
+            <column name="method" type="varchar(255)" />
+            <column name="sampler" type="varchar(255)" />
+            <column name="reviewer" type="varchar(255)" />
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>

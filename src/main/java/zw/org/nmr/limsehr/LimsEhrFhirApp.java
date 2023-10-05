@@ -22,7 +22,6 @@ import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 import zw.org.nmr.limsehr.config.ApplicationProperties;
 import zw.org.nmr.limsehr.config.CRLFLogConverter;
-import zw.org.nmr.limsehr.lims_ehr.events.AnalysisResquestEvent;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
@@ -129,10 +128,5 @@ public class LimsEhrFhirApp {
     @Bean
     RestTemplate restTemplateWithConnectReadTimeout() {
         return new RestTemplateBuilder().setConnectTimeout(Duration.ofMillis(TIMEOUT)).setReadTimeout(Duration.ofMillis(TIMEOUT)).build();
-    }
-
-    @Bean
-    AnalysisResquestEvent analysisResquestEvent() {
-        return new AnalysisResquestEvent();
     }
 }

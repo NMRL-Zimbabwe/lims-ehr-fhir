@@ -16,9 +16,9 @@ import zw.org.nmr.limsehr.domain.Laboratory;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.domain.Patient;
 import zw.org.nmr.limsehr.repository.ClientRepository;
-import zw.org.nmr.limsehr.repository.LaboratoryRepository;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
 import zw.org.nmr.limsehr.repository.PatientRepository;
+import zw.org.nmr.limsehr.service.LaboratoryService;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.DTOforLIMS;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.SampleDTOforLIMS;
 import zw.org.nmr.limsehr.service.dto.unified.lims_request.UnifiedLimsRequest;
@@ -42,7 +42,7 @@ public class SendToLimsService {
     PatientRepository patientRepository;
 
     @Autowired
-    LaboratoryRepository laboratoryRepository;
+    LaboratoryService laboratoryService;
 
     @Autowired
     SendToLimsSampleResolver sendToLimsSampleResolver;
@@ -86,15 +86,13 @@ public class SendToLimsService {
             /**
              * Construct patient details
              */
-            Optional<Laboratory> optLab = laboratoryRepository.findByCode(request.getLabId());
-            // destination is the name used to identify the amq queue
-            String destination = null;
+            Laboratory laboratory = null;
+            Optional<Laboratory> optLab = laboratoryService.resolveByCode(request.getLabId());
 
             if (optLab.isPresent()) {
-                Laboratory laboratory = optLab.orElseThrow(null);
+                laboratory = optLab.orElseThrow(null);
                 unifiedLimsRequest.setLabId(laboratory.getId());
                 unifiedLimsRequest.setLabName(laboratory.getName());
-                destination = laboratory.getType();
             } else {
                 if (request.getLabId() != null) {
                     log.error("UNKNOWN Laboratory :{}", request.getLabId());
@@ -112,14 +110,14 @@ public class SendToLimsService {
              */
 
             /**   UnifiedLimsRequestBatchDTO analysisCase = new UnifiedLimsRequestBatchDTO();
-            analysisCase.setCaseType("VL");
-            analysisCase.setClientCaseID("");
-            analysisCase.setReasonForVLtest("Routine Viral Load");
-            analysisCase.setVLBreastFeeding(false);
-            analysisCase.setVLPregnant(false);
+             analysisCase.setCaseType("VL");
+             analysisCase.setClientCaseID("");
+             analysisCase.setReasonForVLtest("Routine Viral Load");
+             analysisCase.setVLBreastFeeding(false);
+             analysisCase.setVLPregnant(false);
 
-            unifiedLimsRequest.setBatch(analysisCase);
-         */
+             unifiedLimsRequest.setBatch(analysisCase);
+             */
 
             UnifiedLimsRequestBatchDTO analysisCase = sendToLimsBatchResolver.resolveBatch();
 
@@ -128,7 +126,10 @@ public class SendToLimsService {
              * Construct laboratory request details
              */
 
-            UnifiedLimsRequestAnalysisRequestDTO analysisRequest = sendToLimsSampleResolver.resolveSample(request, destination);
+            UnifiedLimsRequestAnalysisRequestDTO analysisRequest = sendToLimsSampleResolver.resolveSample(request, laboratory);
+            if (analysisRequest == null) {
+                return;
+            }
             unifiedLimsRequest.setAnalysisRequest(analysisRequest);
 
             // The code below will be substituted with the bundled request
@@ -140,22 +141,19 @@ public class SendToLimsService {
             builder.setGender(patient.getGender());
             builder.setBirthDate(patient.getDob().toString());
 
-            String clientStatus = "active";
-
-            Client client = clientRepository.findByClientIdAndParentPath(request.getClientId(), clientStatus);
-
-            if (client == null) {
-                //builder.setPrimaryReferrer(client.getId());
+            Optional<Client> client = clientRepository.findByClientId(request.getClientId());
+            if (client.isEmpty()) {
                 log.error("Client ID not found or not active :{} ", request.getClientId());
-                flushOurErrorsFromQueue(request, "Client ID not found or not active");
+                flushOurErrorsFromQueue(request, "Client ID not found");
                 return;
-            } else {
-                builder.setPrimaryReferrer(client.getId());
             }
+            if (client.get().isInActive()) {
+                log.error("Client is not activated :{} ", request.getClientId());
+                flushOurErrorsFromQueue(request, "Client is not activated");
+            }
+            builder.setPrimaryReferrer(client.get().getId());
 
-            // log.debug("Client information {}", client);
-
-            builder.setParent_path(client.getPath());
+            builder.setParent_path(client.get().getPath());
             builder.setPortal_type("Patient");
             if (patient.getArt() != null) {
                 builder.setClientPatientId(patient.getArt().replace("-", ""));
@@ -164,7 +162,7 @@ public class SendToLimsService {
             SampleDTOforLIMS sample = new SampleDTOforLIMS();
             sample.setDateSampled(request.getDateCollected().toString());
             sample.setPortal_type("AnalysisRequest");
-            sample.setParent_path(client.getPath());
+            sample.setParent_path(client.get().getPath());
 
             sample.setClientSampleId(request.getClientSampleId());
 
@@ -175,9 +173,9 @@ public class SendToLimsService {
 
             builder.setSample(sample);
 
-            if (unifiedLimsRequest.getPatient().getClientPatientID() != null && destination != null) {
-                log.error("Destination :{}", destination);
-                sendMessageToLims(unifiedLimsRequest, destination); // Flag sent request as sent to LIMS
+            if (unifiedLimsRequest.getPatient().getClientPatientID() != null && laboratory.getType() != null) {
+                log.error("Destination :{}", laboratory.getType());
+                sendMessageToLims(unifiedLimsRequest, laboratory.getType()); // Flag sent request as sent to LIMS
                 request.setSentToLims(LaboratoryRequestStatus.SENT_TO_LIMS.toString());
 
                 // TODO move the persistence process to a service

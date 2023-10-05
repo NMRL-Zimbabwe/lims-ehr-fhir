@@ -28,6 +28,10 @@ public class Laboratory extends AbstractAuditingEntity implements Serializable {
     private String code;
 
     @JsonIgnore
+    @Column(name = "ehr_code")
+    private String ehrCode;
+
+    @JsonIgnore
     private String type;
 
     public String getId() {
@@ -58,12 +62,38 @@ public class Laboratory extends AbstractAuditingEntity implements Serializable {
         return type;
     }
 
+    public String getEhrCode() {
+        return ehrCode;
+    }
+
+    public void setEhrCode(String ehrCode) {
+        this.ehrCode = ehrCode;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
 
     @Override
     public String toString() {
-        return "Laboratory [id=" + id + ", name=" + name + ", code=" + code + ", type=" + type + "]";
+        return (
+            "Laboratory{" +
+            "id='" +
+            id +
+            '\'' +
+            ", name='" +
+            name +
+            '\'' +
+            ", code='" +
+            code +
+            '\'' +
+            ", ehrCode='" +
+            ehrCode +
+            '\'' +
+            ", type='" +
+            type +
+            '\'' +
+            '}'
+        );
     }
 }

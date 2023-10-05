@@ -1,10 +1,10 @@
-<databaseChangeLog 
-  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
-   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="000000000000015" author="Lawrence">
 		<createTable tableName="analysis_profile">
@@ -35,11 +35,17 @@
 			<column name="created_by" type="varchar(50)">
 				<constraints nullable="false" />
 			</column>
+            <column name="loinc_code" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="ehr_code" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
 			<column name="created_date" type="timestamp" />
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
 	</changeSet>
-    
-    
+
+
 </databaseChangeLog>
