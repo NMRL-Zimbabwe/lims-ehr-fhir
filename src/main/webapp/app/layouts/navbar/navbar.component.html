@@ -52,7 +52,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.patient">Patient</span>
               </a>
             </li>
@@ -65,7 +65,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.sample">Laboratory</span>
               </a>
             </li>
@@ -73,12 +73,12 @@
             <li>
               <a
                 class="dropdown-item"
-                routerLink="report"
+                routerLink="/laboratory"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.laboratory">Laboratory</span>
               </a>
             </li>
@@ -86,12 +86,12 @@
             <li>
               <a
                 class="dropdown-item"
-                routerLink="report"
+                routerLink="client"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.client">Client</span>
               </a>
             </li>
@@ -104,7 +104,7 @@
                 [routerLinkActiveOptions]="{ exact: true }"
                 (click)="collapseNavbar()"
               >
-                <fa-icon icon="chart-column" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="home" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.entities.configuration">Client</span>
               </a>
             </li>
