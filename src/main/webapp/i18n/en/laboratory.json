@@ -20,7 +20,8 @@
       "id": "ID",
       "name": "Name",
       "code": "Code",
-      "type": "Type"
+      "type": "Type",
+      "ehrCode": "EHR Code"
     }
   }
 }

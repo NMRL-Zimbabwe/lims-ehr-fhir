@@ -31,6 +31,11 @@
         <input type="text" class="form-control" name="type" id="field_type" data-cy="type" formControlName="type" />
       </div>
 
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.laboratory.ehrCode" for="field_type">EHR Code</label>
+        <input type="text" class="form-control" name="ehrCode" id="field_type" data-cy="ehrCode" formControlName="ehrCode" />
+      </div>
+
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
