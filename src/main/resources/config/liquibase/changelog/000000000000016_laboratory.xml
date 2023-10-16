@@ -32,7 +32,7 @@
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
 		<loadData file="config/liquibase/data/laboratory.csv"
-			separator=";" tableName="laboratory">
+			separator="," tableName="laboratory">
 		</loadData>
 	</changeSet>
 
