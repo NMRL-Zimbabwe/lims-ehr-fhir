@@ -21,6 +21,7 @@ type LaboratoryFormGroupContent = {
   name: FormControl<ILaboratory['name']>;
   code: FormControl<ILaboratory['code']>;
   type: FormControl<ILaboratory['type']>;
+  ehrCode: FormControl<ILaboratory['ehrCode']>;
 };
 
 export type LaboratoryFormGroup = FormGroup<LaboratoryFormGroupContent>;
@@ -43,6 +44,7 @@ export class LaboratoryFormService {
       name: new FormControl(laboratoryRawValue.name),
       code: new FormControl(laboratoryRawValue.code),
       type: new FormControl(laboratoryRawValue.type),
+      ehrCode: new FormControl(laboratoryRawValue.ehrCode),
     });
   }
 
