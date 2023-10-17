@@ -1,6 +1,7 @@
 package zw.org.nmr.limsehr.service.impl;
 
 import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,8 +23,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client save(Client client) {
-        // TODO Auto-generated method stub
-        return null;
+        if (client.getId() == null) {
+            client.setId(UUID.randomUUID().toString());
+        }
+
+        return clientRepository.save(client);
     }
 
     void delete(Client client) {}
