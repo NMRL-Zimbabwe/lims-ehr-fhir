@@ -35,7 +35,7 @@
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
         <loadData file="config/liquibase/data/test_mapper.csv"
-                  separator=";" tableName="test_mapper">
+                  separator="," tableName="test_mapper">
         </loadData>
 	</changeSet>
 </databaseChangeLog>

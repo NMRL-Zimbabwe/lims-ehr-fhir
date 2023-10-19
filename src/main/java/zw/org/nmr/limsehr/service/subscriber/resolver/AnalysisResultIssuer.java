@@ -100,6 +100,7 @@ public class AnalysisResultIssuer {
         diagnosticReport.setId(labRequestId);
         //This is hard coded for now as an example
         diagnosticReport.setCode(new CodeableConcept(new Coding("http://loinc.org", "22748-8", "")));
+        //diagnosticReport.setIssued(null)
         diagnosticReport.setSubject(task.getFor());
         return diagnosticReport;
     }

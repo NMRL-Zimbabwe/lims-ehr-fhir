@@ -56,7 +56,15 @@ public class LaboratoryRequestResolver {
             }
         }
 
-        labRequest.setLabId(laboratory.getIdElement().getIdPart());
+        String impiloLaboratoryCode = laboratory
+            .getIdentifier()
+            .stream()
+            .filter(i -> i.getSystem().equals("urn:impilo:code"))
+            .map(Identifier::getValue)
+            .findFirst()
+            .orElse(null);
+
+        labRequest.setLabId(impiloLaboratoryCode);
         labRequest.setLabName(laboratory.getName());
         labRequest.setClientId(facility.getIdElement().getIdPart());
         labRequest.setClient(facility.getName());

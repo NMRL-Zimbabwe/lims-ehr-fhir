@@ -34,7 +34,7 @@
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
-		<loadData file="config/liquibase/data/sample_type.csv" separator=";" tableName="sample_type">
+		<loadData file="config/liquibase/data/sample_type.csv" separator="," tableName="sample_type">
 		</loadData>
 	</changeSet>
 
