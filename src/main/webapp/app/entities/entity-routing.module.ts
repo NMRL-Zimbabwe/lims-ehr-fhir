@@ -15,6 +15,11 @@ import { Authority } from 'app/config/authority.constants';
         data: { pageTitle: 'limsEhrIntegrationApp.laboratory.home.title' },
         loadChildren: () => import('./laboratory/laboratory.module').then(m => m.LaboratoryModule),
       },
+      {
+        path: 'laboratoryRequest',
+        data: { pageTitle: 'limsEhrIntegrationApp.laboratoryRequest.home.title' },
+        loadChildren: () => import('./laboratory-request/laboratory-request.module').then(m => m.LaboratoryRequestModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
       {
         path: 'patients',
