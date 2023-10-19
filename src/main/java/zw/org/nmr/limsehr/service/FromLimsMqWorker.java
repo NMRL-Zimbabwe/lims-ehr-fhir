@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.service.dto.AcknowledgementFromLims;
+import zw.org.nmr.limsehr.service.impl.LaboratoryRequestServiceImpl;
 
 @Service
 //@Transactional
@@ -25,7 +26,7 @@ public class FromLimsMqWorker {
      * @writer Lawrence
      */
     @Autowired
-    LaboratoryRequestService laboratoryRequestService;
+    LaboratoryRequestServiceImpl laboratoryRequestServiceImpl;
 
     @Autowired
     private ObjectMapper mapper;
@@ -44,6 +45,6 @@ public class FromLimsMqWorker {
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         AcknowledgementFromLims obj = mapper.readValue(string, AcknowledgementFromLims.class);
 
-        laboratoryRequestService.updateLaoratoryRequest(obj);
+        laboratoryRequestServiceImpl.updateLaoratoryRequest(obj);
     }
 }

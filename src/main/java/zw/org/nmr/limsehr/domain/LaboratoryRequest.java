@@ -38,15 +38,12 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     private String middlewareAnalysisRequestUuid;
 
     @Column(name = "lab_id")
-    @JsonIgnore
     private String labId;
 
     @Column(name = "lab_name")
-    @JsonIgnore
     private String labName;
 
     @Column(name = "client_sample_id")
-    @JsonIgnore
     private String clientSampleId;
 
     @ManyToOne(optional = false)
@@ -65,7 +62,6 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     private String client;
 
     @Column(name = "sample_id")
-    @JsonIgnore
     private String sampleId;
 
     @Column(name = "test_id")
@@ -73,22 +69,17 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     private String testId;
 
     @Column(name = "test_name")
-    @JsonIgnore
     private String testName;
 
     @Column(name = "sample_type_id")
-    @JsonIgnore
     private String sampleTypeId;
 
     @Column(name = "sample_type_name")
-    @JsonIgnore
     private String sampleTypeName;
 
-    @JsonIgnore
     @Column(name = "lab_reference_sample_id")
     private String labReferenceSampleId;
 
-    @JsonIgnore
     private String result;
 
     @JsonIgnore
@@ -113,17 +104,14 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     private String acknowledgeRecordReceipt;
 
     @Column(name = "date_collected")
-    @JsonIgnore
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime dateCollected;
 
     @Column(name = "date_tested")
-    @JsonIgnore
     @JsonFormat(pattern = "dd::MM::yyyy")
     private LocalDate dateTested;
 
     @Column(name = "review_state")
-    @JsonIgnore
     private String reviewState;
 
     @JsonIgnore

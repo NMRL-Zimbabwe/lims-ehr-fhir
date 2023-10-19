@@ -76,6 +76,70 @@ public class LaboratoryRequestDTO {
     @JsonIgnore
     private LocalDate dateResultReceivedFromLims;
 
+    public LaboratoryRequestDTO() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public LaboratoryRequestDTO(
+        String laboratoryRequestId,
+        String limsAnalysisRequestUuid,
+        String middlewareAnalysisRequestUuid,
+        String labId,
+        String labName,
+        String clientSampleId,
+        Patient patient,
+        String middlewareSampleId,
+        String middleware_test_id,
+        String middlewareFacilityId,
+        String facilityId,
+        String sampleId,
+        String testId,
+        String labReferenceSampleId,
+        String result,
+        String unit,
+        String remarks,
+        LocalDate dateCollected,
+        LocalDate dateTested,
+        String reviewState,
+        String dispatched,
+        String sentToLims,
+        String sentToEhr,
+        int retry,
+        String errorReason,
+        String resultStatus,
+        LocalDate dateResultReceivedFromLims
+    ) {
+        super();
+        this.laboratoryRequestId = laboratoryRequestId;
+        this.limsAnalysisRequestUuid = limsAnalysisRequestUuid;
+        this.middlewareAnalysisRequestUuid = middlewareAnalysisRequestUuid;
+        this.labId = labId;
+        this.labName = labName;
+        this.clientSampleId = clientSampleId;
+        this.patient = patient;
+        this.middlewareSampleId = middlewareSampleId;
+        this.middleware_test_id = middleware_test_id;
+        this.middlewareFacilityId = middlewareFacilityId;
+        this.facilityId = facilityId;
+        this.sampleId = sampleId;
+        this.testId = testId;
+        this.labReferenceSampleId = labReferenceSampleId;
+        this.result = result;
+        this.unit = unit;
+        this.remarks = remarks;
+        this.dateCollected = dateCollected;
+        this.dateTested = dateTested;
+        this.reviewState = reviewState;
+        this.dispatched = dispatched;
+        this.sentToLims = sentToLims;
+        this.sentToEhr = sentToEhr;
+        this.retry = retry;
+        this.errorReason = errorReason;
+        this.resultStatus = resultStatus;
+        this.dateResultReceivedFromLims = dateResultReceivedFromLims;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -1,6 +1,8 @@
 package zw.org.nmr.limsehr.repository;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
@@ -51,4 +53,10 @@ public interface LaboratoryRequestRepository extends JpaRepository<LaboratoryReq
     List<LaboratoryRequest> findByReviewStateIsNullAndResultStatusIsNull();
 
     List<LaboratoryRequest> findByResultIsNotNullAndResultStatusIsNull();
+
+    Page<LaboratoryRequest> findByClientSampleIdContainingIgnoreCaseOrSampleIdContainingIgnoreCase(
+        Pageable pageable,
+        String text,
+        String text2
+    );
 }
