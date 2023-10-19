@@ -1,0 +1,93 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-patient-heading" data-cy="PatientCreateUpdateHeading" jhiTranslate="limsEhrIntegrationApp.patient.home.createOrEditLabel">
+        Create or edit a patient
+      </h2>
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <div class="row mb-3" *ngIf="editForm.controls.patientId.value !== null">
+        <label class="form-label" jhiTranslate="global.field.id" for="field_id">Patient ID</label>
+        <input
+          type="string"
+          class="form-control"
+          name="patientId"
+          id="field_id"
+          data-cy="patientId"
+          formControlName="patientId"
+          [readonly]="true"
+        />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.patient.firstname" for="field_firstname">First Name</label>
+        <input type="text" class="form-control" name="firstname" id="field_firstname" data-cy="firstname" formControlName="firstname" />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.patient.lastname" for="field_lastname">Last Name</label>
+        <input type="text" class="form-control" name="lastname" id="field_lastname" data-cy="lastname" formControlName="lastname" />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.patient.gender" for="field_gender">Gender</label>
+        <input type="text" class="form-control" name="gender" id="field_gender" data-cy="gender" formControlName="gender" />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.patient.primary_referrer" for="field_primary_referrer"
+          >Primary Referrer</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          name="primary_referrer"
+          id="field_primary_referrer"
+          data-cy="primary_referrer"
+          formControlName="primary_referrer"
+        />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.patient.primary_referrer_id" for="field_primary_referrer_id"
+          >Primary Referrer ID</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          name="primary_referrer_id"
+          id="field_primary_referrer_id"
+          data-cy="primary_referrer_id"
+          formControlName="primary_referrer_id"
+        />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.patient.art" for="field_art">Patient ART #</label>
+        <input type="text" class="form-control" name="art" id="field_art" data-cy="art" formControlName="art" />
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" jhiTranslate="limsEhrIntegrationApp.patient.dob" for="field_art">Date Of Birth</label>
+        <input type="text" class="form-control" name="dob" id="field_dob" data-cy="dob" formControlName="dob" />
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

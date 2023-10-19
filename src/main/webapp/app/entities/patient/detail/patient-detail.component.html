@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="patient">
+      <h2 data-cy="patientDetailsHeading"><span jhiTranslate="limsEhrIntegrationApp.patient.detail.title">Patient</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">Patient ID</span></dt>
+        <dd>
+          <span>{{ patient.patientId }}</span>
+        </dd>
+        <dt><span jhiTranslate="limsEhrIntegrationApp.patient.firstname">First Name</span></dt>
+        <dd>
+          <span>{{ patient.firstname }}</span>
+        </dd>
+        <dt><span jhiTranslate="limsEhrIntegrationApp.patient.lastname">Last Name</span></dt>
+        <dd>
+          <span>{{ patient.lastname }}</span>
+        </dd>
+        <dt><span jhiTranslate="limsEhrIntegrationApp.patient.gender">Gender</span></dt>
+        <dd>
+          <span>{{ patient.gender }}</span>
+        </dd>
+        <dt><span jhiTranslate="limsEhrIntegrationApp.patient.primary_referrer">Primary Referrer</span></dt>
+        <dd>
+          <span>{{ patient.primary_referrer }}</span>
+        </dd>
+        <dt><span jhiTranslate="limsEhrIntegrationApp.patient.primary_referrer_id">Primary Referrer ID </span></dt>
+        <dd>
+          <span>{{ patient.primary_referrer_id }}</span>
+        </dd>
+        <dt><span jhiTranslate="limsEhrIntegrationApp.patient.art">Art</span></dt>
+        <dd>
+          <span>{{ patient.art }}</span>
+        </dd>
+        <dt><span jhiTranslate="limsEhrIntegrationApp.patient.dob">Date Of Birth</span></dt>
+        <dd>
+          <span>{{ patient.dob }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/patient', patient.patientId, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

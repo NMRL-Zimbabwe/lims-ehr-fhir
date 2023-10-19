@@ -50,12 +50,12 @@ import zw.org.nmr.limsehr.service.dto.PatientDTO;
  * Another option would be to have a specific JPA entity graph to handle this case.
  */
 @RestController
-@RequestMapping("/api/patients")
+@RequestMapping("/api")
 public class PatientResource {
 
     private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(
         Arrays.asList(
-            "id",
+            "patientId",
             "login",
             "firstName",
             "lastName",
@@ -86,7 +86,7 @@ public class PatientResource {
      * @param patientDTO the patient to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated patient.
      */
-    @PutMapping("/")
+    @PutMapping("/patients")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Patient> updatePatient(@Valid @RequestBody PatientDTO patientDTO) {
         log.debug("REST request to update Patient : {}", patientDTO);
@@ -103,7 +103,7 @@ public class PatientResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all patients.
      */
-    @GetMapping("/")
+    @GetMapping("/patients")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<List<Patient>> getAllPatients(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get all Patient for an admin");
@@ -111,7 +111,7 @@ public class PatientResource {
             return ResponseEntity.badRequest().build();
         }
 
-        final Page<Patient> page = patientService.getAll(pageable);
+        final Page<Patient> page = patientService.getAllPatients(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -126,10 +126,22 @@ public class PatientResource {
      * @param id the login of the patient to find.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the "id" patient, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/{id}")
+    @GetMapping("/patients/{id}")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Patient> getPatient(@PathVariable String id) {
         log.debug("REST request to get Patient : {}", id);
-        return ResponseUtil.wrapOrNotFound(patientService.getPatientByPatientId(id));
+        return ResponseUtil.wrapOrNotFound(patientService.getOne(id));
+    }
+
+    @GetMapping("/patients/search")
+    public ResponseEntity<List<Patient>> searchPatient(Pageable pageable, String text) {
+        log.debug("REST request text serach : {}", text);
+        if (!onlyContainsAllowedProperties(pageable)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        final Page<Patient> page = patientService.searchPatient(pageable, text);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }

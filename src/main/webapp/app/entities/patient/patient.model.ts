@@ -1,23 +1,12 @@
 export interface IPatient {
   patientId: string;
-  firstname: string;
-  lastname: string;
-  gender: string;
-  primaryReferrer: string;
-  primaryReferrerId: string;
-  art: string;
-  dob: string;
+  firstname?: string | null;
+  lastname?: string | null;
+  gender?: string | null;
+  primary_referrer?: string | null;
+  primary_referrer_id?: string | null;
+  dob?: string | null;
+  art?: string | null;
 }
 
-export class Patient implements IPatient {
-  constructor(
-    public patientId: string,
-    public firstname: string,
-    public lastname: string,
-    public gender: string,
-    public primaryReferrer: string,
-    public primaryReferrerId: string,
-    public art: string,
-    public dob: string
-  ) {}
-}
+export type NewPatient = Omit<IPatient, 'patientId'> & { patientId: null };
