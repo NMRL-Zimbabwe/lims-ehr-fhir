@@ -1,0 +1,166 @@
+<div>
+  <h2 id="page-heading" data-cy="PatientHeading">
+    <span jhiTranslate="limsEhrIntegrationApp.patient.home.title">Patient</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="limsEhrIntegrationApp.patient.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-patient"
+        [routerLink]="['/patient/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="limsEhrIntegrationApp.patient.home.createLabel"> Create a new Patient </span>
+      </button>
+    </div>
+    <hr />
+    <div class="patient-search row justify-content-around">
+      <div class="col-4">
+        <input type="text" placeholder="patient Name ......" class="form-control" (input)="searchPatient($event)" />
+      </div>
+      <div class="col-8 d-flex">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-patient" (click)="searchPatient($event)">
+          <fa-icon icon="plus"></fa-icon>
+          <span>Search patient</span>
+        </button>
+      </div>
+    </div>
+  </h2>
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="patients?.length === 0">
+    <span jhiTranslate="limsEhrIntegrationApp.patient.home.notFound">No Patients found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="patients && patients.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="patientId">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.patientId">Patient ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="firstname">
+            <div class="d-flex">
+              <span jhiTranslate="limsEhrIntegrationApp.patient.firstname">First Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="lastname">
+            <div class="d-flex">
+              <span jhiTranslate="limsEhrIntegrationApp.patient.lastname">Last Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col" jhiSortBy="gender">
+            <div class="d-flex">
+              <span jhiTranslate="limsEhrIntegrationApp.patient.gender">Gender</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col" jhiSortBy="primary_referrer">
+            <div class="d-flex">
+              <span jhiTranslate="limsEhrIntegrationApp.patient.primary_referrer">Primary Referrer</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col" jhiSortBy="primary_referrer_id">
+            <div class="d-flex">
+              <span jhiTranslate="limsEhrIntegrationApp.patient.primary_referrer_id">Primary Referrer ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col" jhiSortBy="art">
+            <div class="d-flex">
+              <span jhiTranslate="limsEhrIntegrationApp.patient.art">Art</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col" jhiSortBy="dob">
+            <div class="d-flex">
+              <span jhiTranslate="limsEhrIntegrationApp.patient.dob">Date Of Birth</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patients" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/patient', patient.patientId, 'view']">{{ patient.patientId }}</a>
+          </td>
+          <td>{{ patient.firstname }}</td>
+          <td>{{ patient.lastname }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.primary_referrer }}</td>
+          <td>{{ patient.primary_referrer_id }}</td>
+          <td>{{ patient.art }}</td>
+          <td>{{ patient.dob }}</td>
+
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/patient', patient.patientId, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/patient', patient.patientId, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(patient)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="patients && patients.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
