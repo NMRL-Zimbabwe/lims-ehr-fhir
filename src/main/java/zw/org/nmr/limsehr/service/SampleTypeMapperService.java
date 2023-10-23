@@ -31,8 +31,10 @@ public class SampleTypeMapperService {
     public Optional<SampleType> resolveSampleTypeName(String labId, String ehrSampleTypeName) {
         Optional<SampleType> labSampleType = getSampleTypeForLab(labId, ehrSampleTypeName);
         if (labSampleType.isPresent()) {
+            log.info("labSampleType found");
             return labSampleType;
         }
+        log.info("labSampleType not found -> resolving default");
         return getSampleTypeDefault(ehrSampleTypeName);
     }
 
@@ -41,17 +43,24 @@ public class SampleTypeMapperService {
             labId,
             ehrSampleTypeName
         );
-        //        if(mappedSampleType.isPresent()) {
-        //            return sampleTypeRepository.findBySampleTypeId(mappedSampleType.get().getSampleTypeId());
-        //        }
-        //        return Optional.empty();
-        return mappedSampleType.flatMap(m -> sampleTypeRepository.findBySampleTypeId(mappedSampleType.get().getSampleTypeId()));
+        log.info("getSampleTypeForLab: {} {}", labId, ehrSampleTypeName);
+        if (mappedSampleType.isPresent()) {
+            return sampleTypeRepository.findBySampleTypeId(mappedSampleType.get().getSampleTypeId());
+        }
+        return Optional.empty();
+        // return mappedSampleType.flatMap(m -> sampleTypeRepository.findBySampleTypeId(mappedSampleType.get().getSampleTypeId()));
     }
 
     public Optional<SampleType> getSampleTypeDefault(String ehrSampleTypeName) {
+        log.info("getSampleTypeDefault: {}", ehrSampleTypeName);
         Optional<SampleTypeMapper> mappedSampleType = sampleTypeMapperRepository.findByEhrSampleTypeNameAndLaboratoryIdIsNull(
             ehrSampleTypeName
         );
-        return mappedSampleType.flatMap(sampleTypeMapper -> sampleTypeRepository.findById(sampleTypeMapper.getSampleTypeId()));
+        if (mappedSampleType.isPresent()) {
+            log.info("getSampleTypeDefault found: Finding sample type by sample type id: {}", mappedSampleType.get().getSampleTypeId());
+            return sampleTypeRepository.findById(mappedSampleType.get().getSampleTypeId());
+        }
+        log.info("getSampleTypeDefault was not found :)");
+        return Optional.empty();
     }
 }
