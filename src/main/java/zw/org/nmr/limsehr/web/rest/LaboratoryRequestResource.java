@@ -55,7 +55,7 @@ public class LaboratoryRequestResource {
     private final Logger log = LoggerFactory.getLogger(LaboratoryRequestResource.class);
 
     private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(
-        Arrays.asList("clientSampleId", "sampleId")
+        Arrays.asList("clientSampleId", "sampleId", "laboratoryRequestId")
     );
 
     @Value("${jhipster.clientApp.name}")

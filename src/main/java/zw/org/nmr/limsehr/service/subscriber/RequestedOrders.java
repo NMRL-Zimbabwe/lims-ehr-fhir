@@ -93,7 +93,7 @@ public class RequestedOrders {
         Bundle taskBundle = fhirClient
             .search()
             .forResource(Task.class)
-            .where(Task.STATUS.exactly().code(TaskStatus.REQUESTED.toCode()))
+            .where(Task.STATUS.exactly().code(TaskStatus.RECEIVED.toCode()))
             .returnBundle(Bundle.class)
             .execute();
 

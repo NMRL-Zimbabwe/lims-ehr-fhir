@@ -43,7 +43,7 @@ public class LaboratoryRequestResolver {
         // Test Requested
         for (Coding cod : serviceRequest.getCode().getCoding()) {
             if (cod.getSystem().equals("urn:impilo:code")) {
-                labRequest.setTestId("urn:impilo:code");
+                labRequest.setTestId(cod.getCode());
                 // TODO: must save new mapped ehr test code instead of test name
                 labRequest.setTestName(cod.getDisplay());
             }
@@ -75,7 +75,7 @@ public class LaboratoryRequestResolver {
         for (Coding testCode : specimen.getType().getCoding()) {
             log.debug("sample type {}", testCode);
             if (testCode.getSystem().equals("urn:impilo:code")) {
-                labRequest.setSampleTypeId("urn:impilo:code");
+                labRequest.setSampleTypeId(testCode.getCode());
                 // TODO: must save new mapped sample type ehr code instead of test name
                 labRequest.setSampleTypeName(testCode.getDisplay());
             }
