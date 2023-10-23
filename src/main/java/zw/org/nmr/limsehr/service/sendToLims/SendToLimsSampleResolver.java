@@ -36,8 +36,8 @@ public class SendToLimsSampleResolver {
         log.info("Routing key :{} ", laboratory.getType());
         log.info("Sample Type :{} ", request.getSampleId());
 
-        Optional<SampleType> sampleType = sampleTypeMapperService.resolveSampleTypeName(laboratory.getId(), request.getSampleTypeName());
-
+        Optional<SampleType> sampleType = sampleTypeMapperService.resolveSampleTypeName(laboratory.getId(), request.getSampleTypeId());
+        log.debug("Sample Type response :{}", sampleType);
         if (sampleType.isEmpty()) {
             log.error("No sample type was found");
             laboratoryRequestService.flushOurErrorsFromQueue(request, "No sample type was found");
