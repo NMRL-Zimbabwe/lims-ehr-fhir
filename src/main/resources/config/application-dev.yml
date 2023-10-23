@@ -110,7 +110,7 @@ jhipster:
 
 #Rabbitmq settings for senaite
 rabbitmq:
-  host: 192.168.0.40
+  host: localhost
   port: 5672
   username: test
   password: test
