@@ -110,14 +110,14 @@ jhipster:
 
 #Rabbitmq settings for senaite
 rabbitmq:
-  host: localhost
+  host: 192.168.0.40
   port: 5672
   username: test
   password: test
   virtualHost: /
   routingKey: nmrl
 
-# Fhir Servicesettings for EHR
+# Fhir Service settings for EHR
 hapi:
   fhir:
     baseUrl: http://197.221.242.150:10343/lims-fhir
