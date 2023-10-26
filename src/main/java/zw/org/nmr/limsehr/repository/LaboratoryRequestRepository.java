@@ -59,4 +59,6 @@ public interface LaboratoryRequestRepository extends JpaRepository<LaboratoryReq
         String text,
         String text2
     );
+
+    long countBySampleIdIsNotNull();
 }
