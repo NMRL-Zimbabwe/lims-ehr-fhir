@@ -26,8 +26,8 @@ public class SendToLimsSampleResolver {
     public UnifiedLimsRequestAnalysisRequestDTO resolveSample(LaboratoryRequest request, Laboratory laboratory) {
         UnifiedLimsRequestAnalysisRequestDTO analysisRequest = new UnifiedLimsRequestAnalysisRequestDTO();
 
-        //    analysisRequest.setDateSampled(LocalDate.now().toString());
-        //    analysisRequest.setDateSampled(request.getDateCollected().toString());
+        // analysisRequest.setDateSampled(LocalDate.now().toString());
+        analysisRequest.setDateSampled(request.getDateCollected().toString());
 
         String[] profiles = new String[] { "Viral Load Plasma" };
 

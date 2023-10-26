@@ -108,39 +108,33 @@ public class SendToLimsService {
                 return;
             }
 
+            /*
+             * Construct patient details
+             */
             UnifiedLimsRequestPatientDTO pt = sendToLimsPatientResolver.resolvePatient(patient, request);
             if (pt == null) {
                 return;
             }
-
             unifiedLimsRequest.setPatient(pt);
 
-            /**
-             * Construct case/batch details
+            /*
+             * Construct AnalysisRequest details
              */
-
-            /**   UnifiedLimsRequestBatchDTO analysisCase = new UnifiedLimsRequestBatchDTO();
-             analysisCase.setCaseType("VL");
-             analysisCase.setClientCaseID("");
-             analysisCase.setReasonForVLtest("Routine Viral Load");
-             analysisCase.setVLBreastFeeding(false);
-             analysisCase.setVLPregnant(false);
-
-             unifiedLimsRequest.setBatch(analysisCase);
-             */
-
-            UnifiedLimsRequestBatchDTO analysisCase = sendToLimsBatchResolver.resolveBatch();
-
-            unifiedLimsRequest.setBatch(analysisCase);
-            /**
-             * Construct laboratory request details
-             */
-
             UnifiedLimsRequestAnalysisRequestDTO analysisRequest = sendToLimsSampleResolver.resolveSample(request, laboratory);
             if (analysisRequest == null) {
                 return;
             }
             unifiedLimsRequest.setAnalysisRequest(analysisRequest);
+
+            /*
+             * Construct case/batch details
+             */
+            UnifiedLimsRequestBatchDTO analysisCase = sendToLimsBatchResolver.resolveBatch(request);
+            unifiedLimsRequest.setBatch(analysisCase);
+
+            /*
+             * Construct laboratory request details
+             */
 
             // The code below will be substituted with the bundled request
 
