@@ -28,27 +28,28 @@ public class TestMapperService {
         this.testTypeRepository = testTypeRepository;
     }
 
-    public Optional<Test> resolveTestName(String labId, String ehrTestName) {
-        Optional<Test> labTest = getTestForLab(labId, ehrTestName);
+    public Optional<Test> resolveTestName(String labId, String ehrTestCode, String sampleTypeId) {
+        Optional<Test> labTest = getTestForLab(labId, ehrTestCode, sampleTypeId);
         if (labTest.isPresent()) {
             return labTest;
         }
-        return getTestDefault(ehrTestName);
+        return getTestDefault(ehrTestCode, sampleTypeId);
     }
 
-    public Optional<Test> getTestForLab(String labId, String ehrTestName) {
-        Optional<TestMapper> mappedTest = testMapperRepository.findByLaboratoryIdAndEhrTestName(labId, ehrTestName);
-        if (mappedTest.isPresent()) {
-            return testTypeRepository.findByTestId(mappedTest.get().getTestId());
-        }
-        return Optional.empty();
+    public Optional<Test> getTestForLab(String labId, String ehrTestCode, String sampleTypeId) {
+        Optional<TestMapper> mappedTest = testMapperRepository.findByLaboratoryIdAndEhrTestNameAndSampleTypeId(
+            labId,
+            ehrTestCode,
+            sampleTypeId
+        );
+        return mappedTest.flatMap(testMapper -> testTypeRepository.findById(testMapper.getTestId()));
     }
 
-    public Optional<Test> getTestDefault(String ehrTestName) {
-        Optional<TestMapper> mappedTest = testMapperRepository.findByEhrTestNameAndLaboratoryIdIsNull(ehrTestName);
-        if (mappedTest.isPresent()) {
-            return testTypeRepository.findByTestId(mappedTest.get().getTestId());
-        }
-        return Optional.empty();
+    public Optional<Test> getTestDefault(String ehrTestCode, String sampleTypeId) {
+        Optional<TestMapper> mappedTest = testMapperRepository.findByEhrTestNameAndSampleTypeIdAndLaboratoryIdIsNull(
+            ehrTestCode,
+            sampleTypeId
+        );
+        return mappedTest.flatMap(testMapper -> testTypeRepository.findById(testMapper.getTestId()));
     }
 }

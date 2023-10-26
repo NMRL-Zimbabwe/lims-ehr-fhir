@@ -22,8 +22,11 @@ public class SendToLimsBatchResolver {
     public UnifiedLimsRequestBatchDTO resolveBatch(LaboratoryRequest request) {
         UnifiedLimsRequestBatchDTO analysisCase = new UnifiedLimsRequestBatchDTO();
 
-        Optional<ReasonForTest> rft = reasonForTestService.getOne(request.getReasonForTest());
-        rft.ifPresent(reasonForTest -> analysisCase.setReasonForVLtest(reasonForTest.getName()));
+        if (request.getReasonForTest() != null) {
+            Optional<ReasonForTest> reasonForTest = reasonForTestService.getOne(request.getReasonForTest());
+            reasonForTest.ifPresent(rft -> analysisCase.setReasonForVLtest(rft.getName()));
+        }
+
         analysisCase.setClientCaseID("");
         analysisCase.setVLBreastFeeding(request.isBreastfeeding());
         analysisCase.setVLPregnant(request.isPregnant());

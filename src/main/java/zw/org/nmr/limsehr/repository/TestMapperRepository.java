@@ -14,4 +14,8 @@ public interface TestMapperRepository extends JpaRepository<TestMapper, String> 
     Optional<TestMapper> findByLaboratoryIdAndEhrTestName(String labId, String ehrTestName);
 
     Optional<TestMapper> findByEhrTestNameAndLaboratoryIdIsNull(String ehrTestName);
+
+    Optional<TestMapper> findByLaboratoryIdAndEhrTestNameAndSampleTypeId(String labId, String ehrTestName, String sampleTypeId);
+
+    Optional<TestMapper> findByEhrTestNameAndSampleTypeIdAndLaboratoryIdIsNull(String ehrTestName, String sampleType);
 }
