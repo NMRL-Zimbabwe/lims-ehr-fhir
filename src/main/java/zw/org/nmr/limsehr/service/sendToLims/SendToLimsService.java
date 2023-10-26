@@ -57,14 +57,21 @@ public class SendToLimsService {
     @Qualifier(value = "senaiteContainerFactory")
     private AmqpTemplate amqpTemplate;
 
-    public void sendMessageToLims(UnifiedLimsRequest message, String destination) throws JsonProcessingException {
+    public boolean sendMessageToLims(UnifiedLimsRequest message, String destination) throws JsonProcessingException {
         log.error("[******] Waiting for messages.");
 
         ObjectMapper mapper = new ObjectMapper();
         Object jsonMessage = mapper.writeValueAsString(message);
-        amqpTemplate.convertAndSend("ehr.lims", destination, jsonMessage.toString());
-        // amqpTemplate.convertAndSend(jsonMessage);
 
+        boolean success = false;
+        try {
+            amqpTemplate.convertAndSend("ehr.lims", destination, jsonMessage.toString());
+            // amqpTemplate.convertAndSend(jsonMessage);
+            success = true;
+        } catch (Exception e) {
+            log.info("RabbitMQ Error: {}", e.toString());
+        }
+        return success;
     }
 
     @Scheduled(fixedRate = 5000)
@@ -102,6 +109,9 @@ public class SendToLimsService {
             }
 
             UnifiedLimsRequestPatientDTO pt = sendToLimsPatientResolver.resolvePatient(patient, request);
+            if (pt == null) {
+                return;
+            }
 
             unifiedLimsRequest.setPatient(pt);
 
@@ -173,10 +183,16 @@ public class SendToLimsService {
 
             builder.setSample(sample);
 
-            if (unifiedLimsRequest.getPatient().getClientPatientID() != null && laboratory.getType() != null) {
-                log.error("Destination :{}", laboratory.getType());
-                sendMessageToLims(unifiedLimsRequest, laboratory.getType()); // Flag sent request as sent to LIMS
-                request.setSentToLims(LaboratoryRequestStatus.SENT_TO_LIMS.toString());
+            if (unifiedLimsRequest.getPatient().getClientPatientID() != null && laboratory.getRoutingKey() != null) {
+                log.error("Destination :{}", laboratory.getRoutingKey());
+                boolean sentSuccess = sendMessageToLims(unifiedLimsRequest, laboratory.getRoutingKey()); // Flag sent request as sent to LIMS
+                if (sentSuccess) {
+                    request.setSentToLims(LaboratoryRequestStatus.SENT_TO_LIMS.toString());
+                    request.setErrorReason("");
+                } else {
+                    request.setSentToLims(LaboratoryRequestStatus.DECLINED.toString());
+                    request.setErrorReason("Failed to connect to RabbitMQ");
+                }
 
                 // TODO move the persistence process to a service
                 laboratoryRequestRepository.save(request);

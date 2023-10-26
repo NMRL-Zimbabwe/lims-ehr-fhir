@@ -8,17 +8,35 @@
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     
     	<changeSet id="000000000000013" author="Lawrence">
-		<createTable tableName="reson_for_vl_test">
-			<column name="reson_for_vl_test_id" type="VARCHAR(255)">
+		<createTable tableName="reason_for_test">
+		   <column name="id" type="VARCHAR(60)">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="name" type="varchar(255)">
+			<column name="reason_for_test_id" type="VARCHAR(60)">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="state" type="varchar(60)">
+				<constraints nullable="true" />
+			</column>
+            <column name="loinc_code" type="varchar(60)">
+                <constraints nullable="false" />
+            </column>
+            <column name="ehr_code" type="varchar(60)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_by" type="varchar(50)">
 				<constraints nullable="false" />
 			</column>
 			<column name="created_date" type="timestamp" />
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>
+		<loadData file="config/liquibase/data/reason_for_test.csv"
+			separator="," tableName="reason_for_test">
+		</loadData>
 	</changeSet>
     
 </databaseChangeLog>

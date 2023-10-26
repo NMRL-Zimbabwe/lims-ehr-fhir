@@ -12,7 +12,7 @@ public class LaboratoryDTO {
 
     private String code;
 
-    private String type;
+    private String routingKey;
 
     private String ehrCode;
 
@@ -24,7 +24,7 @@ public class LaboratoryDTO {
         this.id = lab.getId();
         this.code = lab.getCode();
         this.name = lab.getName();
-        this.type = lab.getType();
+        this.routingKey = lab.getRoutingKey();
         this.ehrCode = lab.getEhrCode();
     }
 
@@ -44,12 +44,12 @@ public class LaboratoryDTO {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getRoutingKey() {
+        return routingKey;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
     }
 
     public String getCode() {
@@ -70,6 +70,8 @@ public class LaboratoryDTO {
 
     @Override
     public String toString() {
-        return "LaboratoryDTO [id=" + id + ", name=" + name + ", code=" + code + ", type=" + type + ", ehrCode=" + ehrCode + "]";
+        return (
+            "LaboratoryDTO [id=" + id + ", name=" + name + ", code=" + code + ", routingKey=" + routingKey + ", ehrCode=" + ehrCode + "]"
+        );
     }
 }

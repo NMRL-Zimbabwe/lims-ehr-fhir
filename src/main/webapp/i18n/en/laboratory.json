@@ -20,7 +20,7 @@
       "id": "ID",
       "name": "Name",
       "code": "Code",
-      "type": "Type",
+      "routingKey": "Routing Key",
       "ehrCode": "EHR Code"
     }
   }

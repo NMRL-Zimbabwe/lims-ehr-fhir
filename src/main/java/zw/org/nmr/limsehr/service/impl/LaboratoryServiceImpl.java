@@ -51,7 +51,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
         lab.setId(UUID.randomUUID().toString());
         lab.setCode(labDTO.getCode());
         lab.setName(labDTO.getName());
-        lab.setType(labDTO.getType());
+        lab.setRoutingKey(labDTO.getRoutingKey());
 
         laboratoryRepository.save(lab);
         log.debug("Created Information for lab: {}", lab);
@@ -67,7 +67,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
             .map(lab -> {
                 lab.setCode(labDTO.getCode());
                 lab.setName(labDTO.getName());
-                lab.setType(labDTO.getType());
+                lab.setRoutingKey(labDTO.getRoutingKey());
 
                 log.debug("Changed Information for laboratory: {}", lab);
                 return lab;

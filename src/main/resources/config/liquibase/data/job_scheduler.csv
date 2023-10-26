@@ -1,3 +1,4 @@
 id;job_name;run_job;created_by;last_modified_by
 001a00e5d61545cd9de7ca8447cc6a73;SEND_RESULTS_TO_EHR;1;system;system
 001a00e5d61545cd9de7ca8447cc6a74;GET_REQUESTED_ORDERS;1;system;system
+001a00e5d61545cd9de7ca8447cc6a75;FHIR_TASK_QUERY;0;system;system

@@ -35,14 +35,12 @@ public class Client extends AbstractAuditingEntity implements Serializable {
     @Column(name = "parent_path")
     private String parentPath;
 
-    @JsonIgnore
     private String phone;
 
     @Column(name = "email_address")
     @JsonIgnore
     private String emailAddress;
 
-    @JsonIgnore
     private int activated;
 
     public boolean isActive() {

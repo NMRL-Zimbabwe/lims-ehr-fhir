@@ -2,7 +2,7 @@ export interface IClient {
   id: string;
   name?: string | null;
   phone?: string | null;
-  parentPath?: string | null;
+  activated?: number | null;
   clientId?: string | null;
 }
 

@@ -1,0 +1,22 @@
+id,reason_for_test_id,name,state,loinc_code,ehr_code,created_by,last_modified_by
+001a00e5d61545cd9de7ca8087cc6a01,ITR0002,Target Clinical Failure,,,ITR0002,system,system
+001a00e5d61545cd9de7ca8087cc6a02,ITR0003,Targeted Immunological Failure,,,ITR0003,system,system
+001a00e5d61545cd9de7ca8087cc6a03,ITR0004,Repeat After Enhanced Adherence,,,ITR0004,system,system
+001a00e5d61545cd9de7ca8087cc6a04,ITR0005,Baseline Viral Load,,,ITR0005,system,system
+001a00e5d61545cd9de7ca8087cc6a05,ITR0006,Confirmation of Treatment,,,ITR0006,system,system
+001a00e5d61545cd9de7ca8087cc6a06,ITR0007,Failure(Repeat VL at 3m),,,ITR0007,system,system
+001a00e5d61545cd9de7ca8087cc6a07,ITR0008,Single Drug Substitution,,,ITR0008,system,system
+001a00e5d61545cd9de7ca8087cc6a08,ITR0009,Pregnant Mother,,,ITR0009,system,system
+001a00e5d61545cd9de7ca8087cc6a09,ITR0010,Lactating Mother,,,ITR0010,system,system
+001a00e5d61545cd9de7ca8087cc6a10,ITR0011,Initial at Birth,,,ITR0011,system,system
+001a00e5d61545cd9de7ca8087cc6a11,ITR0012,Initial at 6-8 Weeks,,,ITR0012,system,system
+001a00e5d61545cd9de7ca8087cc6a12,ITR0013,Initial at >2 Months,,,ITR0013,system,system
+001a00e5d61545cd9de7ca8087cc6a13,ITR0014,Repeat at 6 Weeks,,,ITR0014,system,system
+001a00e5d61545cd9de7ca8087cc6a14,ITR0015,Repeat at 9 Months,,,ITR0015,system,system
+001a00e5d61545cd9de7ca8087cc6a15,ITR0016,Following a Positive RDT at > 18 Months,,,ITR0016,system,system
+001a00e5d61545cd9de7ca8087cc6a16,ITR0017,Confirmatory Test (After first EID Positive Result),,,ITR0017,system,system
+001a00e5d61545cd9de7ca8087cc6a17,ITR0018,Routine 1st Post-Natal Tests,,,ITR0018,system,system
+001a00e5d61545cd9de7ca8087cc6a18,ITR0019,Symptomatic Child,,,ITR0019,system,system
+001a00e5d61545cd9de7ca8087cc6a19,ITR0020,Post Weaning Test,,,ITR0020,system,system
+001a00e5d61545cd9de7ca8087cc6a20,ITR0021,Recency Testing,,,ITR0021,system,system
+001a00e5d61545cd9de7ca8087cc6a21,ITR0022,Routine Tests,,,ITR0022,system,system

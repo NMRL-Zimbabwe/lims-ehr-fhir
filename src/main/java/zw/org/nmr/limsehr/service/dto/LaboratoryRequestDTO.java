@@ -76,6 +76,12 @@ public class LaboratoryRequestDTO {
     @JsonIgnore
     private LocalDate dateResultReceivedFromLims;
 
+    private String reasonForTest;
+
+    private boolean breastfeeding;
+
+    private boolean pregnant;
+
     public LaboratoryRequestDTO() {
         super();
         // TODO Auto-generated constructor stub
@@ -108,7 +114,10 @@ public class LaboratoryRequestDTO {
         int retry,
         String errorReason,
         String resultStatus,
-        LocalDate dateResultReceivedFromLims
+        LocalDate dateResultReceivedFromLims,
+        String reasonForTest,
+        boolean breastfeeding,
+        boolean pregnant
     ) {
         super();
         this.laboratoryRequestId = laboratoryRequestId;
@@ -138,6 +147,9 @@ public class LaboratoryRequestDTO {
         this.errorReason = errorReason;
         this.resultStatus = resultStatus;
         this.dateResultReceivedFromLims = dateResultReceivedFromLims;
+        this.reasonForTest = reasonForTest;
+        this.breastfeeding = breastfeeding;
+        this.pregnant = pregnant;
     }
 
     @Override
@@ -367,6 +379,30 @@ public class LaboratoryRequestDTO {
         this.dateResultReceivedFromLims = dateResultReceivedFromLims;
     }
 
+    public String getReasonForTest() {
+        return reasonForTest;
+    }
+
+    public void setReasonForTest(String reasonForTest) {
+        this.reasonForTest = reasonForTest;
+    }
+
+    public boolean isBreastfeeding() {
+        return breastfeeding;
+    }
+
+    public void setBreastfeeding(boolean breastfeeding) {
+        this.breastfeeding = breastfeeding;
+    }
+
+    public boolean isPregnant() {
+        return pregnant;
+    }
+
+    public void setPregnant(boolean pregnant) {
+        this.pregnant = pregnant;
+    }
+
     @Override
     public String toString() {
         return (
@@ -424,6 +460,12 @@ public class LaboratoryRequestDTO {
             resultStatus +
             ", dateResultReceivedFromLims=" +
             dateResultReceivedFromLims +
+            ", reasonForTest=" +
+            reasonForTest +
+            ", breastfeeding=" +
+            breastfeeding +
+            ", pregnant=" +
+            pregnant +
             "]"
         );
     }

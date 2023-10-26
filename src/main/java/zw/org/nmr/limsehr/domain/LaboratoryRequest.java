@@ -133,6 +133,13 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     @Column(name = "date_result_received_from_lims")
     private LocalDate dateResultReceivedFromLims;
 
+    @Column(name = "reason_for_test")
+    private String reasonForTest;
+
+    private boolean breastfeeding;
+
+    private boolean pregnant;
+
     public String getTestName() {
         return testName;
     }
@@ -400,102 +407,104 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
         this.dateResultReceivedFromLims = dateResultReceivedFromLims;
     }
 
+    public String getReasonForTest() {
+        return reasonForTest;
+    }
+
+    public void setReasonForTest(String reasonForTest) {
+        this.reasonForTest = reasonForTest;
+    }
+
+    public boolean isBreastfeeding() {
+        return breastfeeding;
+    }
+
+    public void setBreastfeeding(boolean breastfeeding) {
+        this.breastfeeding = breastfeeding;
+    }
+
+    public boolean isPregnant() {
+        return pregnant;
+    }
+
+    public void setPregnant(boolean pregnant) {
+        this.pregnant = pregnant;
+    }
+
     @Override
     public String toString() {
         return (
-            "LaboratoryRequest{" +
-            "laboratoryRequestId='" +
+            "LaboratoryRequest [laboratoryRequestId=" +
             laboratoryRequestId +
-            '\'' +
-            ", limsAnalysisRequestUuid='" +
+            ", limsAnalysisRequestUuid=" +
             limsAnalysisRequestUuid +
-            '\'' +
-            ", middlewareAnalysisRequestUuid='" +
+            ", middlewareAnalysisRequestUuid=" +
             middlewareAnalysisRequestUuid +
-            '\'' +
-            ", labId='" +
+            ", labId=" +
             labId +
-            '\'' +
-            ", labName='" +
+            ", labName=" +
             labName +
-            '\'' +
-            ", clientSampleId='" +
+            ", clientSampleId=" +
             clientSampleId +
-            '\'' +
             ", patient=" +
             patient +
-            ", middlewareClientUuid='" +
+            ", middlewareClientUuid=" +
             middlewareClientUuid +
-            '\'' +
-            ", clientId='" +
+            ", clientId=" +
             clientId +
-            '\'' +
-            ", client='" +
+            ", client=" +
             client +
-            '\'' +
-            ", sampleId='" +
+            ", sampleId=" +
             sampleId +
-            '\'' +
-            ", testId='" +
+            ", testId=" +
             testId +
-            '\'' +
-            ", testName='" +
+            ", testName=" +
             testName +
-            '\'' +
-            ", sampleTypeId='" +
+            ", sampleTypeId=" +
             sampleTypeId +
-            '\'' +
-            ", sampleTypeName='" +
+            ", sampleTypeName=" +
             sampleTypeName +
-            '\'' +
-            ", labReferenceSampleId='" +
+            ", labReferenceSampleId=" +
             labReferenceSampleId +
-            '\'' +
-            ", result='" +
+            ", result=" +
             result +
-            '\'' +
-            ", unit='" +
+            ", unit=" +
             unit +
-            '\'' +
-            ", remarks='" +
+            ", remarks=" +
             remarks +
-            '\'' +
             ", retry=" +
             retry +
-            ", errorReason='" +
+            ", errorReason=" +
             errorReason +
-            '\'' +
-            ", acknowledgeSampleReceipt='" +
+            ", acknowledgeSampleReceipt=" +
             acknowledgeSampleReceipt +
-            '\'' +
-            ", acknowledgeRecordReceipt='" +
+            ", acknowledgeRecordReceipt=" +
             acknowledgeRecordReceipt +
-            '\'' +
             ", dateCollected=" +
             dateCollected +
             ", dateTested=" +
             dateTested +
-            ", reviewState='" +
+            ", reviewState=" +
             reviewState +
-            '\'' +
-            ", dispatched='" +
+            ", dispatched=" +
             dispatched +
-            '\'' +
-            ", status='" +
+            ", status=" +
             status +
-            '\'' +
-            ", sentToLims='" +
+            ", sentToLims=" +
             sentToLims +
-            '\'' +
-            ", sentToEhr='" +
+            ", sentToEhr=" +
             sentToEhr +
-            '\'' +
-            ", resultStatus='" +
+            ", resultStatus=" +
             resultStatus +
-            '\'' +
             ", dateResultReceivedFromLims=" +
             dateResultReceivedFromLims +
-            '}'
+            ", reasonForTest=" +
+            reasonForTest +
+            ", breastfeeding=" +
+            breastfeeding +
+            ", pregnant=" +
+            pregnant +
+            "]"
         );
     }
 }

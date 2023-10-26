@@ -2,7 +2,7 @@ export interface ILaboratory {
   id: string;
   name?: string | null;
   code?: string | null;
-  type?: string | null;
+  routingKey?: string | null;
   ehrCode?: string | null;
 }
 

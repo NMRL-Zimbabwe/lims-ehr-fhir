@@ -17,6 +17,8 @@ export type EntityArrayResponseType = HttpResponse<ILaboratory[]>;
 export class LaboratoryService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/laboratories');
 
+  protected resourceUpdateUrl = this.applicationConfigService.getEndpointFor('api/update-laboratories');
+
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(laboratory: NewLaboratory): Observable<EntityResponseType> {
@@ -24,7 +26,7 @@ export class LaboratoryService {
   }
 
   update(laboratory: ILaboratory): Observable<EntityResponseType> {
-    return this.http.put<ILaboratory>(`${this.resourceUrl}/${this.getLaboratoryIdentifier(laboratory)}`, laboratory, {
+    return this.http.put<ILaboratory>(`${this.resourceUpdateUrl}`, laboratory, {
       observe: 'response',
     });
   }

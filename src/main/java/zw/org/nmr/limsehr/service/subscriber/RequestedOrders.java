@@ -89,14 +89,26 @@ public class RequestedOrders {
         BasicAuthInterceptor authInterceptor = new BasicAuthInterceptor(this.hapiFhirUsername, this.hapiFhirPassword);
         fhirClient.registerInterceptor(authInterceptor);
 
-        // in production you will  want to to look for REQUESTED
+        Optional<JobScheduler> queryStatus = jobSchedulerService.resolverScheduled("FHIR_TASK_QUERY");
+        TaskStatus status;
+        status =
+            queryStatus
+                .map(jobScheduler ->
+                    switch (jobScheduler.getRunJob()) {
+                        case 1 -> TaskStatus.RECEIVED;
+                        case 2 -> TaskStatus.REJECTED;
+                        case 4 -> TaskStatus.ACCEPTED;
+                        default -> TaskStatus.REQUESTED;
+                    }
+                )
+                .orElse(TaskStatus.REQUESTED);
+
         Bundle taskBundle = fhirClient
             .search()
             .forResource(Task.class)
-            .where(Task.STATUS.exactly().code(TaskStatus.RECEIVED.toCode()))
+            .where(Task.STATUS.exactly().code(status.toCode()))
             .returnBundle(Bundle.class)
             .execute();
-
         log.debug("Bundle task bundle response: Total {}", taskBundle.getTotal());
 
         for (Bundle.BundleEntryComponent thinTask : taskBundle.getEntry()) {
