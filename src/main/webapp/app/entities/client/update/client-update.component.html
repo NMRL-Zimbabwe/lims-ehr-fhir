@@ -24,14 +24,16 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="limsEhrIntegrationApp.client.parentPath" for="field_parentPath">Status</label>
+          <label class="form-label" jhiTranslate="limsEhrIntegrationApp.client.activated" for="field_activated">Status</label>
           <input
-            type="text"
+            type="number"
+            max="1"
+            min="0"
             class="form-control"
-            name="parent_path"
-            id="field_parentPath"
-            data-cy="parentPath"
-            formControlName="parentPath"
+            name="activated"
+            id="field_activated"
+            data-cy="activated"
+            formControlName="activated"
           />
         </div>
 

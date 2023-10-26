@@ -61,9 +61,9 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="parentPath">
+          <th scope="col" jhiSortBy="activated">
             <div class="d-flex">
-              <span jhiTranslate="limsEhrIntegrationApp.client.parentPath">Status</span>
+              <span jhiTranslate="limsEhrIntegrationApp.client.activated">Status</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -83,7 +83,7 @@
           </td>
           <td>{{ client.name }}</td>
           <td>{{ client.clientId }}</td>
-          <td>{{ client.parentPath }}</td>
+          <td>{{ client.activated }}</td>
           <td>{{ client.phone }}</td>
           <td class="text-end">
             <div class="btn-group">

@@ -20,7 +20,7 @@ type ClientFormGroupContent = {
   id: FormControl<IClient['id'] | NewClient['id']>;
   name: FormControl<IClient['name']>;
   clientId: FormControl<IClient['clientId']>;
-  parentPath: FormControl<IClient['parentPath']>;
+  activated: FormControl<IClient['activated']>;
   phone: FormControl<IClient['phone']>;
 };
 
@@ -43,7 +43,7 @@ export class ClientFormService {
       ),
       name: new FormControl(developerRawValue.name),
       clientId: new FormControl(developerRawValue.clientId),
-      parentPath: new FormControl(developerRawValue.parentPath),
+      activated: new FormControl(developerRawValue.activated),
       phone: new FormControl(developerRawValue.phone),
     });
   }

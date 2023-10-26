@@ -20,7 +20,7 @@
       "id": "ID",
       "name": "Name",
       "clientId": "Client ID",
-      "parentPath": "Status",
+      "activated": "Status",
       "phone": "phone"
     }
   }

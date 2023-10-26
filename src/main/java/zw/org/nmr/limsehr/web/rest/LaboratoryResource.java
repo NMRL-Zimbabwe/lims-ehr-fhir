@@ -114,15 +114,15 @@ public class LaboratoryResource {
     }
 
     /**
-     * {@code PUT /users} : Updates an existing Laboratory.
+     * {@code PUT /laboratories} : Updates an existing Laboratory.
      *
      * @param labDTO the user to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated user.
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already in use.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already in use.
      */
-    @PutMapping("/laboratories")
-    public ResponseEntity<LaboratoryDTO> updateUser(@Valid @RequestBody LaboratoryDTO labDTO) {
+    @PutMapping("/update-laboratories")
+    public ResponseEntity<LaboratoryDTO> updateLaboratory(@Valid @RequestBody LaboratoryDTO labDTO) {
         log.debug("REST request to update Laboratory : {}", labDTO);
         Optional<Laboratory> existingUser = laboratoryRepository.findOneByCodeIgnoreCase(labDTO.getCode());
 
@@ -159,7 +159,7 @@ public class LaboratoryResource {
      */
     @GetMapping("/laboratories/{id}")
     public ResponseEntity<Laboratory> getLaboratory(@PathVariable String id) {
-        log.debug("REST request to get User : {}", id);
+        log.debug("REST request to get laboratory : {}", id);
         return ResponseUtil.wrapOrNotFound(laboratoryService.getOne(id));
     }
 

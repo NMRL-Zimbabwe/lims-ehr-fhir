@@ -180,9 +180,9 @@ public class SendToLimsService {
 
             builder.setSample(sample);
 
-            if (unifiedLimsRequest.getPatient().getClientPatientID() != null && laboratory.getType() != null) {
-                log.error("Destination :{}", laboratory.getType());
-                boolean sentSuccess = sendMessageToLims(unifiedLimsRequest, laboratory.getType()); // Flag sent request as sent to LIMS
+            if (unifiedLimsRequest.getPatient().getClientPatientID() != null && laboratory.getRoutingKey() != null) {
+                log.error("Destination :{}", laboratory.getRoutingKey());
+                boolean sentSuccess = sendMessageToLims(unifiedLimsRequest, laboratory.getRoutingKey()); // Flag sent request as sent to LIMS
                 if (sentSuccess) {
                     request.setSentToLims(LaboratoryRequestStatus.SENT_TO_LIMS.toString());
                     request.setErrorReason("");

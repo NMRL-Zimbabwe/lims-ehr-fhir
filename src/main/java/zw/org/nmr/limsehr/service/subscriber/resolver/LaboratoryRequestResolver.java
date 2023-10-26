@@ -1,6 +1,7 @@
 package zw.org.nmr.limsehr.service.subscriber.resolver;
 
 import org.hl7.fhir.r4.model.*;
+import org.hl7.fhir.r4.model.Task.ParameterComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,33 @@ public class LaboratoryRequestResolver {
         labRequest.setLabName(laboratory.getName());
         labRequest.setClientId(facility.getIdElement().getIdPart());
         labRequest.setClient(facility.getName());
+
+        if (serviceRequest.getReasonCode().size() > 0) {
+            String impiloTestReasonCode = serviceRequest
+                .getReasonCode()
+                .get(0)
+                .getCoding()
+                .stream()
+                .filter(i -> i.getSystem().equals("urn:impilo:code"))
+                .map(Coding::getCode)
+                .findFirst()
+                .orElse(null);
+            labRequest.setReasonForTest(impiloTestReasonCode);
+        }
+
+        // TODO Add pregnant and breast feeding
+        // TODO CASE ART start date
+        for (ParameterComponent input : task.getInput()) {
+            for (Coding coding : input.getType().getCoding()) {
+                if (coding.getSystem().equals("urn:sys:pregnant")) {
+                    // labRequest.setPregnant(input.getId("valueBoolean"));
+                }
+            }
+        }
+        /*
+         * task.getInput().stream().filter(null).getType().getCoding().stream().filter(i
+         * -> i.getSystem().equals("urn:sys:pregnant")) .map(Coding::get)
+         */
 
         log.debug("Specimen {}", specimen.getType().getCoding());
 

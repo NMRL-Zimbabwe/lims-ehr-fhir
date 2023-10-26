@@ -33,7 +33,7 @@ public class SendToLimsSampleResolver {
 
         analysisRequest.setProfiles(profiles);
 
-        log.info("Routing key :{} ", laboratory.getType());
+        log.info("Routing key :{} ", laboratory.getRoutingKey());
         log.info("Sample Type :{} ", request.getSampleId());
 
         Optional<SampleType> sampleType = sampleTypeMapperService.resolveSampleTypeName(laboratory.getId(), request.getSampleTypeId());

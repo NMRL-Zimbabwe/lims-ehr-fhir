@@ -1,6 +1,5 @@
 package zw.org.nmr.limsehr.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,10 +26,9 @@ public class Laboratory extends AbstractAuditingEntity implements Serializable {
 
     private String code;
 
-    @JsonIgnore
-    private String type;
+    @Column(name = "routing_key")
+    private String routingKey;
 
-    @JsonIgnore
     @Column(name = "ehr_code")
     private String ehrCode;
 
@@ -58,10 +56,6 @@ public class Laboratory extends AbstractAuditingEntity implements Serializable {
         this.code = code;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public String getEhrCode() {
         return ehrCode;
     }
@@ -70,30 +64,16 @@ public class Laboratory extends AbstractAuditingEntity implements Serializable {
         this.ehrCode = ehrCode;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public String getRoutingKey() {
+        return routingKey;
+    }
+
+    public void setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
     }
 
     @Override
     public String toString() {
-        return (
-            "Laboratory{" +
-            "id='" +
-            id +
-            '\'' +
-            ", name='" +
-            name +
-            '\'' +
-            ", code='" +
-            code +
-            '\'' +
-            ", ehrCode='" +
-            ehrCode +
-            '\'' +
-            ", type='" +
-            type +
-            '\'' +
-            '}'
-        );
+        return "Laboratory [id=" + id + ", name=" + name + ", code=" + code + ", routingKey=" + routingKey + ", ehrCode=" + ehrCode + "]";
     }
 }
