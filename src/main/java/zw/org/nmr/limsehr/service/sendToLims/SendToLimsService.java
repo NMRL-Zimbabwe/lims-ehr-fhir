@@ -109,6 +109,9 @@ public class SendToLimsService {
             }
 
             UnifiedLimsRequestPatientDTO pt = sendToLimsPatientResolver.resolvePatient(patient, request);
+            if (pt == null) {
+                return;
+            }
 
             unifiedLimsRequest.setPatient(pt);
 
