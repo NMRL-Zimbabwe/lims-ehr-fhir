@@ -109,13 +109,21 @@ jhipster:
 # application:
 
 #Rabbitmq settings for senaite
+spring.rabbitmq.host: 192.168.0.40
+spring.rabbitmq.port: 5672
+spring.rabbitmq.username: test
+spring.rabbitmq.password: test
+spring.rabbitmq.virtualHost: /
+spring.rabbitmq.routingKey: nmrl
+
+#rabbitmq.queue: ehr
 rabbitmq:
-  host: localhost
+  host: apps.mohcc.gov.zw
   port: 5672
-  username: test
-  password: test
-  virtualHost: /
-  routingKey: nmrl
+  username: guest
+  password: guest
+  #routingKey: *
+  virtualHost: lmis
 
 # Fhir Service settings for EHR
 hapi:
