@@ -89,7 +89,7 @@ public class LimsEhrMapperService {
     }
 
     public Optional<EhrToLImsDTO> resolveTestAndSampleType(String labId, String ehrTestCode, String ehrSampleTypeCode) {
-        log.info("Resolving from ehr-code of sample type and tests: [{}, {}]", ehrSampleTypeCode, ehrTestCode);
+        log.info("Resolving from ehr-code of labid, sample type and tests: [{}, {}, {}]", labId, ehrSampleTypeCode, ehrTestCode);
         Optional<EhrSampleType> ehrSampleType = ehrSampleTypeService.findByEhrCode(ehrSampleTypeCode);
         Optional<EhrTest> ehrTest = ehrTestService.findByEhrCode(ehrTestCode);
 
@@ -107,29 +107,31 @@ public class LimsEhrMapperService {
             log.info("Laboratory specific mapping found: {}", labMapping.get());
             return labMapping;
         }
-        return getDefaultMapping(ehrTestCode, ehrSampleTypeCode);
+        return getDefaultMapping(ehrTest.get().getId(), ehrSampleType.get().getId());
     }
 
     private Optional<EhrToLImsDTO> getMappingForLab(String labId, String ehrTestCode, String sampleTypeId) {
-        log.info("Resolving Laboratory specific mapping ...");
+        log.info("Resolving Laboratory specific mapping ...: [{}, {}, {}]", labId, sampleTypeId, ehrTestCode);
         Optional<LimsEhrMapper> mapping = limsEhrMapperRepository.findByEhrSampleTypeIdAndEhrTestIdAndLaboratoryId(
             sampleTypeId,
             ehrTestCode,
             labId
         );
         if (mapping.isEmpty()) {
+            log.info("Laboratory specific mapping not found");
             return Optional.empty();
         }
         return mapToLims(mapping.get());
     }
 
     private Optional<EhrToLImsDTO> getDefaultMapping(String ehrTestCode, String sampleTypeId) {
-        log.info("Resolving default mapping ...");
+        log.info("Resolving default mapping ...: [{}, {}]", sampleTypeId, ehrTestCode);
         Optional<LimsEhrMapper> mapping = limsEhrMapperRepository.findByEhrSampleTypeIdAndEhrTestIdAndLaboratoryIdIsNull(
             sampleTypeId,
             ehrTestCode
         );
         if (mapping.isEmpty()) {
+            log.info("Default mapping not found");
             return Optional.empty();
         }
         return mapToLims(mapping.get());

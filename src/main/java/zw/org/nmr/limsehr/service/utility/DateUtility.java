@@ -2,6 +2,7 @@ package zw.org.nmr.limsehr.service.utility;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -26,5 +27,15 @@ public class DateUtility {
 
     public LocalDate dateToLocalDate(Date dateToConvert) {
         return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    public LocalDateTime stringDateTimeToLocalDateTime(String stringDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+
+        // Parse the datetime string to an OffsetDateTime object
+        OffsetDateTime offsetDateTime = OffsetDateTime.parse(stringDateTime, formatter);
+
+        // Convert the OffsetDateTime to a LocalDateTime object
+        return offsetDateTime.toLocalDateTime();
     }
 }

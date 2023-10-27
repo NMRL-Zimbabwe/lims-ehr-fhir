@@ -23,6 +23,7 @@ import zw.org.nmr.limsehr.service.dto.AcknowledgementFromLims;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.Coding;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.LaboratoryRequestEhrDTO;
 import zw.org.nmr.limsehr.service.enums.LaboratoryRequestStatus;
+import zw.org.nmr.limsehr.service.utility.DateUtility;
 
 @Service
 @Transactional
@@ -46,6 +47,9 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
 
     @Autowired
     PatientAddressRepository patientAddressRepository;
+
+    @Autowired
+    DateUtility dateUtility;
 
     public LaboratoryRequestServiceImpl(LaboratoryRequestRepository laboratoryRequestRepository) {
         this.laboratoryRequestRepository = laboratoryRequestRepository;
@@ -155,7 +159,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
             }
 
             if (obj.getDateTested() != null) {
-                fromLims.setDateTested(LocalDateTime.parse(obj.getDateTested()));
+                fromLims.setDateTested(dateUtility.stringDateTimeToLocalDateTime(obj.getDateTested()));
             }
 
             if (obj.getSubmitter() != null) {
@@ -163,7 +167,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
             }
 
             if (obj.getDatePublished() != null) {
-                fromLims.setDatePublished(LocalDateTime.parse(obj.getDatePublished()));
+                fromLims.setDatePublished(dateUtility.stringDateTimeToLocalDateTime(obj.getDatePublished()));
             }
 
             if (obj.getVerifier() != null) {
