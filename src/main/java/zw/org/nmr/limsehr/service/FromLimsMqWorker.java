@@ -35,7 +35,7 @@ public class FromLimsMqWorker {
     private String gateway;
 
     @RabbitListener(bindings = @QueueBinding(exchange = @Exchange("from-lims"), key = "senaite", value = @Queue("from_lims")))
-    public void reciveRequestFromLIMS(Message msg) throws IOException, TimeoutException {
+    public void receiveRequestFromLIMS(Message msg) throws IOException, TimeoutException {
         String string = new String(msg.getBody());
         msg.getMessageProperties().getHeader("request");
 
