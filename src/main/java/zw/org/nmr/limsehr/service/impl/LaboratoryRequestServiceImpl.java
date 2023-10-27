@@ -156,7 +156,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
             }
 
             if (obj.getDateTested() != null) {
-                fromLims.setDateTested(obj.getDateTested());
+                fromLims.setDateTested(LocalDate.parse(obj.getDateTested()));
             }
 
             laboratoryRequestRepository.save(fromLims);
