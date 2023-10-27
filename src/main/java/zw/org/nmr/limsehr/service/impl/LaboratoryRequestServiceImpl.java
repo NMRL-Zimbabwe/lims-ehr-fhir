@@ -158,7 +158,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
                 fromLims.setUnit(obj.getUnit());
             }
 
-            if (obj.getDateTested() != null) {
+            if (obj.getDateTested() != null && !obj.getDateTested().isEmpty()) {
                 fromLims.setDateTested(dateUtility.stringDateTimeToLocalDateTime(obj.getDateTested()));
             }
 
@@ -166,7 +166,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
                 fromLims.setSubmitter(obj.getSubmitter());
             }
 
-            if (obj.getDatePublished() != null) {
+            if (obj.getDatePublished() != null && !obj.getDatePublished().isEmpty()) {
                 fromLims.setDatePublished(dateUtility.stringDateTimeToLocalDateTime(obj.getDatePublished()));
             }
 

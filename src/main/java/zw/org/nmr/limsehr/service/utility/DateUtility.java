@@ -21,6 +21,11 @@ public class DateUtility {
         return localDateDOB;
     }
 
+    public LocalDateTime strToLocalDateTime(String dt) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a");
+        return LocalDateTime.parse(dt, formatter);
+    }
+
     public LocalDateTime dateToLocalDateTime(Date dateToConvert) {
         return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
