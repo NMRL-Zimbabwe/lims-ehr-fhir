@@ -1,10 +1,9 @@
 package zw.org.nmr.limsehr.service.impl;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -135,7 +134,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
         laboratoryRequestRepository.save(request);
     }
 
-    public LaboratoryRequest updateLaoratoryRequest(AcknowledgementFromLims obj) {
+    public void updateLaoratoryRequest(AcknowledgementFromLims obj) {
         LaboratoryRequest fromLims = laboratoryRequestRepository.findByClientSampleId(obj.getClientSampleId());
 
         if (fromLims != null) {
@@ -148,7 +147,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
 
             if (obj.getResult() != null) {
                 fromLims.setResult(obj.getResult());
-                fromLims.setDateResultReceivedFromLims(LocalDate.now());
+                fromLims.setDateResultReceivedFromLims(LocalDateTime.now());
             }
 
             if (obj.getUnit() != null) {
@@ -156,14 +155,32 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
             }
 
             if (obj.getDateTested() != null) {
-                fromLims.setDateTested(LocalDate.parse(obj.getDateTested()));
+                fromLims.setDateTested(LocalDateTime.parse(obj.getDateTested()));
+            }
+
+            if (obj.getSubmitter() != null) {
+                fromLims.setSubmitter(obj.getSubmitter());
+            }
+
+            if (obj.getDatePublished() != null) {
+                fromLims.setDatePublished(LocalDateTime.parse(obj.getDatePublished()));
+            }
+
+            if (obj.getVerifier() != null) {
+                fromLims.setReviewer(obj.getVerifier());
+            }
+
+            if (obj.getMethod() != null) {
+                fromLims.setMethod(obj.getMethod());
+            }
+
+            if (obj.getInstrument() != null) {
+                fromLims.setInstrument(obj.getInstrument());
             }
 
             laboratoryRequestRepository.save(fromLims);
-            return fromLims;
         } else {
             log.debug("Request does not exist: {}", fromLims);
-            return fromLims;
         }
     }
 

@@ -61,13 +61,16 @@
 			<column name="remarks" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
-			<column name="date_tested" type="date">
-				<constraints nullable="true" />
-			</column>
 			<column name="lab_reference_sample_id" type="varchar(60)">
 				<constraints nullable="true" />
 			</column>
             <column name="date_collected" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_tested" type="datetime">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_published" type="datetime">
                 <constraints nullable="true" />
             </column>
 			<column name="result" type="varchar(255)">
@@ -102,16 +105,16 @@
                 <constraints nullable="false" />
             </column>
             <column name="error_reason" type="varchar(100)" />
-			<column name="created_by" type="varchar(50)">
-				<constraints nullable="false" />
-			</column>
             <column name="result_status" type="VARCHAR(60)" />
 			<column name="created_date" type="timestamp" />
-            <column name="date_result_received_from_lims" type="date" />
+            <column name="date_result_received_from_lims" type="datetime" />
             <column name="instrument" type="varchar(100)" />
             <column name="method" type="varchar(60)" />
-            <column name="sampler" type="varchar(100)" />
+            <column name="submitter" type="varchar(100)" />
             <column name="reviewer" type="varchar(100)" />
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
 			<column name="last_modified_by" type="varchar(50)" />
 			<column name="last_modified_date" type="timestamp" />
 		</createTable>

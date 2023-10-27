@@ -1,6 +1,5 @@
 package zw.org.nmr.limsehr.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -104,12 +102,13 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     private String acknowledgeRecordReceipt;
 
     @Column(name = "date_collected")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDateTime dateCollected;
 
     @Column(name = "date_tested")
-    @JsonFormat(pattern = "dd::MM::yyyy")
-    private LocalDate dateTested;
+    private LocalDateTime dateTested;
+
+    @Column(name = "date_published")
+    private LocalDateTime datePublished;
 
     @Column(name = "review_state")
     private String reviewState;
@@ -131,7 +130,7 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
     private String resultStatus;
 
     @Column(name = "date_result_received_from_lims")
-    private LocalDate dateResultReceivedFromLims;
+    private LocalDateTime dateResultReceivedFromLims;
 
     @Column(name = "reason_for_test")
     private String reasonForTest;
@@ -140,40 +139,13 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
 
     private boolean pregnant;
 
-    public String getTestName() {
-        return testName;
-    }
+    private String submitter;
 
-    public void setTestName(String testName) {
-        this.testName = testName;
-    }
+    private String reviewer;
 
-    public String getSampleTypeId() {
-        return sampleTypeId;
-    }
+    private String method;
 
-    public void setSampleTypeId(String sampleTypeId) {
-        this.sampleTypeId = sampleTypeId;
-    }
-
-    public String getSampleTypeName() {
-        return sampleTypeName;
-    }
-
-    public void setSampleTypeName(String sampleTypeName) {
-        this.sampleTypeName = sampleTypeName;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof LaboratoryRequest)) {
-            return false;
-        }
-        return laboratoryRequestId != null && laboratoryRequestId.equals(((LaboratoryRequest) o).laboratoryRequestId);
-    }
+    private String instrument;
 
     public String getLaboratoryRequestId() {
         return laboratoryRequestId;
@@ -197,6 +169,22 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
 
     public void setMiddlewareAnalysisRequestUuid(String middlewareAnalysisRequestUuid) {
         this.middlewareAnalysisRequestUuid = middlewareAnalysisRequestUuid;
+    }
+
+    public String getLabId() {
+        return labId;
+    }
+
+    public void setLabId(String labId) {
+        this.labId = labId;
+    }
+
+    public String getLabName() {
+        return labName;
+    }
+
+    public void setLabName(String labName) {
+        this.labName = labName;
     }
 
     public String getClientSampleId() {
@@ -255,6 +243,30 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
         this.testId = testId;
     }
 
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+    public String getSampleTypeId() {
+        return sampleTypeId;
+    }
+
+    public void setSampleTypeId(String sampleTypeId) {
+        this.sampleTypeId = sampleTypeId;
+    }
+
+    public String getSampleTypeName() {
+        return sampleTypeName;
+    }
+
+    public void setSampleTypeName(String sampleTypeName) {
+        this.sampleTypeName = sampleTypeName;
+    }
+
     public String getLabReferenceSampleId() {
         return labReferenceSampleId;
     }
@@ -269,78 +281,6 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
 
     public void setResult(String result) {
         this.result = result;
-    }
-
-    public LocalDateTime getDateCollected() {
-        return dateCollected;
-    }
-
-    public void setDateCollected(LocalDateTime dateCollected) {
-        this.dateCollected = dateCollected;
-    }
-
-    public LocalDate getDateTested() {
-        return dateTested;
-    }
-
-    public void setDateTested(LocalDate dateTested) {
-        this.dateTested = dateTested;
-    }
-
-    public String getReviewState() {
-        return reviewState;
-    }
-
-    public void setReviewState(String reviewState) {
-        this.reviewState = reviewState;
-    }
-
-    public String getDispatched() {
-        return dispatched;
-    }
-
-    public void setDispatched(String dispatched) {
-        this.dispatched = dispatched;
-    }
-
-    public String getSentToLims() {
-        return sentToLims;
-    }
-
-    public void setSentToLims(String sentToLims) {
-        this.sentToLims = sentToLims;
-    }
-
-    public String getSentToEhr() {
-        return sentToEhr;
-    }
-
-    public void setSentToEhr(String sentToEhr) {
-        this.sentToEhr = sentToEhr;
-    }
-
-    public String getAcknowledgeSampleReceipt() {
-        return acknowledgeSampleReceipt;
-    }
-
-    public void setAcknowledgeSampleReceipt(String acknowledgeSampleReceipt) {
-        this.acknowledgeSampleReceipt = acknowledgeSampleReceipt;
-    }
-
-    public String getAcknowledgeRecordReceipt() {
-        return acknowledgeRecordReceipt;
-    }
-
-    public void setAcknowledgeRecordReceipt(String acknowledgeRecordReceipt) {
-        this.acknowledgeRecordReceipt = acknowledgeRecordReceipt;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getUnit() {
@@ -359,22 +299,6 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
         this.remarks = remarks;
     }
 
-    public String getLabId() {
-        return labId;
-    }
-
-    public void setLabId(String labId) {
-        this.labId = labId;
-    }
-
-    public String getLabName() {
-        return labName;
-    }
-
-    public void setLabName(String labName) {
-        this.labName = labName;
-    }
-
     public int getRetry() {
         return retry;
     }
@@ -391,6 +315,86 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
         this.errorReason = errorReason;
     }
 
+    public String getAcknowledgeSampleReceipt() {
+        return acknowledgeSampleReceipt;
+    }
+
+    public void setAcknowledgeSampleReceipt(String acknowledgeSampleReceipt) {
+        this.acknowledgeSampleReceipt = acknowledgeSampleReceipt;
+    }
+
+    public String getAcknowledgeRecordReceipt() {
+        return acknowledgeRecordReceipt;
+    }
+
+    public void setAcknowledgeRecordReceipt(String acknowledgeRecordReceipt) {
+        this.acknowledgeRecordReceipt = acknowledgeRecordReceipt;
+    }
+
+    public LocalDateTime getDateCollected() {
+        return dateCollected;
+    }
+
+    public void setDateCollected(LocalDateTime dateCollected) {
+        this.dateCollected = dateCollected;
+    }
+
+    public LocalDateTime getDateTested() {
+        return dateTested;
+    }
+
+    public void setDateTested(LocalDateTime dateTested) {
+        this.dateTested = dateTested;
+    }
+
+    public LocalDateTime getDatePublished() {
+        return datePublished;
+    }
+
+    public void setDatePublished(LocalDateTime datePublished) {
+        this.datePublished = datePublished;
+    }
+
+    public String getReviewState() {
+        return reviewState;
+    }
+
+    public void setReviewState(String reviewState) {
+        this.reviewState = reviewState;
+    }
+
+    public String getDispatched() {
+        return dispatched;
+    }
+
+    public void setDispatched(String dispatched) {
+        this.dispatched = dispatched;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getSentToLims() {
+        return sentToLims;
+    }
+
+    public void setSentToLims(String sentToLims) {
+        this.sentToLims = sentToLims;
+    }
+
+    public String getSentToEhr() {
+        return sentToEhr;
+    }
+
+    public void setSentToEhr(String sentToEhr) {
+        this.sentToEhr = sentToEhr;
+    }
+
     public String getResultStatus() {
         return resultStatus;
     }
@@ -399,11 +403,11 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
         this.resultStatus = resultStatus;
     }
 
-    public LocalDate getDateResultReceivedFromLims() {
+    public LocalDateTime getDateResultReceivedFromLims() {
         return dateResultReceivedFromLims;
     }
 
-    public void setDateResultReceivedFromLims(LocalDate dateResultReceivedFromLims) {
+    public void setDateResultReceivedFromLims(LocalDateTime dateResultReceivedFromLims) {
         this.dateResultReceivedFromLims = dateResultReceivedFromLims;
     }
 
@@ -431,80 +435,155 @@ public class LaboratoryRequest extends AbstractAuditingEntity implements Seriali
         this.pregnant = pregnant;
     }
 
+    public String getSubmitter() {
+        return submitter;
+    }
+
+    public void setSubmitter(String submitter) {
+        this.submitter = submitter;
+    }
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getInstrument() {
+        return instrument;
+    }
+
+    public void setInstrument(String instrument) {
+        this.instrument = instrument;
+    }
+
     @Override
     public String toString() {
         return (
-            "LaboratoryRequest [laboratoryRequestId=" +
+            "LaboratoryRequest{" +
+            "laboratoryRequestId='" +
             laboratoryRequestId +
-            ", limsAnalysisRequestUuid=" +
+            '\'' +
+            ", limsAnalysisRequestUuid='" +
             limsAnalysisRequestUuid +
-            ", middlewareAnalysisRequestUuid=" +
+            '\'' +
+            ", middlewareAnalysisRequestUuid='" +
             middlewareAnalysisRequestUuid +
-            ", labId=" +
+            '\'' +
+            ", labId='" +
             labId +
-            ", labName=" +
+            '\'' +
+            ", labName='" +
             labName +
-            ", clientSampleId=" +
+            '\'' +
+            ", clientSampleId='" +
             clientSampleId +
+            '\'' +
             ", patient=" +
             patient +
-            ", middlewareClientUuid=" +
+            ", middlewareClientUuid='" +
             middlewareClientUuid +
-            ", clientId=" +
+            '\'' +
+            ", clientId='" +
             clientId +
-            ", client=" +
+            '\'' +
+            ", client='" +
             client +
-            ", sampleId=" +
+            '\'' +
+            ", sampleId='" +
             sampleId +
-            ", testId=" +
+            '\'' +
+            ", testId='" +
             testId +
-            ", testName=" +
+            '\'' +
+            ", testName='" +
             testName +
-            ", sampleTypeId=" +
+            '\'' +
+            ", sampleTypeId='" +
             sampleTypeId +
-            ", sampleTypeName=" +
+            '\'' +
+            ", sampleTypeName='" +
             sampleTypeName +
-            ", labReferenceSampleId=" +
+            '\'' +
+            ", labReferenceSampleId='" +
             labReferenceSampleId +
-            ", result=" +
+            '\'' +
+            ", result='" +
             result +
-            ", unit=" +
+            '\'' +
+            ", unit='" +
             unit +
-            ", remarks=" +
+            '\'' +
+            ", remarks='" +
             remarks +
+            '\'' +
             ", retry=" +
             retry +
-            ", errorReason=" +
+            ", errorReason='" +
             errorReason +
-            ", acknowledgeSampleReceipt=" +
+            '\'' +
+            ", acknowledgeSampleReceipt='" +
             acknowledgeSampleReceipt +
-            ", acknowledgeRecordReceipt=" +
+            '\'' +
+            ", acknowledgeRecordReceipt='" +
             acknowledgeRecordReceipt +
+            '\'' +
             ", dateCollected=" +
             dateCollected +
             ", dateTested=" +
             dateTested +
-            ", reviewState=" +
+            ", datePublished=" +
+            datePublished +
+            ", reviewState='" +
             reviewState +
-            ", dispatched=" +
+            '\'' +
+            ", dispatched='" +
             dispatched +
-            ", status=" +
+            '\'' +
+            ", status='" +
             status +
-            ", sentToLims=" +
+            '\'' +
+            ", sentToLims='" +
             sentToLims +
-            ", sentToEhr=" +
+            '\'' +
+            ", sentToEhr='" +
             sentToEhr +
-            ", resultStatus=" +
+            '\'' +
+            ", resultStatus='" +
             resultStatus +
+            '\'' +
             ", dateResultReceivedFromLims=" +
             dateResultReceivedFromLims +
-            ", reasonForTest=" +
+            ", reasonForTest='" +
             reasonForTest +
+            '\'' +
             ", breastfeeding=" +
             breastfeeding +
             ", pregnant=" +
             pregnant +
-            "]"
+            ", submitter='" +
+            submitter +
+            '\'' +
+            ", reviewer='" +
+            reviewer +
+            '\'' +
+            ", method='" +
+            method +
+            '\'' +
+            ", instrument='" +
+            instrument +
+            '\'' +
+            '}'
         );
     }
 }
