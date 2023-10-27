@@ -1,0 +1,35 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="202310041001" author="Aurthur Musendame">
+        <createTable tableName="ehr_sample_type">
+            <column name="id" type="VARCHAR(60)">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="ehr_code" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="loinc_code" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_by" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_date" type="timestamp" />
+            <column name="last_modified_by" type="varchar(50)" />
+            <column name="last_modified_date" type="timestamp" />
+        </createTable>
+        <loadData file="config/liquibase/data/ehr_sample_type.csv"
+                  separator=";" tableName="ehr_sample_type">
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

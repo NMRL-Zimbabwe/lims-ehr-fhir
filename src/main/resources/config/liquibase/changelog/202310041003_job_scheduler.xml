@@ -7,7 +7,7 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet id="202310041002" author="Aurthur Musendame">
+	<changeSet id="202310041003" author="Aurthur Musendame">
 		<createTable tableName="job_scheduler">
 			<column name="id" type="VARCHAR(255)">
 				<constraints primaryKey="true" />
