@@ -1,0 +1,153 @@
+id;name;ehr_code;loinc_code;created_by;last_modified_by
+001a00e5d61545cd9de7ca8087cc6a01;Neck;ILT0002;;system;system
+001a00e5d61545cd9de7ca8087cc6a02;Gastroscopy;ILT0003;;system;system
+001a00e5d61545cd9de7ca8087cc6a03;Obstetric;ILT0004;;system;system
+001a00e5d61545cd9de7ca8087cc6a04;Forearm;ILT0005;;system;system
+001a00e5d61545cd9de7ca8087cc6a05;Brain;ILT0006;;system;system
+001a00e5d61545cd9de7ca8087cc6a06;Nasopharyngolaryngoscopy;ILT0007;;system;system
+001a00e5d61545cd9de7ca8087cc6a07;Shoulder Joint;ILT0008;;system;system
+001a00e5d61545cd9de7ca8087cc6a08;Liver Function Test;ILT0009;;system;system
+001a00e5d61545cd9de7ca8087cc6a09;Creatinine;ILT0010;;system;system
+001a00e5d61545cd9de7ca8087cc6a10;Full Blood Test;ILT0011;;system;system
+001a00e5d61545cd9de7ca8087cc6a11;Syphilis;ILT0012;;system;system
+001a00e5d61545cd9de7ca8087cc6a12;Blood Culture;ILT0013;;system;system
+001a00e5d61545cd9de7ca8087cc6a13;Hand X-Ray;ILT0014;;system;system
+001a00e5d61545cd9de7ca8087cc6a14;Breast;ILT0015;;system;system
+001a00e5d61545cd9de7ca8087cc6a15;Autopsy;ILT0016;;system;system
+001a00e5d61545cd9de7ca8087cc6a16;Dental X-Ray;ILT0017;;system;system
+001a00e5d61545cd9de7ca8087cc6a17;Foot;ILT0018;;system;system
+001a00e5d61545cd9de7ca8087cc6a18;Kidney-Ureter-Bladder X-Ray;ILT0019;;system;system
+001a00e5d61545cd9de7ca8087cc6a19;Electroencephalography;ILT0020;;system;system
+001a00e5d61545cd9de7ca8087cc6a20;Line Probe Assay;ILT0021;;system;system
+001a00e5d61545cd9de7ca8087cc6a21;Direct Smear Microscopy;ILT0022;;system;system
+001a00e5d61545cd9de7ca8087cc6a22;Urogram/Kidney-Ureter-Bladder;ILT0023;;system;system
+001a00e5d61545cd9de7ca8087cc6a23;Sinuses;ILT0024;;system;system
+001a00e5d61545cd9de7ca8087cc6a24;Punch Biopsy;ILT0025;;system;system
+001a00e5d61545cd9de7ca8087cc6a25;Ballistocardiography;ILT0026;;system;system
+001a00e5d61545cd9de7ca8087cc6a26;Dick�s Test;ILT0027;;system;system
+001a00e5d61545cd9de7ca8087cc6a27;Knee Joint;ILT0028;;system;system
+001a00e5d61545cd9de7ca8087cc6a28;Mediastinoscopy;ILT0029;;system;system
+001a00e5d61545cd9de7ca8087cc6a29;Prostate;ILT0030;;system;system
+001a00e5d61545cd9de7ca8087cc6a30;Cardiac;ILT0031;;system;system
+001a00e5d61545cd9de7ca8087cc6a31;Echocardiography;ILT0032;;system;system
+001a00e5d61545cd9de7ca8087cc6a32;Temporo-mandibular Joint;ILT0033;;system;system
+001a00e5d61545cd9de7ca8087cc6a33;Thoracoscopy;ILT0034;;system;system
+001a00e5d61545cd9de7ca8087cc6a34;Culture;ILT0035;;system;system
+001a00e5d61545cd9de7ca8087cc6a35;Pelvic;ILT0036;;system;system
+001a00e5d61545cd9de7ca8087cc6a36;Liver;ILT0037;;system;system
+001a00e5d61545cd9de7ca8087cc6a37;Semen Analysis;ILT0038;;system;system
+001a00e5d61545cd9de7ca8087cc6a38;Laparoscopy;ILT0039;;system;system
+001a00e5d61545cd9de7ca8087cc6a39;Auscultation;ILT0040;;system;system
+001a00e5d61545cd9de7ca8087cc6a40;Rubin�s Test;ILT0041;;system;system
+001a00e5d61545cd9de7ca8087cc6a41;Xpert/Rif;ILT0042;;system;system
+001a00e5d61545cd9de7ca8087cc6a42;Xpert MTB XDR;ILT0043;;system;system
+001a00e5d61545cd9de7ca8087cc6a43;Xpert MTB Rif Ultra;ILT0044;;system;system
+001a00e5d61545cd9de7ca8087cc6a44;Malaria RDT;ILT0045;;system;system
+001a00e5d61545cd9de7ca8087cc6a45;HIV;ILT0046;;system;system
+001a00e5d61545cd9de7ca8087cc6a46;HIV DNA PCR;ILT0047;;system;system
+001a00e5d61545cd9de7ca8087cc6a47;Viral Load;ILT0048;;system;system
+001a00e5d61545cd9de7ca8087cc6a48;Blood Sugar;ILT0049;;system;system
+001a00e5d61545cd9de7ca8087cc6a49;Blood Urea and Electrolytes;ILT0050;;system;system
+001a00e5d61545cd9de7ca8087cc6a50;Acidity;ILT0051;;system;system
+001a00e5d61545cd9de7ca8087cc6a51;Bacteria;ILT0052;;system;system
+001a00e5d61545cd9de7ca8087cc6a52;Histology;ILT0053;;system;system
+001a00e5d61545cd9de7ca8087cc6a53;Haemoglobin;ILT0054;;system;system
+001a00e5d61545cd9de7ca8087cc6a54;Blood Group;ILT0055;;system;system
+001a00e5d61545cd9de7ca8087cc6a55;CD4 Count;ILT0056;;system;system
+001a00e5d61545cd9de7ca8087cc6a56;ST;ILT0057;;system;system
+001a00e5d61545cd9de7ca8087cc6a57;Urine Albumin;ILT0058;;system;system
+001a00e5d61545cd9de7ca8087cc6a58;Urine Ketones;ILT0059;;system;system
+001a00e5d61545cd9de7ca8087cc6a59;Pregnancy;ILT0060;;system;system
+001a00e5d61545cd9de7ca8087cc6a60;ALT;ILT0061;;system;system
+001a00e5d61545cd9de7ca8087cc6a61;WBC;ILT0062;;system;system
+001a00e5d61545cd9de7ca8087cc6a62;Iodine;ILT0063;;system;system
+001a00e5d61545cd9de7ca8087cc6a63;Rhesus (RH);ILT0064;;system;system
+001a00e5d61545cd9de7ca8087cc6a64;Volume;ILT0065;;system;system
+001a00e5d61545cd9de7ca8087cc6a65;Sugar;ILT0066;;system;system
+001a00e5d61545cd9de7ca8087cc6a66;Protein;ILT0067;;system;system
+001a00e5d61545cd9de7ca8087cc6a67;Schistosomiasis;ILT0068;;system;system
+001a00e5d61545cd9de7ca8087cc6a68;Malaria Bloodslide;ILT0069;;system;system
+001a00e5d61545cd9de7ca8087cc6a69;Cross Match;ILT0070;;system;system
+001a00e5d61545cd9de7ca8087cc6a70;Acetone;ILT0071;;system;system
+001a00e5d61545cd9de7ca8087cc6a71;Arm;ILT0072;;system;system
+001a00e5d61545cd9de7ca8087cc6a72;Transabdominal;ILT0073;;system;system
+001a00e5d61545cd9de7ca8087cc6a73;CSF Cryptococcal Antigen (CrAg);ILT0074;;system;system
+001a00e5d61545cd9de7ca8087cc6a74;Tb Lam;ILT0075;;system;system
+001a00e5d61545cd9de7ca8087cc6a75;Electrocardiogrphy;ILT0076;;system;system
+001a00e5d61545cd9de7ca8087cc6a76;Cervical;ILT0077;;system;system
+001a00e5d61545cd9de7ca8087cc6a77;Thoracic Spine X-Ray;ILT0078;;system;system
+001a00e5d61545cd9de7ca8087cc6a78;Kidney-Ureter-Bladder;ILT0079;;system;system
+001a00e5d61545cd9de7ca8087cc6a79;Angiogram;ILT0080;;system;system
+001a00e5d61545cd9de7ca8087cc6a80;Hains;ILT0081;;system;system
+001a00e5d61545cd9de7ca8087cc6a81;Chest;ILT0082;;system;system
+001a00e5d61545cd9de7ca8087cc6a82;Sinus X-Ray;ILT0083;;system;system
+001a00e5d61545cd9de7ca8087cc6a83;Musculoskeletal;ILT0084;;system;system
+001a00e5d61545cd9de7ca8087cc6a84;Pelvic X-Ray;ILT0085;;system;system
+001a00e5d61545cd9de7ca8087cc6a85;Hip Joint;ILT0086;;system;system
+001a00e5d61545cd9de7ca8087cc6a86;Lumbar Puncture;ILT0087;;system;system
+001a00e5d61545cd9de7ca8087cc6a87;Wrist Joint;ILT0088;;system;system
+001a00e5d61545cd9de7ca8087cc6a88;Ankle Joint;ILT0089;;system;system
+001a00e5d61545cd9de7ca8087cc6a89;Extremities;ILT0090;;system;system
+001a00e5d61545cd9de7ca8087cc6a90;Electromyography;ILT0091;;system;system
+001a00e5d61545cd9de7ca8087cc6a91;Thigh;ILT0092;;system;system
+001a00e5d61545cd9de7ca8087cc6a92;Hysteroscopy;ILT0093;;system;system
+001a00e5d61545cd9de7ca8087cc6a93;Leg;ILT0094;;system;system
+001a00e5d61545cd9de7ca8087cc6a94;Abdominal;ILT0095;;system;system
+001a00e5d61545cd9de7ca8087cc6a95;Phonocardiography;ILT0096;;system;system
+001a00e5d61545cd9de7ca8087cc6a96;Carotid & Abdominal Aorta;ILT0097;;system;system
+001a00e5d61545cd9de7ca8087cc6a97;Magnetic Resonance Spectroscopy;ILT0098;;system;system
+001a00e5d61545cd9de7ca8087cc6a98;Myelography;ILT0099;;system;system
+001a00e5d61545cd9de7ca8087cc6a99;Bones;ILT0100;;system;system
+001a00e5d61545cd9de7ca8087cc6b00;Renal;ILT0101;;system;system
+001a00e5d61545cd9de7ca8087cc6b01;Joint;ILT0102;;system;system
+001a00e5d61545cd9de7ca8087cc6b02;Ultrasound Guided Biopsy;ILT0103;;system;system
+001a00e5d61545cd9de7ca8087cc6b03;Arthroscopy;ILT0104;;system;system
+001a00e5d61545cd9de7ca8087cc6b04;PreimplantationGenetic Diagnosis Test;ILT0105;;system;system
+001a00e5d61545cd9de7ca8087cc6b05;Colonoscopy;ILT0106;;system;system
+001a00e5d61545cd9de7ca8087cc6b06;Esophagoscopy;ILT0107;;system;system
+001a00e5d61545cd9de7ca8087cc6b07;Transvaginal;ILT0108;;system;system
+001a00e5d61545cd9de7ca8087cc6b08;Cystoscopy;ILT0109;;system;system
+001a00e5d61545cd9de7ca8087cc6b09;Neck X-Ray;ILT0110;;system;system
+001a00e5d61545cd9de7ca8087cc6b10;Fluorescence in Situ Hybridisation Test;ILT0111;;system;system
+001a00e5d61545cd9de7ca8087cc6b11;Head/Brain;ILT0112;;system;system
+001a00e5d61545cd9de7ca8087cc6b12;Patch Test;ILT0113;;system;system
+001a00e5d61545cd9de7ca8087cc6b13;Chest X-Ray;ILT0114;;system;system
+001a00e5d61545cd9de7ca8087cc6b14;Malaria Microscopy;ILT0115;;system;system
+001a00e5d61545cd9de7ca8087cc6b15;COVID;ILT0116;;system;system
+001a00e5d61545cd9de7ca8087cc6b16;PCR;ILT0117;;system;system
+001a00e5d61545cd9de7ca8087cc6b17;HIV-1 Rapid Recency;ILT0118;;system;system
+001a00e5d61545cd9de7ca8087cc6b18;Thoracic;ILT0119;;system;system
+001a00e5d61545cd9de7ca8087cc6b19;Lumbar;ILT0120;;system;system
+001a00e5d61545cd9de7ca8087cc6b20;Complementation Test;ILT0121;;system;system
+001a00e5d61545cd9de7ca8087cc6b21;Abdominal X-Ray;ILT0122;;system;system
+001a00e5d61545cd9de7ca8087cc6b22;Spine;ILT0123;;system;system
+001a00e5d61545cd9de7ca8087cc6b23;Bronchoscopy;ILT0124;;system;system
+001a00e5d61545cd9de7ca8087cc6b24;Endoscopic Retrograde Cholangiopancreatoscopy;ILT0125;;system;system
+001a00e5d61545cd9de7ca8087cc6b25;Lumbosacral Spine X-Ray;ILT0126;;system;system
+001a00e5d61545cd9de7ca8087cc6b26;Serum Cryptococcal Antigen (CrAg);ILT0127;;system;system
+001a00e5d61545cd9de7ca8087cc6b27;Mammography;ILT0128;;system;system
+001a00e5d61545cd9de7ca8087cc6b28;Tuberculin Test;ILT0129;;system;system
+001a00e5d61545cd9de7ca8087cc6b29;Schick Test;ILT0130;;system;system
+001a00e5d61545cd9de7ca8087cc6b30;Thyroid;ILT0131;;system;system
+001a00e5d61545cd9de7ca8087cc6b31;Recto-sigmoidoscopy;ILT0132;;system;system
+001a00e5d61545cd9de7ca8087cc6b32;Uterus (Saline Infusion);ILT0133;;system;system
+001a00e5d61545cd9de7ca8087cc6b33;Skull X-Ray;ILT0134;;system;system
+001a00e5d61545cd9de7ca8087cc6b34;Barium X-Ray;ILT0135;;system;system
+001a00e5d61545cd9de7ca8087cc6b35;Scrotum;ILT0136;;system;system
+001a00e5d61545cd9de7ca8087cc6b36;CD4 %;ILT0137;;system;system
+001a00e5d61545cd9de7ca8087cc6b37;Vascular;ILT0138;;system;system
+001a00e5d61545cd9de7ca8087cc6b38;SD Bioline Syphilis test Kit;ILT0139;;system;system
+001a00e5d61545cd9de7ca8087cc6b39;Hiv/Syphilis Duo Test;ILT0140;;system;system
+001a00e5d61545cd9de7ca8087cc6b40;Colposcopy;ILT0141;;system;system
+001a00e5d61545cd9de7ca8087cc6b41;Pap Smear;ILT0142;;system;system
+001a00e5d61545cd9de7ca8087cc6b42;VIAC;ILT0143;;system;system
+001a00e5d61545cd9de7ca8087cc6b43;Elbow Joint;ILT0144;;system;system
+001a00e5d61545cd9de7ca8087cc6b44;HPV DNA;ILT0145;;system;system
+001a00e5d61545cd9de7ca8087cc6b45;AUTOMATED VISUAL EXAMINATION;ILT0146;;system;system
+001a00e5d61545cd9de7ca8087cc6b46;Lung Ventilation Perfusion Scan;ILT0147;;system;system
+001a00e5d61545cd9de7ca8087cc6b47;Upper GI Endoscopy;ILT0148;;system;system
+001a00e5d61545cd9de7ca8087cc6b48;Venous (Extremities);ILT0149;;system;system
+001a00e5d61545cd9de7ca8087cc6b49;Cholesystography;ILT0150;;system;system
+001a00e5d61545cd9de7ca8087cc6b50;Laryngoscopy;ILT0151;;system;system
+001a00e5d61545cd9de7ca8087cc6b51;Transrectal;ILT0152;;system;system
+001a00e5d61545cd9de7ca8087cc6b52;Pulmonary Function Tests;ILT0153;;system;system

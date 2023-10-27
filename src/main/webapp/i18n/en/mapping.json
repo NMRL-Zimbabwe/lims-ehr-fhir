@@ -1,0 +1,28 @@
+{
+  "limsEhrIntegrationApp": {
+    "mapping": {
+      "home": {
+        "title": "Ehr Lims Mapping",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Ehr Lims Mapping",
+        "createOrEditLabel": "Create or edit a Ehr Lims Mapping",
+        "notFound": "No Ehr Lims Mappings found"
+      },
+      "created": "A new Ehr Lims Mapping is created with identifier {{ param }}",
+      "updated": "A Ehr Lims Mapping is updated with identifier {{ param }}",
+      "deleted": "A Ehr Lims Mapping is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Ehr Lims Mapping {{ id }}?"
+      },
+      "detail": {
+        "title": "Ehr Lims Mapping"
+      },
+      "id": "ID",
+      "ehrSampleType": "Ehr Sample Type",
+      "ehrTest": "Ehr Test",
+      "limsSampleType": "Lims Sample Type",
+      "limsTest": "Lims Test",
+      "laboratory": "Laboratory"
+    }
+  }
+}

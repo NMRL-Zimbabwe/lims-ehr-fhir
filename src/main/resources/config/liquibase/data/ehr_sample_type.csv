@@ -1,0 +1,66 @@
+id;name;ehr_code;loinc_code;created_by;last_modified_by
+001a00e5d61545cd9de7ca8087cc6a01;Blood;IST0002;;system;system
+001a00e5d61545cd9de7ca8087cc6a02;Urine;IST0003;;system;system
+001a00e5d61545cd9de7ca8087cc6a03;Sputum;IST0004;;system;system
+001a00e5d61545cd9de7ca8087cc6a04;Semen;IST0005;;system;system
+001a00e5d61545cd9de7ca8087cc6a05;Stool;IST0006;;system;system
+001a00e5d61545cd9de7ca8087cc6a06;Saliva;IST0007;;system;system
+001a00e5d61545cd9de7ca8087cc6a07;Oral fluid;IST0008;;system;system
+001a00e5d61545cd9de7ca8087cc6a08;DBS;IST0009;;system;system
+001a00e5d61545cd9de7ca8087cc6a09;Gastric Larvage;IST0010;;system;system
+001a00e5d61545cd9de7ca8087cc6a10;Pleural Fluid;IST0011;;system;system
+001a00e5d61545cd9de7ca8087cc6a11;aspirate;IST0012;;system;system
+001a00e5d61545cd9de7ca8087cc6a12;Cerebrospinal Fluid (CSF);IST0013;;system;system
+001a00e5d61545cd9de7ca8087cc6a13;Pulmonary Function Tests;IST0014;;system;system
+001a00e5d61545cd9de7ca8087cc6a14;Laparoscopy;IST0015;;system;system
+001a00e5d61545cd9de7ca8087cc6a15;Bone Marrow;IST0016;;system;system
+001a00e5d61545cd9de7ca8087cc6a16;Magnetic Resonance Imaging (MRI);IST0017;;system;system
+001a00e5d61545cd9de7ca8087cc6a17;Lymphatic Fluid;IST0018;;system;system
+001a00e5d61545cd9de7ca8087cc6a18;Arthroscopy;IST0019;;system;system
+001a00e5d61545cd9de7ca8087cc6a19;Pus;IST0020;;system;system
+001a00e5d61545cd9de7ca8087cc6a20;Tissue;IST0021;;system;system
+001a00e5d61545cd9de7ca8087cc6a21;Computed Tomography (CT) Other;IST0022;;system;system
+001a00e5d61545cd9de7ca8087cc6a22;Ultrasonography;IST0023;;system;system
+001a00e5d61545cd9de7ca8087cc6a23;Autopsy;IST0024;;system;system
+001a00e5d61545cd9de7ca8087cc6a24;Lumbar Puncture;IST0025;;system;system
+001a00e5d61545cd9de7ca8087cc6a25;Electromyography;IST0026;;system;system
+001a00e5d61545cd9de7ca8087cc6a26;Electroencephalography;IST0027;;system;system
+001a00e5d61545cd9de7ca8087cc6a27;Mammography;IST0028;;system;system
+001a00e5d61545cd9de7ca8087cc6a28;Bronchalveolar lavage;IST0029;;system;system
+001a00e5d61545cd9de7ca8087cc6a29;Nasal Swab;IST0030;;system;system
+001a00e5d61545cd9de7ca8087cc6a30;Pharingeal Swab;IST0031;;system;system
+001a00e5d61545cd9de7ca8087cc6a31;Radionuclide Scanning;IST0032;;system;system
+001a00e5d61545cd9de7ca8087cc6a32;Thoracoscopy;IST0033;;system;system
+001a00e5d61545cd9de7ca8087cc6a33;Cervical Tissue;IST0034;;system;system
+001a00e5d61545cd9de7ca8087cc6a34;Biopsy;IST0035;;system;system
+001a00e5d61545cd9de7ca8087cc6a35;Laryngoscopy;IST0036;;system;system
+001a00e5d61545cd9de7ca8087cc6a36;VIAC;IST0037;;system;system
+001a00e5d61545cd9de7ca8087cc6a37;Computed Tomography (CT) Spine;IST0038;;system;system
+001a00e5d61545cd9de7ca8087cc6a38;PreimplantationGenetic Diagnosis;IST0039;;system;system
+001a00e5d61545cd9de7ca8087cc6a39;Auscultation;IST0040;;system;system
+001a00e5d61545cd9de7ca8087cc6a40;Magnetic Resonance Spectroscopy;IST0041;;system;system
+001a00e5d61545cd9de7ca8087cc6a41;Cervical Cells;IST0042;;system;system
+001a00e5d61545cd9de7ca8087cc6a42;Anatomical Tissue for TB;IST0043;;system;system
+001a00e5d61545cd9de7ca8087cc6a43;Fluorescence in Situ Hybridisation;IST0044;;system;system
+001a00e5d61545cd9de7ca8087cc6a44;Skin Test;IST0045;;system;system
+001a00e5d61545cd9de7ca8087cc6a45;Colposcopy;IST0046;;system;system
+001a00e5d61545cd9de7ca8087cc6a46;Mediastinoscopy;IST0047;;system;system
+001a00e5d61545cd9de7ca8087cc6a47;Rubin’s Test;IST0048;;system;system
+001a00e5d61545cd9de7ca8087cc6a48;Positron Emission Tomography (PET);IST0049;;system;system
+001a00e5d61545cd9de7ca8087cc6a49;Cholesystography;IST0050;;system;system
+001a00e5d61545cd9de7ca8087cc6a50;Joint X-Ray;IST0051;;system;system
+001a00e5d61545cd9de7ca8087cc6a51;X-Ray Other;IST0052;;system;system
+001a00e5d61545cd9de7ca8087cc6a52;Lung Ventilation Perfusion Scan;IST0053;;system;system
+001a00e5d61545cd9de7ca8087cc6a53;Semen Analysis;IST0054;;system;system
+001a00e5d61545cd9de7ca8087cc6a54;Phonocardiography;IST0055;;system;system
+001a00e5d61545cd9de7ca8087cc6a55;Myelography;IST0056;;system;system
+001a00e5d61545cd9de7ca8087cc6a56;Electrocardiogrphy;IST0057;;system;system
+001a00e5d61545cd9de7ca8087cc6a57;Ballistocardiography;IST0058;;system;system
+001a00e5d61545cd9de7ca8087cc6a58;Echocardiography;IST0059;;system;system
+001a00e5d61545cd9de7ca8087cc6a59;Dick’s Test;IST0060;;system;system
+001a00e5d61545cd9de7ca8087cc6a60;Extremity X-Ray;IST0061;;system;system
+001a00e5d61545cd9de7ca8087cc6a61;Serum;IST0062;;system;system
+001a00e5d61545cd9de7ca8087cc6a62;Cervical Swab;IST0063;;system;system
+001a00e5d61545cd9de7ca8087cc6a63;Endoscopy;IST0064;;system;system
+001a00e5d61545cd9de7ca8087cc6a64;Complementation Test;IST0065;;system;system
+001a00e5d61545cd9de7ca8087cc6a65;Nasopharyngolaryngoscopy;IST0066;;system;system

@@ -28,6 +28,14 @@ import { Authority } from 'app/config/authority.constants';
         },
         loadChildren: () => import('./patient/patient.module').then(m => m.PatientModule),
       },
+      /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
+      {
+        path: 'mappings',
+        data: {
+          authorities: [Authority.ADMIN],
+        },
+        loadChildren: () => import('./mapping/mapping.module').then(m => m.MappingModule),
+      },
     ]),
   ],
 })
