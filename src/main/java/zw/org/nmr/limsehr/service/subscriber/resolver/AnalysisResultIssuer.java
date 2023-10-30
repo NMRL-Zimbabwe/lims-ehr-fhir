@@ -194,6 +194,10 @@ public class AnalysisResultIssuer {
 
         Device device = new Device();
         String InstrumentName = labReq.getInstrument() != null ? labReq.getInstrument().replace(" ", "") : "None";
+
+        if (InstrumentName.length() == 0) {
+            InstrumentName = "None";
+        }
         device.setId(InstrumentName);
         // Create a device name
         StringType deviceName = new StringType();
