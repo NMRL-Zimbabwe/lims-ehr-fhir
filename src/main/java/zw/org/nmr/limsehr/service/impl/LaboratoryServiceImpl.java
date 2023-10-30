@@ -43,7 +43,7 @@ public class LaboratoryServiceImpl implements LaboratoryService {
         Optional<Laboratory> exists = laboratoryRepository.findByCode(labDTO.getCode());
 
         if (exists.isPresent()) {
-            return exists.get();
+            return exists.orElseThrow();
         }
 
         Laboratory lab = new Laboratory();

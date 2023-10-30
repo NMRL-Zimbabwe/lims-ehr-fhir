@@ -45,7 +45,7 @@ public class SendToLimsSampleResolver {
             laboratoryRequestService.flushOurErrorsFromQueue(request, "SampleType and Test not found");
             return null;
         }
-        EhrToLImsDTO testAndSampleType = mapping.get();
+        EhrToLImsDTO testAndSampleType = mapping.orElseThrow();
 
         analysisRequest.setSampleType(testAndSampleType.getSampleType().getName());
 

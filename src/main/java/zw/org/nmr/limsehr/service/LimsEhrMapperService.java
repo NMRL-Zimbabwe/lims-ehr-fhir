@@ -64,13 +64,13 @@ public class LimsEhrMapperService {
             Optional<SampleType> sampleType = limsSampleTypeService.findById(mapping.getLimsSampleTypeId());
             Optional<Test> test = limsTestService.findById(mapping.getLimsTestId());
             dd.setEhrSampleTypeId(mapping.getEhrSampleTypeId());
-            dd.setEhrSampleType(ehrSampleType.get());
+            dd.setEhrSampleType(ehrSampleType.orElseThrow());
             dd.setEhrTestId(mapping.getEhrTestId());
-            dd.setEhrTest(ehrTest.get());
+            dd.setEhrTest(ehrTest.orElseThrow());
             dd.setLimsSampleTypeId(mapping.getLimsSampleTypeId());
-            dd.setLimsSampleType(sampleType.get());
+            dd.setLimsSampleType(sampleType.orElseThrow());
             dd.setLimsTestId(mapping.getLimsTestId());
-            dd.setLimsTest(test.get());
+            dd.setLimsTest(test.orElseThrow());
             return dd;
         });
     }
@@ -102,12 +102,12 @@ public class LimsEhrMapperService {
             return Optional.empty();
         }
 
-        Optional<EhrToLImsDTO> labMapping = getMappingForLab(labId, ehrTest.get().getId(), ehrSampleType.get().getId());
+        Optional<EhrToLImsDTO> labMapping = getMappingForLab(labId, ehrTest.orElseThrow().getId(), ehrSampleType.orElseThrow().getId());
         if (labMapping.isPresent()) {
-            log.info("Laboratory specific mapping found: {}", labMapping.get());
+            log.info("Laboratory specific mapping found: {}", labMapping.orElseThrow());
             return labMapping;
         }
-        return getDefaultMapping(ehrTest.get().getId(), ehrSampleType.get().getId());
+        return getDefaultMapping(ehrTest.orElseThrow().getId(), ehrSampleType.orElseThrow().getId());
     }
 
     private Optional<EhrToLImsDTO> getMappingForLab(String labId, String ehrTestCode, String sampleTypeId) {
@@ -121,7 +121,7 @@ public class LimsEhrMapperService {
             log.info("Laboratory specific mapping not found");
             return Optional.empty();
         }
-        return mapToLims(mapping.get());
+        return mapToLims(mapping.orElseThrow());
     }
 
     private Optional<EhrToLImsDTO> getDefaultMapping(String ehrTestCode, String sampleTypeId) {
@@ -134,7 +134,7 @@ public class LimsEhrMapperService {
             log.info("Default mapping not found");
             return Optional.empty();
         }
-        return mapToLims(mapping.get());
+        return mapToLims(mapping.orElseThrow());
     }
 
     private Optional<EhrToLImsDTO> mapToLims(LimsEhrMapper mapper) {
@@ -149,8 +149,8 @@ public class LimsEhrMapperService {
         }
 
         EhrToLImsDTO ehrToLims = new EhrToLImsDTO();
-        ehrToLims.setTest(test.get());
-        ehrToLims.setSampleType(sampleType.get());
+        ehrToLims.setTest(test.orElseThrow());
+        ehrToLims.setSampleType(sampleType.orElseThrow());
         return Optional.of(ehrToLims);
     }
 

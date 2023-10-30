@@ -151,13 +151,13 @@ public class SendToLimsService {
                 flushOurErrorsFromQueue(request, "Client ID not found");
                 return;
             }
-            if (client.get().isInActive()) {
+            if (client.orElseThrow().isInActive()) {
                 log.error("Client is not activated :{} ", request.getClientId());
                 flushOurErrorsFromQueue(request, "Client is not activated");
             }
-            builder.setPrimaryReferrer(client.get().getId());
+            builder.setPrimaryReferrer(client.orElseThrow().getId());
 
-            builder.setParent_path(client.get().getPath());
+            builder.setParent_path(client.orElseThrow().getPath());
             builder.setPortal_type("Patient");
             if (patient.getArt() != null) {
                 builder.setClientPatientId(patient.getArt().replace("-", ""));
@@ -166,7 +166,7 @@ public class SendToLimsService {
             SampleDTOforLIMS sample = new SampleDTOforLIMS();
             sample.setDateSampled(request.getDateCollected().toString());
             sample.setPortal_type("AnalysisRequest");
-            sample.setParent_path(client.get().getPath());
+            sample.setParent_path(client.orElseThrow().getPath());
 
             sample.setClientSampleId(request.getClientSampleId());
 
