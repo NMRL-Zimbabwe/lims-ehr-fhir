@@ -61,4 +61,6 @@ public interface LaboratoryRequestRepository extends JpaRepository<LaboratoryReq
     );
 
     long countBySampleIdIsNotNull();
+
+    List<LaboratoryRequest> findByLabReferenceSampleIdIsNotNullAndSentToEhrIsNull();
 }

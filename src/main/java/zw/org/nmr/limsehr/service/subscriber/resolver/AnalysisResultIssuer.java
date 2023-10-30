@@ -15,6 +15,7 @@ import zw.org.nmr.limsehr.domain.JobScheduler;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
 import zw.org.nmr.limsehr.service.JobSchedulerService;
+import zw.org.nmr.limsehr.service.enums.LaboratoryRequestStatus;
 import zw.org.nmr.limsehr.service.subscriber.reference.FhirReferenceCreator;
 
 @Service
@@ -59,80 +60,151 @@ public class AnalysisResultIssuer {
         for (LaboratoryRequest lr : labRequests) {
             Task task = fhirClient.read().resource(Task.class).withId(lr.getMiddlewareAnalysisRequestUuid()).execute();
 
-            //We call this Result Bundle
-            List<Resource> fhirResources = new ArrayList<>();
+            ehrAcknoledgements(fhirClient, lr, task);
 
-            task.setStatus(Task.TaskStatus.COMPLETED);
-            Task.TaskOutputComponent output = new Task.TaskOutputComponent();
-
-            DiagnosticReport diagnosticReport = getDiagnosticReport(task, lr.getLaboratoryRequestId());
-            String diagnosticReportId = diagnosticReport.getIdElement().getIdPart();
-            Reference diagnosticReportReference = FhirReferenceCreator.getReference(diagnosticReportId, "DiagnosticReport");
-            output.setValue(diagnosticReportReference);
-            task.setOutput(Collections.singletonList(output));
-
-            // Loop results and add observations
-            Observation observation = getObservation(fhirClient, task, lr);
-
-            String observationId = observation.getIdElement().getIdPart();
-            Reference observationReference = FhirReferenceCreator.getReference(observationId, "Observation");
-            diagnosticReport.setResult(Collections.singletonList(observationReference));
-
-            //NB:: Start with Observations, followed by Diagnostic Reports, and finally Tasks
-            fhirResources.add(observation);
-            fhirResources.add(diagnosticReport);
-            fhirResources.add(task);
-
-            //Save this Result Bundle in the Shared Health Record (SHR):: OpenHIE
-            fhirClient.update().resource(observation).execute();
-            // Send Diagnostic report
-            fhirClient.update().resource(diagnosticReport).execute();
-            // update task status to completed
-            fhirClient.update().resource(task).execute();
-
-            lr.setResultStatus("SENT_TO_EHR");
+            lr.setResultStatus(LaboratoryRequestStatus.SENT_RESULT_TO_EHR.toString());
+            lr.setSentToEhr(LaboratoryRequestStatus.SENT_TO_EHR.toString());
             laboratoryRequestRepository.save(lr);
         }
+    }
+
+    @Scheduled(fixedRate = 60000 * 1) // or @Scheduled(cron = "0 */5 * * * *", zone = "Africa/Harare")
+    public void issueAcknowledgement() {
+        Optional<JobScheduler> isSchedule = jobSchedulerService.resolverScheduled("SEND_RESULTS_TO_EHR");
+        if (isSchedule.isEmpty()) {
+            return;
+        }
+        if (isSchedule.get().isInActive()) {
+            return;
+        }
+
+        FhirContext ctx = FhirContext.forR4();
+        IGenericClient fhirClient = ctx.newRestfulGenericClient(this.hapiFhirBaseUrl);
+        BasicAuthInterceptor authInterceptor = new BasicAuthInterceptor(this.hapiFhirUsername, this.hapiFhirPassword);
+        fhirClient.registerInterceptor(authInterceptor);
+
+        List<LaboratoryRequest> labRequests = laboratoryRequestRepository.findByLabReferenceSampleIdIsNotNullAndSentToEhrIsNull();
+
+        for (LaboratoryRequest lr : labRequests) {
+            Task task = fhirClient.read().resource(Task.class).withId(lr.getMiddlewareAnalysisRequestUuid()).execute();
+
+            ehrAcknoledgements(fhirClient, lr, task);
+
+            lr.setSentToEhr(LaboratoryRequestStatus.SENT_TO_EHR.toString());
+
+            laboratoryRequestRepository.save(lr);
+        }
+    }
+
+    private void ehrAcknoledgements(IGenericClient fhirClient, LaboratoryRequest lr, Task task) {
+        // We call this Result Bundle
+        List<Resource> fhirResources = new ArrayList<>();
+
+        task.setStatus(Task.TaskStatus.COMPLETED);
+        Task.TaskOutputComponent output = new Task.TaskOutputComponent();
+
+        DiagnosticReport diagnosticReport = getDiagnosticReport(task, lr.getLaboratoryRequestId());
+        String diagnosticReportId = diagnosticReport.getIdElement().getIdPart();
+        Reference diagnosticReportReference = FhirReferenceCreator.getReference(diagnosticReportId, "DiagnosticReport");
+        output.setValue(diagnosticReportReference);
+        task.setOutput(Collections.singletonList(output));
+
+        // Loop results and add observations
+        Observation observation = getObservation(fhirClient, task, lr);
+
+        String observationId = observation.getIdElement().getIdPart();
+        Reference observationReference = FhirReferenceCreator.getReference(observationId, "Observation");
+        diagnosticReport.setResult(Collections.singletonList(observationReference));
+
+        // NB:: Start with Observations, followed by Diagnostic Reports, and finally
+        // Tasks
+        fhirResources.add(observation);
+        fhirResources.add(diagnosticReport);
+        fhirResources.add(task);
+
+        // Save this Result Bundle in the Shared Health Record (SHR):: OpenHIE
+        fhirClient.update().resource(observation).execute();
+        // Send Diagnostic report
+        fhirClient.update().resource(diagnosticReport).execute();
+        // update task status to completed
+        fhirClient.update().resource(task).execute();
     }
 
     public static DiagnosticReport getDiagnosticReport(Task task, String labRequestId) {
         DiagnosticReport diagnosticReport = new DiagnosticReport();
         diagnosticReport.setId(labRequestId);
-        //This is hard coded for now as an example
+        // This is hard coded for now as an example
         diagnosticReport.setCode(new CodeableConcept(new Coding("http://loinc.org", "22748-8", "")));
-        //diagnosticReport.setIssued(null)
+        // diagnosticReport.setIssued(null)
         diagnosticReport.setSubject(task.getFor());
         return diagnosticReport;
     }
 
-    //Analysis
+    // Analysis
     public static Observation getObservation(IGenericClient clt, Task task, LaboratoryRequest labReq) {
-        //Note:: Here I am randomly generating the result. In reality this should come from your Lims system.
+        // Note:: Here I am randomly generating the result. In reality this should come
+        // from your Lims system.
         Observation observation = new Observation();
         observation.setId(labReq.getLaboratoryRequestId());
         observation.setSubject(task.getFor());
-        //Add Test Analysis Code.  //This is hard coded for now as an example
-        observation.setCode(new CodeableConcept(new Coding("http://loinc.org", "22748-8", "")));
+        // Add Test Analysis Code. //This is hard coded for now as an example
+        observation.setCode(new CodeableConcept(new Coding("urn:impilo:code", labReq.getTestId(), "")));
 
         StringType stringResult = new StringType();
         stringResult.setValue(labReq.getResult());
         observation.setValue(stringResult);
 
-        // observation.setValue(new Quantity().setValue(Float.parseFloat(labReq.getResult())).setUnit(labReq.getUnit()));
+        int intCriticalResult = 0;
+        try {
+            if (labReq.getResult() != null) {
+                // remove non-numeric characters from a Java string e.g <>
+                intCriticalResult = Integer.parseInt(labReq.getResult().replaceAll("[^0-9]", ""));
+
+                System.out.println("The string is an integer: " + intCriticalResult);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("The string is not an integer.");
+        }
+
+        if (intCriticalResult >= 1000 || labReq.isBreastfeeding() || labReq.isPregnant()) {
+            CodeableConcept codeableConcept = new CodeableConcept();
+            codeableConcept.setText("CRITICAL_RESULT");
+            Coding coding = new Coding();
+            coding.setSystem("urn:lims:code");
+            coding.setCode(String.valueOf(labReq.getResult()));
+            coding.setDisplay(String.valueOf(labReq.getResult()));
+            codeableConcept.addCoding(coding);
+            observation.addInterpretation(codeableConcept);
+        }
+
+        CodeableConcept ccResultInterpretation = new CodeableConcept();
+        ccResultInterpretation.setText("RESULT_INTERPRETATION");
+        Coding coding = new Coding();
+        coding.setSystem("urn:lims:code");
+        coding.setCode("VL");
+        coding.setDisplay(
+            "1. VL <= 1000 copies/ml: Continue on current Regimen. 2. VL > 1000 copies/ml: Clinical and Counseling action Required"
+        );
+        ccResultInterpretation.addCoding(coding);
+        observation.addInterpretation(ccResultInterpretation);
+
+        // observation.setValue(new
+        // Quantity().setValue(Float.parseFloat(labReq.getResult())).setUnit(labReq.getUnit()));
         observation.setLanguage("ENGLISH");
 
         Device device = new Device();
-        device.setId("abbott");
+        String InstrumentName = labReq.getInstrument() != null ? labReq.getInstrument().replace(" ", "") : "None";
+        device.setId(InstrumentName);
         // Create a device name
         StringType deviceName = new StringType();
-        deviceName.setValue("Abbott");
+        deviceName.setValue(InstrumentName);
         Extension deviceNameExtension = new Extension();
         deviceNameExtension.setUrl("url:lims:device");
         deviceNameExtension.setValue(deviceName);
         device.addExtension(deviceNameExtension);
         clt.update().resource(device).execute();
         //
-        Reference deviceReference = FhirReferenceCreator.getReference("abbott", "Device");
+        Reference deviceReference = FhirReferenceCreator.getReference(InstrumentName, "Device");
         observation.setDevice(deviceReference);
         return observation;
     }
