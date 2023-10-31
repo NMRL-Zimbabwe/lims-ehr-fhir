@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.domain.LaboratoryRequest;
 import zw.org.nmr.limsehr.domain.Patient;
 import zw.org.nmr.limsehr.repository.LaboratoryRequestRepository;
+import zw.org.nmr.limsehr.service.enums.FhirLimsCodes;
 import zw.org.nmr.limsehr.service.utility.DateUtility;
 
 @Service
@@ -43,7 +44,7 @@ public class LaboratoryRequestResolver {
 
         // Test Requested
         for (Coding cod : serviceRequest.getCode().getCoding()) {
-            if (cod.getSystem().equals("urn:impilo:code")) {
+            if (cod.getSystem().equals(FhirLimsCodes.IMPILO_CODE_URN.getValue())) {
                 labRequest.setTestId(cod.getCode());
                 // TODO: must save new mapped ehr test code instead of test name
                 labRequest.setTestName(cod.getDisplay());
@@ -60,7 +61,7 @@ public class LaboratoryRequestResolver {
         String impiloLaboratoryCode = laboratory
             .getIdentifier()
             .stream()
-            .filter(i -> i.getSystem().equals("urn:impilo:code"))
+            .filter(i -> i.getSystem().equals(FhirLimsCodes.IMPILO_CODE_URN.getValue()))
             .map(Identifier::getValue)
             .findFirst()
             .orElse(null);
@@ -70,13 +71,13 @@ public class LaboratoryRequestResolver {
         labRequest.setClientId(facility.getIdElement().getIdPart());
         labRequest.setClient(facility.getName());
 
-        if (serviceRequest.getReasonCode().size() > 0) {
+        if (!serviceRequest.getReasonCode().isEmpty()) {
             String impiloTestReasonCode = serviceRequest
                 .getReasonCode()
                 .get(0)
                 .getCoding()
                 .stream()
-                .filter(i -> i.getSystem().equals("urn:impilo:code"))
+                .filter(i -> i.getSystem().equals(FhirLimsCodes.IMPILO_CODE_URN.getValue()))
                 .map(Coding::getCode)
                 .findFirst()
                 .orElse(null);
@@ -87,9 +88,7 @@ public class LaboratoryRequestResolver {
         // TODO CASE ART start date
         for (ParameterComponent input : task.getInput()) {
             for (Coding coding : input.getType().getCoding()) {
-                if (coding.getSystem().equals("urn:sys:pregnant")) {
-                    // labRequest.setPregnant(input.getId("valueBoolean"));
-                }
+                coding.getSystem(); // labRequest.setPregnant(input.getId("valueBoolean"));
             }
         }
         /*
@@ -102,7 +101,7 @@ public class LaboratoryRequestResolver {
         // sample type
         for (Coding testCode : specimen.getType().getCoding()) {
             log.debug("sample type {}", testCode);
-            if (testCode.getSystem().equals("urn:impilo:code")) {
+            if (testCode.getSystem().equals(FhirLimsCodes.IMPILO_CODE_URN.getValue())) {
                 labRequest.setSampleTypeId(testCode.getCode());
                 // TODO: must save new mapped sample type ehr code instead of test name
                 labRequest.setSampleTypeName(testCode.getDisplay());
@@ -111,7 +110,7 @@ public class LaboratoryRequestResolver {
 
         // client sample id
         for (Identifier identifier : specimen.getIdentifier()) {
-            if (identifier.getSystem().equals("urn:impilo:cid")) {
+            if (identifier.getSystem().equals(FhirLimsCodes.IMPILO_CODE_CSID.getValue())) {
                 labRequest.setClientSampleId(identifier.getValue());
             }
         }
