@@ -110,10 +110,10 @@ public class AnalysisResultIssuer {
             case "published":
                 task.setStatus(Task.TaskStatus.COMPLETED);
                 break;
-            case "sample_due":
+            case "sample_due", "registered":
                 task.setStatus(Task.TaskStatus.ONHOLD);
                 break;
-            case "registered", "received":
+            case "unassigned", "received":
                 task.setStatus(Task.TaskStatus.ACCEPTED);
                 break;
             default: // "to_be_verified", "verified"
