@@ -5,7 +5,6 @@ import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.client.interceptor.BasicAuthInterceptor;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 import org.hl7.fhir.r4.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -316,6 +315,7 @@ public class AnalysisResultIssuer {
         coding.setDisplay(rejectionReason);
         concept.addCoding(coding);
         Extension extension = new Extension();
+        // TODO: standardise rejection reasons in a table
         extension.setUrl(FhirLimsCodes.STATUS_REASONS_EXTENSION_URL.getValue() + "#" + UUID.randomUUID());
         extension.setValue(concept);
         return extension;
