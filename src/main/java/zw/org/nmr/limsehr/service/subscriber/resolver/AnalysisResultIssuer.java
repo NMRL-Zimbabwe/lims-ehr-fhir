@@ -101,7 +101,20 @@ public class AnalysisResultIssuer {
     }
 
     private void ehrAcknowledgements(IGenericClient fhirClient, LaboratoryRequest lr, Task task) {
-        task.setStatus(Task.TaskStatus.COMPLETED);
+        switch (lr.getStatus().toLowerCase()) {
+            case "published":
+                task.setStatus(Task.TaskStatus.COMPLETED);
+                break;
+            case "sample_due":
+                task.setStatus(Task.TaskStatus.ONHOLD);
+                break;
+            case "registered", "received":
+                task.setStatus(Task.TaskStatus.ACCEPTED);
+                break;
+            default: // "to_be_verified", "verified"
+                task.setStatus(Task.TaskStatus.INPROGRESS);
+        }
+
         Task.TaskOutputComponent output = new Task.TaskOutputComponent();
 
         DiagnosticReport diagnosticReport = getDiagnosticReport(task, lr);
