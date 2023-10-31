@@ -197,7 +197,7 @@ public class AnalysisResultIssuer {
     }
 
     private static void addMethod(Observation observation, LaboratoryRequest labReq) {
-        if (labReq.getMethod() != null || !labReq.getMethod().isBlank()) {
+        if (labReq.getMethod() == null || labReq.getMethod().isBlank()) {
             return;
         }
         CodeableConcept codeableConcept = new CodeableConcept();
@@ -211,7 +211,7 @@ public class AnalysisResultIssuer {
     }
 
     private static void addInstrument(IGenericClient clt, Observation observation, LaboratoryRequest labReq) {
-        if (labReq.getInstrument() == null || labReq.getInstrument().isEmpty()) {
+        if (labReq.getInstrument() == null || labReq.getInstrument().isBlank()) {
             return;
         }
         String instrument = labReq.getInstrument().replace(" ", "-");
@@ -284,7 +284,7 @@ public class AnalysisResultIssuer {
     }
 
     private static void addResultRemark(Observation observation, LaboratoryRequest labReq) {
-        if (labReq.getRemarks() != null || !labReq.getRemarks().isBlank()) {
+        if (labReq.getRemarks() == null || labReq.getRemarks().isBlank()) {
             return;
         }
         Annotation annotation = new Annotation();
