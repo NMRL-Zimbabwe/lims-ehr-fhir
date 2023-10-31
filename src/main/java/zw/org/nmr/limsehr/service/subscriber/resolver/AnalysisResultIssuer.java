@@ -59,13 +59,19 @@ public class AnalysisResultIssuer {
 
         for (LaboratoryRequest lr : labRequests) {
             Task task = fhirClient.read().resource(Task.class).withId(lr.getMiddlewareAnalysisRequestUuid()).execute();
-            if (lr.getStatus().equals("rejected")) {
+
+            if (lr.getStatus() == null) { // !IMPORTANT
+                continue;
+            }
+
+            String status = lr.getStatus().toLowerCase();
+            if (status.equals("rejected")) {
                 handleRejected(fhirClient, task, lr);
             } else {
                 ehrAcknowledgements(fhirClient, lr, task);
             }
 
-            if (lr.getStatus().equalsIgnoreCase("published")) {
+            if (status.equals("published") || status.equals("rejected")) {
                 lr.setResultStatus(LaboratoryRequestStatus.SENT_RESULT_TO_EHR.toString());
             }
 
