@@ -1,0 +1,107 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-mapping-heading" data-cy="ClientCreateUpdateHeading" jhiTranslate="limsEhrIntegrationApp.mapping.home.createOrEditLabel">
+        Create or edit a Client
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3 hidden" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="string" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="limsEhrIntegrationApp.mapping.ehrSampleType" for="field_ehrSampleTypeId"
+            >Ehr Sample Type</label
+          >
+          <select class="form-control" id="field_ehrSampleTypeId" name="ehrSampleTypeId" formControlName="ehrSampleTypeId">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                ehrSampleType.id === editForm.get('ehrSampleTypeId')!.value ? editForm.get('ehrSampleTypeId')!.value : ehrSampleType.id
+              "
+              *ngFor="let ehrSampleType of mappingsData?.ehrSampleTypes"
+            >
+              {{ ehrSampleType.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="limsEhrIntegrationApp.mapping.ehrTest" for="field_ehrTestId">Ehr Test</label>
+          <select class="form-control" id="field_ehrTestId" name="ehrTestId" formControlName="ehrTestId">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="ehrTest.id === editForm.get('ehrTestId')!.value ? editForm.get('ehrTestId')!.value : ehrTest.id"
+              *ngFor="let ehrTest of mappingsData?.ehrTests"
+            >
+              {{ ehrTest.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="limsEhrIntegrationApp.mapping.limsSampleType" for="field_limsSampleTypeId"
+            >Lims Sample Type</label
+          >
+          <select class="form-control" id="field_limsSampleTypeId" name="limsSampleTypeId" formControlName="limsSampleTypeId">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                limsSampleType.id === editForm.get('limsSampleTypeId')!.value ? editForm.get('limsSampleTypeId')!.value : limsSampleType.id
+              "
+              *ngFor="let limsSampleType of mappingsData?.limsSampleTypes"
+            >
+              {{ limsSampleType.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="limsEhrIntegrationApp.mapping.limsTest" for="field_limsTestId">Lims Sample Type</label>
+          <select class="form-control" id="fieldlimsTestId" name="limsTestId" formControlName="limsTestId">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="limsTest.id === editForm.get('limsTestId')!.value ? editForm.get('limsTestId')!.value : limsTest.id"
+              *ngFor="let limsTest of mappingsData?.limsTests"
+            >
+              {{ limsTest.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="limsEhrIntegrationApp.mapping.laboratory" for="field_laboratoryId">Laboratory</label>
+          <select class="form-control" id="field_laboratoryId" name="laboratoryId" formControlName="laboratoryId">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="laboratory.id === editForm.get('laboratoryId')!.value ? editForm.get('laboratoryId')!.value : laboratory.id"
+              *ngFor="let laboratory of mappingsData?.laboratories"
+            >
+              {{ laboratory.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

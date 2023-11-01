@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * A reson_for_vl_test.
  */
 @Entity
-@Table(name = "reson_for_test")
+@Table(name = "reason_for_test")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ReasonForTest extends AbstractAuditingEntity implements Serializable {
 
@@ -23,7 +23,7 @@ public class ReasonForTest extends AbstractAuditingEntity implements Serializabl
     private String id;
 
     @Id
-    @Column(name = "reson_for_test_id", unique = true, nullable = false)
+    @Column(name = "reason_for_test_id", unique = true, nullable = false)
     private String reasonForTestId;
 
     private String name;

@@ -108,39 +108,33 @@ public class SendToLimsService {
                 return;
             }
 
+            /*
+             * Construct patient details
+             */
             UnifiedLimsRequestPatientDTO pt = sendToLimsPatientResolver.resolvePatient(patient, request);
             if (pt == null) {
                 return;
             }
-
             unifiedLimsRequest.setPatient(pt);
 
-            /**
-             * Construct case/batch details
+            /*
+             * Construct AnalysisRequest details
              */
-
-            /**   UnifiedLimsRequestBatchDTO analysisCase = new UnifiedLimsRequestBatchDTO();
-             analysisCase.setCaseType("VL");
-             analysisCase.setClientCaseID("");
-             analysisCase.setReasonForVLtest("Routine Viral Load");
-             analysisCase.setVLBreastFeeding(false);
-             analysisCase.setVLPregnant(false);
-
-             unifiedLimsRequest.setBatch(analysisCase);
-             */
-
-            UnifiedLimsRequestBatchDTO analysisCase = sendToLimsBatchResolver.resolveBatch();
-
-            unifiedLimsRequest.setBatch(analysisCase);
-            /**
-             * Construct laboratory request details
-             */
-
             UnifiedLimsRequestAnalysisRequestDTO analysisRequest = sendToLimsSampleResolver.resolveSample(request, laboratory);
             if (analysisRequest == null) {
                 return;
             }
             unifiedLimsRequest.setAnalysisRequest(analysisRequest);
+
+            /*
+             * Construct case/batch details
+             */
+            UnifiedLimsRequestBatchDTO analysisCase = sendToLimsBatchResolver.resolveBatch(request);
+            unifiedLimsRequest.setBatch(analysisCase);
+
+            /*
+             * Construct laboratory request details
+             */
 
             // The code below will be substituted with the bundled request
 
@@ -157,13 +151,13 @@ public class SendToLimsService {
                 flushOurErrorsFromQueue(request, "Client ID not found");
                 return;
             }
-            if (client.get().isInActive()) {
+            if (client.orElseThrow().isInActive()) {
                 log.error("Client is not activated :{} ", request.getClientId());
                 flushOurErrorsFromQueue(request, "Client is not activated");
             }
-            builder.setPrimaryReferrer(client.get().getId());
+            builder.setPrimaryReferrer(client.orElseThrow().getId());
 
-            builder.setParent_path(client.get().getPath());
+            builder.setParent_path(client.orElseThrow().getPath());
             builder.setPortal_type("Patient");
             if (patient.getArt() != null) {
                 builder.setClientPatientId(patient.getArt().replace("-", ""));
@@ -172,7 +166,7 @@ public class SendToLimsService {
             SampleDTOforLIMS sample = new SampleDTOforLIMS();
             sample.setDateSampled(request.getDateCollected().toString());
             sample.setPortal_type("AnalysisRequest");
-            sample.setParent_path(client.get().getPath());
+            sample.setParent_path(client.orElseThrow().getPath());
 
             sample.setClientSampleId(request.getClientSampleId());
 

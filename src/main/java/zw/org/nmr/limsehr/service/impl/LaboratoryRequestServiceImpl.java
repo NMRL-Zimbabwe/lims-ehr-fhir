@@ -1,10 +1,9 @@
 package zw.org.nmr.limsehr.service.impl;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +23,7 @@ import zw.org.nmr.limsehr.service.dto.AcknowledgementFromLims;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.Coding;
 import zw.org.nmr.limsehr.service.dto.laboratory.request.LaboratoryRequestEhrDTO;
 import zw.org.nmr.limsehr.service.enums.LaboratoryRequestStatus;
+import zw.org.nmr.limsehr.service.utility.DateUtility;
 
 @Service
 @Transactional
@@ -47,6 +47,9 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
 
     @Autowired
     PatientAddressRepository patientAddressRepository;
+
+    @Autowired
+    DateUtility dateUtility;
 
     public LaboratoryRequestServiceImpl(LaboratoryRequestRepository laboratoryRequestRepository) {
         this.laboratoryRequestRepository = laboratoryRequestRepository;
@@ -135,7 +138,7 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
         laboratoryRequestRepository.save(request);
     }
 
-    public LaboratoryRequest updateLaoratoryRequest(AcknowledgementFromLims obj) {
+    public void updateLaoratoryRequest(AcknowledgementFromLims obj) {
         LaboratoryRequest fromLims = laboratoryRequestRepository.findByClientSampleId(obj.getClientSampleId());
 
         if (fromLims != null) {
@@ -148,22 +151,40 @@ public class LaboratoryRequestServiceImpl implements LaboratoryRequestService {
 
             if (obj.getResult() != null) {
                 fromLims.setResult(obj.getResult());
-                fromLims.setDateResultReceivedFromLims(LocalDate.now());
+                fromLims.setDateResultReceivedFromLims(LocalDateTime.now());
             }
 
             if (obj.getUnit() != null) {
                 fromLims.setUnit(obj.getUnit());
             }
 
-            if (obj.getDateTested() != null) {
-                fromLims.setDateTested(obj.getDateTested());
+            if (obj.getDateTested() != null && !obj.getDateTested().isEmpty()) {
+                fromLims.setDateTested(dateUtility.stringDateTimeToLocalDateTime(obj.getDateTested()));
+            }
+
+            if (obj.getSubmitter() != null) {
+                fromLims.setSubmitter(obj.getSubmitter());
+            }
+
+            if (obj.getDatePublished() != null && !obj.getDatePublished().isEmpty()) {
+                fromLims.setDatePublished(dateUtility.stringDateTimeToLocalDateTime(obj.getDatePublished()));
+            }
+
+            if (obj.getVerifier() != null) {
+                fromLims.setReviewer(obj.getVerifier());
+            }
+
+            if (obj.getMethod() != null) {
+                fromLims.setMethod(obj.getMethod());
+            }
+
+            if (obj.getInstrument() != null) {
+                fromLims.setInstrument(obj.getInstrument());
             }
 
             laboratoryRequestRepository.save(fromLims);
-            return fromLims;
         } else {
             log.debug("Request does not exist: {}", fromLims);
-            return fromLims;
         }
     }
 

@@ -10,7 +10,6 @@ import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import zw.org.nmr.limsehr.service.dto.AcknowledgementFromLims;
 import zw.org.nmr.limsehr.service.impl.LaboratoryRequestServiceImpl;
@@ -31,11 +30,8 @@ public class FromLimsMqWorker {
     @Autowired
     private ObjectMapper mapper;
 
-    @Value("${myConfig.myRabbitLocalGateway}")
-    private String gateway;
-
     @RabbitListener(bindings = @QueueBinding(exchange = @Exchange("from-lims"), key = "senaite", value = @Queue("from_lims")))
-    public void reciveRequestFromLIMS(Message msg) throws IOException, TimeoutException {
+    public void receiveRequestFromLIMS(Message msg) throws IOException, TimeoutException {
         String string = new String(msg.getBody());
         msg.getMessageProperties().getHeader("request");
 

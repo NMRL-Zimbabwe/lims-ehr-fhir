@@ -71,7 +71,7 @@ public class RequestedOrders {
         if (isSchedule.isEmpty()) {
             return;
         }
-        if (isSchedule.get().isInActive()) {
+        if (isSchedule.orElseThrow().isInActive()) {
             return;
         }
 

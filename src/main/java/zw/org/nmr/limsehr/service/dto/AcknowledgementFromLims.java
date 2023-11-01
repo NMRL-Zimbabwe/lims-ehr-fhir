@@ -4,44 +4,44 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.time.LocalDate;
 
 @JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AcknowledgementFromLims {
 
-    //    @JsonIgnore
     private String clientPatientId;
 
-    //    @JsonIgnore
     private String patientId;
 
-    //    @JsonIgnore
     private String patientUID;
 
-    //    @JsonIgnore
     private String sampleId;
 
-    //    @JsonIgnore
     private String clientSampleId;
 
-    //    @JsonIgnore
     private String sampleUID;
 
-    //    @JsonIgnore
     private String result;
 
-    //    @JsonIgnore
     private String unit;
 
-    //    @JsonIgnore
     private String status;
 
-    //    @JsonIgnore
     private String remarks;
 
-    //    @JsonIgnore
-    private LocalDate dateTested;
+    private String dateTested;
+
+    private String dateReceived;
+
+    private String datePublished;
+
+    private String submitter;
+
+    private String verifier;
+
+    private String method;
+
+    private String instrument;
 
     public AcknowledgementFromLims() {}
 
@@ -56,9 +56,14 @@ public class AcknowledgementFromLims {
         String unit,
         String status,
         String remarks,
-        LocalDate dateTested
+        String dateTested,
+        String dateReceived,
+        String datePublished,
+        String submitter,
+        String verifier,
+        String method,
+        String instrument
     ) {
-        super();
         this.clientPatientId = clientPatientId;
         this.patientId = patientId;
         this.patientUID = patientUID;
@@ -70,6 +75,12 @@ public class AcknowledgementFromLims {
         this.status = status;
         this.remarks = remarks;
         this.dateTested = dateTested;
+        this.dateReceived = dateReceived;
+        this.datePublished = datePublished;
+        this.submitter = submitter;
+        this.verifier = verifier;
+        this.method = method;
+        this.instrument = instrument;
     }
 
     public String getClientPatientId() {
@@ -152,40 +163,115 @@ public class AcknowledgementFromLims {
         this.remarks = remarks;
     }
 
-    public LocalDate getDateTested() {
+    public String getDateTested() {
         return dateTested;
     }
 
-    public void setDateTested(LocalDate dateTested) {
+    public void setDateTested(String dateTested) {
         this.dateTested = dateTested;
+    }
+
+    public String getDateReceived() {
+        return dateReceived;
+    }
+
+    public void setDateReceived(String dateReceived) {
+        this.dateReceived = dateReceived;
+    }
+
+    public String getDatePublished() {
+        return datePublished;
+    }
+
+    public void setDatePublished(String datePublished) {
+        this.datePublished = datePublished;
+    }
+
+    public String getSubmitter() {
+        return submitter;
+    }
+
+    public void setSubmitter(String submitter) {
+        this.submitter = submitter;
+    }
+
+    public String getVerifier() {
+        return verifier;
+    }
+
+    public void setVerifier(String verifier) {
+        this.verifier = verifier;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getInstrument() {
+        return instrument;
+    }
+
+    public void setInstrument(String instrument) {
+        this.instrument = instrument;
     }
 
     @Override
     public String toString() {
         return (
-            "RegistrationFromLims [clientPatientId=" +
+            "AcknowledgementFromLims{" +
+            "clientPatientId='" +
             clientPatientId +
-            ", patientId=" +
+            '\'' +
+            ", patientId='" +
             patientId +
-            ", patientUID=" +
+            '\'' +
+            ", patientUID='" +
             patientUID +
-            ", sampleId=" +
+            '\'' +
+            ", sampleId='" +
             sampleId +
-            ", clientSampleId=" +
+            '\'' +
+            ", clientSampleId='" +
             clientSampleId +
-            ", sampleUID=" +
+            '\'' +
+            ", sampleUID='" +
             sampleUID +
-            ", result=" +
+            '\'' +
+            ", result='" +
             result +
-            ", unit=" +
+            '\'' +
+            ", unit='" +
             unit +
-            ", status=" +
+            '\'' +
+            ", status='" +
             status +
-            ", remarks=" +
+            '\'' +
+            ", remarks='" +
             remarks +
+            '\'' +
             ", dateTested=" +
             dateTested +
-            "]"
+            ", dateReceived=" +
+            dateReceived +
+            ", datePublished=" +
+            datePublished +
+            ", submitter='" +
+            submitter +
+            '\'' +
+            ", verifier='" +
+            verifier +
+            '\'' +
+            ", method='" +
+            method +
+            '\'' +
+            ", instrument='" +
+            instrument +
+            '\'' +
+            '}'
         );
     }
 }
