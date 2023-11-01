@@ -6,6 +6,8 @@ import { takeUntil } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { IDashboardSummary } from '../entities/dashboard/dashboard.model';
+import { DashboardSummaryService } from '../entities/dashboard/dashboard.service';
 
 @Component({
   standalone: true,
@@ -16,16 +18,24 @@ import { Account } from 'app/core/auth/account.model';
 })
 export default class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
+  statistics: IDashboardSummary | null = null;
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(private accountService: AccountService, private router: Router, private dashboardSummaryService: DashboardSummaryService) {}
 
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
+
+    this.dashboardSummaryService.query().subscribe(
+      res => {
+        this.statistics = res.body;
+      },
+      error => {}
+    );
   }
 
   login(): void {
